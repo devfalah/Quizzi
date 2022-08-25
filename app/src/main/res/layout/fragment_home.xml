@@ -10,7 +10,6 @@
 
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_logo"
         android:layout_width="@dimen/animation_size"
         android:layout_height="@dimen/animation_size"
         app:layout_constraintBottom_toTopOf="@+id/start_play_button"
@@ -20,7 +19,7 @@
         app:layout_constraintVertical_bias="0.379"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/lf30_editor_d573d9zz" />
+        app:lottie_rawRes="@raw/animated_logo" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/start_play_button"
