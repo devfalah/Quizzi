@@ -5,4 +5,20 @@
     <dimen name="animation_size">255dp</dimen>
     <dimen name="small_button_margin">16dp</dimen>
 
+    <!--    Spaces-->
+    <dimen name="Space0x">0dp</dimen>
+    <dimen name="Space2x">4dp</dimen>
+    <dimen name="Space4x">8dp</dimen>
+    <dimen name="Space6x">12dp</dimen>
+    <dimen name="Space8x">16dp</dimen>
+    <dimen name="Space9x">18dp</dimen>
+    <dimen name="Space12x">24dp</dimen>
+    <dimen name="Space16x">32dp</dimen>
+    <dimen name="Space150x">300dp</dimen>
+
+    <!--    Font Sizes-->
+    <dimen name="FontSize6x">12sp</dimen>
+    <dimen name="FontSize7x">14sp</dimen>
+    <dimen name="FontSize8x">16sp</dimen>
+
 </resources>

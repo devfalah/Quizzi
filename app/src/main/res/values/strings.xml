@@ -4,4 +4,11 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="play">Play</string>
     <string name="how_to_play">How to play?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="score_gained">Score Gained</string>
+    <string name="_120">120</string>
+    <string name="answered_questions">Answered Questions</string>
+    <string name="_8">8</string>
+    <string name="home">Home</string>
 </resources>
