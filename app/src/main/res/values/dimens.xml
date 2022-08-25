@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="button_width_343">343dp</dimen>
-    <dimen name="button_height_40">40dp</dimen>
+    <dimen name="button_width">343dp</dimen>
+    <dimen name="button_height">40dp</dimen>
     <dimen name="animation_size">255dp</dimen>
-    <dimen name="margin_100">100dp</dimen>
+    <dimen name="small_button_margin">16dp</dimen>
 
 </resources>
