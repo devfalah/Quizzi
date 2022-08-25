@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/alrya/AndroidStudioProjects/Million-Dollars/app/src/main/res/drawable/green_button_background.xml" value="0.1975" />
-        <entry key="..\:/Users/alrya/AndroidStudioProjects/Million-Dollars/app/src/main/res/drawable/white_button_background.xml" value="0.1975" />
-        <entry key="..\:/Users/alrya/AndroidStudioProjects/Million-Dollars/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/alrya/AndroidStudioProjects/Million-Dollars/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/green_button_background.xml" value="0.118" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/green_custom_btn.xml" value="0.1705" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/ic_check.xml" value="0.118" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/ic_score.xml" value="0.118" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/ic_socre_gained.xml" value="0.151" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/icon_shape.xml" value="0.1455" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/layer_check.xml" value="0.118" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/layer_score.xml" value="0.118" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/score_layer.xml" value="0.118" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/drawable/white_button_background.xml" value="0.118" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/layout/fragment_home.xml" value="0.2734375" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/layout/fragment_result.xml" value="0.22" />
       </map>
     </option>
   </component>
