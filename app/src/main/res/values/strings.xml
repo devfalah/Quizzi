@@ -4,6 +4,18 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="play">Play</string>
     <string name="how_to_play">How to play?</string>
+    <string name="dialog_title">How to play</string>
+    <string name="instructions_1">15 Question</string>
+    <string name="instructions_2">1 min 30 sec</string>
+    <string name="instructions_3">Get 700 score</string>
+    <string name="instructions_4">Use helpers</string>
+    <string name="instructions_1_sub_title">$100 for each correct answer</string>
+    <string name="instructions_2_sub_title">Duration for each question</string>
+    <string name="instructions_3_sub_title">Minimum passing score</string>
+    <string name="instructions_4_sub_title">Delete two wrong answers (50:50) \nor replace the question.</string>
+    <string name="exit_dialog_title">Are you sure?</string>
+    <string name="exit">Exit</string>
+    <string name="exit_subtitle">If you exit now, you will lose all your points.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="score_gained">Score Gained</string>
