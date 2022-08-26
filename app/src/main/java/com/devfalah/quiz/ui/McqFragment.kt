@@ -1,4 +1,7 @@
 package com.devfalah.quiz.ui
 
-class McqFragment {
+import androidx.fragment.app.Fragment
+import com.devfalah.quiz.R
+
+class McqFragment : Fragment(R.layout.fragment_mcq) {
 }
