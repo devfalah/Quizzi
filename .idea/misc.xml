@@ -3,21 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/karra/AndroidStudioProjects/Million-Dollars/app/src/main/res/drawable/dialog_background.xml" value="0.33" />
-        <entry key="..\:/Users/karra/AndroidStudioProjects/Million-Dollars/app/src/main/res/drawable/ic_dialog_vector1.xml" value="0.338" />
-        <entry key="..\:/Users/karra/AndroidStudioProjects/Million-Dollars/app/src/main/res/drawable/ic_dialog_vector2.xml" value="0.338" />
-        <entry key="..\:/Users/karra/AndroidStudioProjects/Million-Dollars/app/src/main/res/drawable/main_icon_background.xml" value="0.338" />
-        <entry key="..\:/Users/karra/AndroidStudioProjects/Million-Dollars/app/src/main/res/layout/activity_main.xml" value="0.1546875" />
-        <entry key="..\:/Users/karra/AndroidStudioProjects/Million-Dollars/app/src/main/res/layout/dialog_fragment.xml" value="0.5" />
-        <entry key="..\:/Users/karra/AndroidStudioProjects/Million-Dollars/app/src/main/res/layout/fragment_exit_dialog.xml" value="0.5" />
-        <entry key="..\:/Users/karra/AndroidStudioProjects/Million-Dollars/app/src/main/res/layout/fragment_home.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/devsa/Desktop/Projects/Kotlin/Million-Dollars/app/src/main/res/layout/fragment_result.xml" value="0.17426545086119555" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
-  </component>
-  <component name="ProjectType">
-    <option name="id" value="Android" />
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="SuppressABINotification">
+    <option name="modulesWithSuppressedNotConfigured">
+      <set>
+        <option value="Quiz.app" />
+      </set>
+    </option>
   </component>
 </project>

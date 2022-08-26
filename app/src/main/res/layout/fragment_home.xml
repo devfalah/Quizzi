@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer"
-    tools:context=".ui.homeFragment"
-    android:background="@color/background_color">
+    tools:context=".ui.homeFragment">
 
 
     <com.airbnb.lottie.LottieAnimationView
@@ -23,30 +23,29 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/start_play_button"
+        style="@style/ButtonTextStyle.Main"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
-        android:background="@drawable/green_button_background"
-        android:text="@string/play"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-        android:layout_marginBottom="@dimen/small_button_margin"
         android:layout_marginStart="@dimen/small_button_margin"
         android:layout_marginEnd="@dimen/small_button_margin"
+        android:layout_marginBottom="@dimen/small_button_margin"
+        android:background="@drawable/green_button_background"
+        android:text="@string/play"
         app:layout_constraintBottom_toTopOf="@+id/how_to_play_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/how_to_play_button"
+        style="@style/ButtonTextStyle.Second"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
+        android:layout_marginStart="@dimen/small_button_margin"
+        android:layout_marginEnd="@dimen/small_button_margin"
+        android:layout_marginBottom="@dimen/small_button_margin"
         android:background="@drawable/white_button_background"
         android:text="@string/how_to_play"
         android:textAllCaps="false"
-        android:textColor="@color/green"
-        android:layout_marginBottom="@dimen/small_button_margin"
-        android:layout_marginStart="@dimen/small_button_margin"
-        android:layout_marginEnd="@dimen/small_button_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
