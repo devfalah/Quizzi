@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <TextView
+        android:id="@+id/label_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/more_larg_margin"
+        android:layout_marginTop="@dimen/dim40"
+        android:drawableStart="@drawable/ic_monyicone"
+        android:drawablePadding="@dimen/small_padding"
+        android:background="@drawable/score_background"
+        android:padding="4dp"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/small_text_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="200" />
+
+    <TextView
+        android:id="@+id/number_of_qustion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/small_text_size"
+        android:textColor="@color/black_overlay"
+        app:layout_constraintBottom_toBottomOf="@+id/label_score"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar"
+        app:layout_constraintTop_toTopOf="@+id/label_score"
+        tools:text="1/15" />
+
+    <View
+        android:id="@+id/exit_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="@dimen/more_larg_margin"
+        android:background="@drawable/ic_sign_in_squre"
+        app:layout_constraintBottom_toBottomOf="@+id/label_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/label_score" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/dim32"
+        android:indeterminateOnly="false"
+        android:progressDrawable="@drawable/circle_progress_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number_of_qustion"
+        tools:progress="50" />
+
+    <TextView
+        android:id="@+id/timer_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="@dimen/medum_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar"
+        app:layout_constraintTop_toTopOf="@+id/progress_bar"
+        tools:text="@string/time" />
+
+    <TextView
+        android:id="@+id/label_qustion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/more_larg_margin"
+        android:gravity="center"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/larg_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar"
+        tools:text="@string/the_qustion" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_answer_a"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/larg_margin"
+        app:cardCornerRadius="@dimen/reduse_medum"
+        app:layout_constraintEnd_toEndOf="@+id/label_qustion"
+        app:layout_constraintStart_toStartOf="@+id/label_qustion"
+        app:layout_constraintTop_toBottomOf="@+id/label_qustion" />
+
+    <TextView
+        android:id="@+id/label_answer_a"
+        style="@style/text_in_card"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="@dimen/larg_margin"
+        android:background="@drawable/circle"
+        android:gravity="center"
+        android:text="@string/a"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/card_answer_a"
+        app:layout_constraintStart_toStartOf="@+id/card_answer_a"
+        app:layout_constraintTop_toTopOf="@+id/card_answer_a" />
+
+    <TextView
+        android:id="@+id/text_answer_a"
+        style="@style/text_in_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/larg_padding"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/label_answer_a"
+        app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
+        app:layout_constraintStart_toEndOf="@+id/label_answer_a"
+        app:layout_constraintTop_toTopOf="@+id/label_answer_a"
+        tools:text="For loops" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_answer_b"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/larg_margin"
+        app:cardCornerRadius="@dimen/reduse_medum"
+        app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
+        app:layout_constraintStart_toStartOf="@+id/card_answer_a"
+        app:layout_constraintTop_toBottomOf="@+id/card_answer_a" />
+
+    <TextView
+        android:id="@+id/label_answer_b"
+        style="@style/text_in_card"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="@dimen/larg_margin"
+        android:background="@drawable/circle"
+        android:gravity="center"
+        android:text="@string/b"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/card_answer_b"
+        app:layout_constraintStart_toStartOf="@+id/card_answer_b"
+        app:layout_constraintTop_toTopOf="@+id/card_answer_b" />
+
+    <TextView
+        android:id="@+id/text_answer_b"
+        style="@style/text_in_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/larg_padding"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/label_answer_b"
+        app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
+        app:layout_constraintStart_toEndOf="@+id/label_answer_b"
+        app:layout_constraintTop_toTopOf="@+id/label_answer_b"
+        tools:text="For loops" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_answer_c"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/larg_margin"
+        app:cardCornerRadius="@dimen/reduse_medum"
+        app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
+        app:layout_constraintStart_toStartOf="@+id/card_answer_b"
+        app:layout_constraintTop_toBottomOf="@+id/card_answer_b" />
+
+    <TextView
+        android:id="@+id/label_answer_c"
+        style="@style/text_in_card"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="@dimen/larg_margin"
+        android:background="@drawable/circle"
+        android:gravity="center"
+        android:text="@string/c"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/card_answer_c"
+        app:layout_constraintStart_toStartOf="@+id/card_answer_c"
+        app:layout_constraintTop_toTopOf="@+id/card_answer_c" />
+
+    <TextView
+        android:id="@+id/text_answer_c"
+        style="@style/text_in_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/larg_padding"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/label_answer_c"
+        app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
+        app:layout_constraintStart_toEndOf="@+id/label_answer_c"
+        app:layout_constraintTop_toTopOf="@+id/label_answer_c"
+        tools:text="For loops" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_answer_d"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/larg_margin"
+        app:cardCornerRadius="@dimen/reduse_medum"
+        app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
+        app:layout_constraintStart_toStartOf="@+id/card_answer_c"
+        app:layout_constraintTop_toBottomOf="@+id/card_answer_c" />
+
+    <TextView
+        android:id="@+id/label_answer_d"
+        style="@style/text_in_card"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="@dimen/larg_margin"
+        android:background="@drawable/circle"
+        android:gravity="center"
+        android:text="@string/d"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/card_answer_d"
+        app:layout_constraintStart_toStartOf="@+id/card_answer_d"
+        app:layout_constraintTop_toTopOf="@+id/card_answer_d" />
+
+    <TextView
+        android:id="@+id/text_answer_d"
+        style="@style/text_in_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/larg_padding"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/label_answer_d"
+        app:layout_constraintEnd_toEndOf="@+id/card_answer_d"
+        app:layout_constraintStart_toEndOf="@+id/label_answer_d"
+        app:layout_constraintTop_toTopOf="@+id/label_answer_d"
+        tools:text="For loops" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/delet_two_answer_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="@dimen/more_larg_margin"
+        android:layout_marginTop="@dimen/dim40"
+        android:background="@drawable/white_button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/raplace_qustion_button"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_answer_d" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/raplace_qustion_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="@dimen/more_larg_margin"
+        android:background="@drawable/white_button_background"
+        app:layout_constraintBottom_toBottomOf="@+id/delet_two_answer_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/delet_two_answer_button"
+        app:layout_constraintTop_toTopOf="@+id/delet_two_answer_button"
+        />
+
+    <View
+        android:id="@+id/delet_two_answer_icon"
+        android:layout_width="40dp"
+        android:layout_height="15dp"
+        android:elevation="@dimen/dim2"
+        android:background="@drawable/ic_delet_two_answer_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/delet_two_answer_button"
+        app:layout_constraintEnd_toEndOf="@+id/delet_two_answer_button"
+        app:layout_constraintStart_toStartOf="@+id/delet_two_answer_button"
+        app:layout_constraintTop_toTopOf="@+id/delet_two_answer_button" />
+
+    <View
+        android:id="@+id/replace_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_replace_qustion_icon"
+        android:elevation="@dimen/dim2"
+        app:layout_constraintBottom_toBottomOf="@+id/raplace_qustion_button"
+        app:layout_constraintEnd_toEndOf="@+id/raplace_qustion_button"
+        app:layout_constraintStart_toStartOf="@+id/raplace_qustion_button"
+        app:layout_constraintTop_toTopOf="@+id/raplace_qustion_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
