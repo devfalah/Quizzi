@@ -19,8 +19,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_dialog_close_vector" />
-                            <entry key="sourceFile" value="C:\Users\karra\Downloads\how to play\Million-Dollar App (2)\Cancel\24\Vector.svg" />
+                            <entry key="outputName" value="ic_exit_dialog" />
+                            <entry key="sourceFile" value="C:\Users\karra\Downloads\how to play\exit.svg" />
                           </map>
                         </option>
                       </PersistentState>

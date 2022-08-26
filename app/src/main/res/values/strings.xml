@@ -13,4 +13,7 @@
     <string name="instructions_2_sub_title">Duration for each question</string>
     <string name="instructions_3_sub_title">Minimum passing score</string>
     <string name="instructions_4_sub_title">Delete two wrong answers (50:50) \nor replace the question.</string>
+    <string name="exit_dialog_title">Are you sure?</string>
+    <string name="exit">Exit</string>
+    <string name="exit_subtitle">If you exit now, you will lose all your points.</string>
 </resources>
