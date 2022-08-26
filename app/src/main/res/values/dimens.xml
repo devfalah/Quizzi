@@ -2,7 +2,6 @@
 <resources>
     <dimen name="button_width">343dp</dimen>
     <dimen name="button_height">40dp</dimen>
-    <dimen name="animation_size">255dp</dimen>
     <dimen name="small_button_margin">16dp</dimen>
 
     <!--    Spaces-->
@@ -20,5 +19,25 @@
     <dimen name="FontSize6x">12sp</dimen>
     <dimen name="FontSize7x">14sp</dimen>
     <dimen name="FontSize8x">16sp</dimen>
+
+
+    <dimen name="animation_size">255dp</dimen>
+
+    <dimen name="larg_text_size">20sp</dimen>
+    <dimen name="medum_text_size">16sp</dimen>
+    <dimen name="small_text_size">14sp</dimen>
+
+    <dimen name="larg_margin">16dp</dimen>
+    <dimen name="more_larg_margin">20dp</dimen>
+
+    <dimen name="small_padding">4dp</dimen>
+    <dimen name="larg_padding">16dp</dimen>
+
+    <dimen name="reduse_medum">8dp</dimen>
+    <dimen name="reduse_small">4dp</dimen>
+
+    <dimen name="dim2">2dp</dimen>
+    <dimen name="dim40">40dp</dimen>
+    <dimen name="dim32">38dp</dimen>
 
 </resources>

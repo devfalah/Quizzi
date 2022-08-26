@@ -5,12 +5,19 @@
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 
+
     <style name="CustomTextStyle" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/FontSize8x</item>
         <item name="android:textColor">@color/dark_text</item>
         <item name="fontStyle">normal</item>
+    </style>
+
+
+    <style name="text_in_card" >
+        <item name="android:textSize">@dimen/medum_text_size</item>
+        <item name="android:elevation">@dimen/dim2</item>
     </style>
 
 </resources>
