@@ -7,7 +7,7 @@
     android:background="@color/screen_bg"
     android:paddingHorizontal="@dimen/Space8x"
     android:paddingVertical="@dimen/Space16x"
-    tools:context=".ResultFragment">
+    tools:context=".ui.ResultFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
