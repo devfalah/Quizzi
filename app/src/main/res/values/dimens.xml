@@ -19,6 +19,7 @@
     <dimen name="FontSize6x">12sp</dimen>
     <dimen name="FontSize7x">14sp</dimen>
     <dimen name="FontSize8x">16sp</dimen>
+    <dimen name="FontSize9x">18sp</dimen>
     <dimen name="FontSize10x">20sp</dimen>
 
 

@@ -81,15 +81,23 @@
     </style>
 
     <!--    Dialog Text Styles-->
-    <style name="DialogTextStyle" parent="TextAppearance.AppCompat">
-        <item name="fontStyle">normal</item>
+    <style name="DialogTextStyle" parent="TextAppearance.AppCompat"></style>
+
+    <style name="DialogTextStyle.Head">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/FontSize9x</item>
     </style>
 
     <style name="DialogTextStyle.Title">
         <item name="android:textSize">@dimen/FontSize8x</item>
         <item name="android:textColor">@color/dark_text</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="DialogTextStyle.SubTitle"></style>
+    <style name="DialogTextStyle.SubTitle">
+        <item name="android:textSize">@dimen/FontSize7x</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
 
 </resources>
