@@ -52,7 +52,7 @@
 
             <TextView
                 android:id="@+id/score_gained"
-                style="@style/CustomTextStyle"
+                style="@style/DialogTextStyle.Title"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/Space8x"
@@ -96,7 +96,7 @@
 
             <TextView
                 android:id="@+id/answered_questions"
-                style="@style/CustomTextStyle"
+                style="@style/DialogTextStyle.Title"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/Space8x"
@@ -123,14 +123,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/appCompatButton"
+        style="@style/ButtonTextStyle.Main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:background="@drawable/green_button_background"
         android:text="@string/home"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/FontSize7x"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="-16dp" />

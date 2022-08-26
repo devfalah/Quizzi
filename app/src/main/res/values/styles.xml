@@ -38,4 +38,16 @@
         <item name="android:textColor">@color/green</item>
     </style>
 
+    <!--    Dialog Text Styles-->
+    <style name="DialogTextStyle" parent="TextAppearance.AppCompat">
+        <item name="fontStyle">normal</item>
+    </style>
+
+    <style name="DialogTextStyle.Title">
+        <item name="android:textSize">@dimen/FontSize8x</item>
+        <item name="android:textColor">@color/dark_text</item>
+    </style>
+
+    <style name="DialogTextStyle.SubTitle"></style>
+
 </resources>
