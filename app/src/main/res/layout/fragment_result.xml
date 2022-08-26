@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/tv_score_gained"
-                style="@style/CustomTextStyle"
+                style="@style/DialogTextStyle.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/Space9x"
@@ -109,7 +109,7 @@
 
             <TextView
                 android:id="@+id/tv_answered_questions"
-                style="@style/CustomTextStyle"
+                style="@style/DialogTextStyle.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/Space9x"
