@@ -18,4 +18,5 @@
     <color name="card_bg">#F4F3F6</color>
     <color name="dark_text">#060710</color>
     <color name="blue">#191D63</color>
+    <color name="text_hint">#666060</color>
 </resources>
