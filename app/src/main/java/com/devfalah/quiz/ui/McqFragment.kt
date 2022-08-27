@@ -1,5 +1,4 @@
 package com.devfalah.quiz.ui
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,4 +14,5 @@ class McqFragment:Fragment(R.layout.fragment_mcq) {
     ): View? {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
 }

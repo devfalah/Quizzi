@@ -12,8 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dialog_title"
-        android:textColor="#191D63"
-        android:textSize="20sp"
+        style="@style/DialogTextStyle.Head"
         app:layout_constraintStart_toStartOf="@+id/dialog_image_1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,10 +20,10 @@
         android:id="@+id/close_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_dialog_close_vector"
         android:background="@drawable/main_icon_background"
-        android:backgroundTint="#EDE8E3"
-        android:padding="8dp"
+        android:backgroundTint="@color/background_color"
+        android:padding="@dimen/Space4x"
+        android:src="@drawable/ic_dialog_close_vector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,22 +31,22 @@
         android:id="@+id/dialog_image_1"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
-        android:padding="10dp"
+        android:layout_marginStart="@dimen/Space2x"
+        android:layout_marginTop="@dimen/Space8x"
         android:background="@drawable/main_icon_background"
+        android:padding="10dp"
         android:src="@drawable/ic_dialog_vector1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_title"/>
+        app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
 
     <ImageView
         android:id="@+id/dialog_image_2"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:padding="8dp"
-        android:src="@drawable/ic_dialog_vector2"
+        android:layout_marginTop="@dimen/Space6x"
         android:background="@drawable/main_icon_background"
+        android:padding="@dimen/Space4x"
+        android:src="@drawable/ic_dialog_vector2"
         app:layout_constraintStart_toStartOf="@+id/dialog_image_1"
         app:layout_constraintTop_toBottomOf="@+id/dialog_image_1" />
 
@@ -55,10 +54,10 @@
         android:id="@+id/dialog_image_3"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:padding="8dp"
-        android:src="@drawable/ic_dialog_vector3"
+        android:layout_marginTop="@dimen/Space6x"
         android:background="@drawable/main_icon_background"
+        android:padding="@dimen/Space4x"
+        android:src="@drawable/ic_dialog_vector3"
         app:layout_constraintStart_toStartOf="@+id/dialog_image_2"
         app:layout_constraintTop_toBottomOf="@+id/dialog_image_2" />
 
@@ -66,10 +65,10 @@
         android:id="@+id/dialog_image_4"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:padding="8dp"
-        android:src="@drawable/ic_dialog_vector4"
+        android:layout_marginTop="@dimen/Space6x"
         android:background="@drawable/main_icon_background"
+        android:padding="@dimen/Space4x"
+        android:src="@drawable/ic_dialog_vector4"
         app:layout_constraintStart_toStartOf="@+id/dialog_image_3"
         app:layout_constraintTop_toBottomOf="@+id/dialog_image_3" />
 
@@ -77,10 +76,10 @@
         android:id="@+id/dialog_instructions_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="@dimen/Space6x"
+        android:layout_marginTop="@dimen/Space2x"
         android:text="@string/instructions_1"
-        style="@style/dialog_text_title"
+        style="@style/DialogTextStyle.Title"
         app:layout_constraintStart_toEndOf="@+id/dialog_image_1"
         app:layout_constraintTop_toTopOf="@+id/dialog_image_1" />
 
@@ -88,9 +87,9 @@
         android:id="@+id/dialog_instructions_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/Space6x"
         android:text="@string/instructions_2"
-        style="@style/dialog_text_title"
+        style="@style/DialogTextStyle.Title"
         app:layout_constraintStart_toEndOf="@+id/dialog_image_2"
         app:layout_constraintTop_toTopOf="@+id/dialog_image_2" />
 
@@ -98,9 +97,9 @@
         android:id="@+id/dialog_instructions_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/Space6x"
         android:text="@string/instructions_3"
-        style="@style/dialog_text_title"
+        style="@style/DialogTextStyle.Title"
         app:layout_constraintStart_toEndOf="@+id/dialog_image_3"
         app:layout_constraintTop_toTopOf="@+id/dialog_image_3" />
 
@@ -108,9 +107,9 @@
         android:id="@+id/dialog_instructions_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/Space6x"
         android:text="@string/instructions_4"
-        style="@style/dialog_text_title"
+        style="@style/DialogTextStyle.Title"
         app:layout_constraintStart_toEndOf="@+id/dialog_image_4"
         app:layout_constraintTop_toTopOf="@+id/dialog_image_4" />
 
@@ -119,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/instructions_1_sub_title"
-        style="@style/dialog_text_sub_title"
+        style="@style/DialogTextStyle.SubTitle"
         app:layout_constraintStart_toStartOf="@+id/dialog_instructions_1"
         app:layout_constraintTop_toBottomOf="@+id/dialog_instructions_1" />
 
@@ -128,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/instructions_2_sub_title"
-        style="@style/dialog_text_sub_title"
+        style="@style/DialogTextStyle.SubTitle"
         app:layout_constraintStart_toStartOf="@+id/dialog_instructions_2"
         app:layout_constraintTop_toBottomOf="@+id/dialog_instructions_2" />
 
@@ -137,7 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/instructions_3_sub_title"
-        style="@style/dialog_text_sub_title"
+        style="@style/DialogTextStyle.SubTitle"
         app:layout_constraintStart_toStartOf="@+id/dialog_instructions_3"
         app:layout_constraintTop_toBottomOf="@+id/dialog_instructions_3" />
 
@@ -145,8 +144,8 @@
         android:id="@+id/dialog_subtitle_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/DialogTextStyle.SubTitle"
         android:text="@string/instructions_4_sub_title"
-        style="@style/dialog_text_sub_title"
         app:layout_constraintStart_toStartOf="@+id/dialog_instructions_4"
         app:layout_constraintTop_toBottomOf="@+id/dialog_instructions_4" />
 
