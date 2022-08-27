@@ -56,13 +56,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/try_again"
-            android:layout_width="@dimen/button_width"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
             android:layout_marginStart="@dimen/small_button_margin"
             android:layout_marginEnd="@dimen/small_button_margin"
             android:layout_marginBottom="@dimen/small_button_margin"
             android:background="@drawable/green_button_background"
-            android:text="Try again"
+            android:text="@string/try_again"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,12 +73,12 @@
 
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/mcq"
-            android:background="@color/background_color"
-            android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mcq"
+        android:background="@color/background_color"
+        android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer">
 
         <TextView
             android:id="@+id/label_score"
@@ -353,4 +353,5 @@
             app:layout_constraintTop_toTopOf="@+id/raplace_qustion_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
