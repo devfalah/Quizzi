@@ -15,11 +15,6 @@
     </style>
 
 
-    <style name="text_in_card">
-        <item name="android:textSize">@dimen/medum_text_size</item>
-        <item name="android:elevation">@dimen/dim2</item>
-    </style>
-
     <!--    All Text Styles-->
     <!--    Question Text Styles-->
     <style name="QuestionTextStyle" parent="TextAppearance.AppCompat">

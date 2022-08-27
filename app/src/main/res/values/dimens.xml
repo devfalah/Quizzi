@@ -4,13 +4,17 @@
 
     <!--    Spaces-->
     <dimen name="Space0x">0dp</dimen>
+    <dimen name="Space1x">2dp</dimen>
     <dimen name="Space2x">4dp</dimen>
     <dimen name="Space4x">8dp</dimen>
+    <dimen name="Space5x">8dp</dimen>
     <dimen name="Space6x">12dp</dimen>
     <dimen name="Space8x">16dp</dimen>
     <dimen name="Space9x">18dp</dimen>
+    <dimen name="Space10x">18dp</dimen>
     <dimen name="Space12x">24dp</dimen>
     <dimen name="Space16x">32dp</dimen>
+    <dimen name="Space20x">40dp</dimen>
     <dimen name="Space150x">300dp</dimen>
 
     <!--    Font Sizes-->
@@ -20,24 +24,15 @@
     <dimen name="FontSize9x">18sp</dimen>
     <dimen name="FontSize10x">20sp</dimen>
 
+    <!--    Radius Sizes-->
+    <dimen name="Radius2X">4dp</dimen>
+    <dimen name="Radius4X">8dp</dimen>
+
+
 
     <dimen name="animation_size">255dp</dimen>
 
-    <dimen name="larg_text_size">20sp</dimen>
-    <dimen name="medum_text_size">16sp</dimen>
-    <dimen name="small_text_size">14sp</dimen>
 
-    <dimen name="larg_margin">16dp</dimen>
-    <dimen name="more_larg_margin">20dp</dimen>
 
-    <dimen name="small_padding">4dp</dimen>
-    <dimen name="larg_padding">16dp</dimen>
-
-    <dimen name="reduse_medum">8dp</dimen>
-    <dimen name="reduse_small">4dp</dimen>
-
-    <dimen name="dim2">2dp</dimen>
-    <dimen name="dim40">40dp</dimen>
-    <dimen name="dim32">38dp</dimen>
 
 </resources>
