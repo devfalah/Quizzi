@@ -74,6 +74,7 @@
     <style name="ButtonTextStyle.Main">
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/green_button_background</item>
+
     </style>
 
     <style name="ButtonTextStyle.Second">
