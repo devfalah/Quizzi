@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="button_width">343dp</dimen>
     <dimen name="button_height">40dp</dimen>
-    <dimen name="small_button_margin">16dp</dimen>
 
     <!--    Spaces-->
     <dimen name="Space0x">0dp</dimen>
