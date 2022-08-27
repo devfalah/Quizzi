@@ -15,11 +15,6 @@
     </style>
 
 
-    <style name="text_in_card">
-        <item name="android:textSize">@dimen/medum_text_size</item>
-        <item name="android:elevation">@dimen/dim2</item>
-    </style>
-
     <!--    All Text Styles-->
     <!--    Question Text Styles-->
     <style name="QuestionTextStyle" parent="TextAppearance.AppCompat">
@@ -66,7 +61,7 @@
 
 
     <!--Button Text Styles-->
-    <style name="ButtonTextStyle" parent="TextAppearance.AppCompat">
+    <style name="ButtonTextStyle" parent="Widget.AppCompat.Button">
         <item name="textAllCaps">false</item>
         <item name="android:textSize">@dimen/FontSize7x</item>
     </style>
@@ -74,6 +69,7 @@
     <style name="ButtonTextStyle.Main">
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/green_button_background</item>
+
     </style>
 
     <style name="ButtonTextStyle.Second">

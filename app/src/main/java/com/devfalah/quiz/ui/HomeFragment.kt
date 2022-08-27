@@ -21,7 +21,7 @@ lateinit var binding : FragmentHomeBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    binding.startPlayButton.setOnClickListener { v ->
+    binding.playButton.setOnClickListener { v ->
 
         Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_mcqFragment)
 

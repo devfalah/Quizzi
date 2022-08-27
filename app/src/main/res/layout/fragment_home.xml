@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer"
->
+    android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer">
+
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="@dimen/animation_size"
         android:layout_height="@dimen/animation_size"
-        app:layout_constraintBottom_toTopOf="@+id/start_play_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,29 +19,26 @@
         app:lottie_rawRes="@raw/animated_logo" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/start_play_button"
-        style="@style/ButtonTextStyle.Main"
-        android:layout_width="@dimen/button_width"
+        android:id="@+id/play_button"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
-        android:layout_marginStart="@dimen/small_button_margin"
-        android:layout_marginEnd="@dimen/small_button_margin"
-        android:layout_marginBottom="@dimen/small_button_margin"
+        style="@style/ButtonTextStyle.Main"
+        android:text="@string/play"
+        android:layout_marginHorizontal="@dimen/Space8x"
+        android:layout_marginBottom="@dimen/Space8x"
         app:layout_constraintBottom_toTopOf="@+id/how_to_play_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/how_to_play_button"
-        style="@style/ButtonTextStyle.Second"
-        android:layout_width="@dimen/button_width"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
-        android:layout_marginStart="@dimen/small_button_margin"
-        android:layout_marginEnd="@dimen/small_button_margin"
-        android:layout_marginBottom="@dimen/small_button_margin"
+        style="@style/ButtonTextStyle.Second"
         android:text="@string/how_to_play"
-        android:textAllCaps="false"
+        android:layout_marginHorizontal="@dimen/Space8x"
+        android:layout_marginBottom="@dimen/Space8x"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
