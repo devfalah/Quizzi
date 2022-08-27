@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer"
-    tools:context=".ui.homeFragment">
-
-
+>
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="@dimen/animation_size"
         android:layout_height="@dimen/animation_size"
@@ -29,10 +27,11 @@
         android:layout_marginStart="@dimen/small_button_margin"
         android:layout_marginEnd="@dimen/small_button_margin"
         android:layout_marginBottom="@dimen/small_button_margin"
-        android:text="@string/play"
         app:layout_constraintBottom_toTopOf="@+id/how_to_play_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/how_to_play_button"
