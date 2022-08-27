@@ -12,48 +12,50 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/main_icon_background"
-        android:backgroundTint="#EDE8E3"
-        android:padding="8dp"
+        android:backgroundTint="@color/background_color"
+        android:padding="@dimen/Space4x"
         android:src="@drawable/ic_dialog_close_vector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dialog_title"
-        style="@style/DialogTextStyle.Head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/exit_dialog_title"
+        style="@style/DialogTextStyle.Head"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/warning_animation"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/ic_exit_dialog"
+        android:layout_marginTop="@dimen/Space4x"
+        app:lottie_rawRes="@raw/warning"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
 
     <TextView
-        android:id="@+id/textView"
-        style="@style/DialogTextStyle.SubTitle"
+        android:id="@+id/subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/exit_subtitle"
-        app:layout_constraintBottom_toTopOf="@+id/start_play_button"
+        style="@style/DialogTextStyle.SubTitle"
+        app:layout_constraintBottom_toTopOf="@+id/exit_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/warning_animation" />
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/start_play_button"
+        android:id="@+id/exit_button"
         style="@style/ButtonTextStyle.Main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_height"
         android:text="@string/exit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
