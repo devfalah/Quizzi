@@ -1,14 +1,12 @@
-package com.devfalah.quiz.ui.mcq
-
 import android.os.Bundle
-import android.util.Log
+import com.devfalah.quiz.ui.mcq.McqViewModel
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.devfalah.quiz.R
-import com.devfalah.quiz.utilities.State
 
 class McqFragment:Fragment(R.layout.fragment_mcq) {
     private lateinit var viewModel: McqViewModel
@@ -21,4 +19,5 @@ class McqFragment:Fragment(R.layout.fragment_mcq) {
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
 }

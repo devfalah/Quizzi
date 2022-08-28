@@ -19,6 +19,7 @@
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
 
+
     <style name="dialog_text_title">
         <item name="android:textColor">#333333</item>
         <item name="android:textStyle">bold</item>
@@ -28,5 +29,6 @@
     <style name="dialog_text_sub_title">
         <item name="android:textColor">#999999</item>
     </style>
+
 
 </resources>

@@ -5,30 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color">
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer"
+        android:id="@+id/error"
+        android:background="@color/background_color">
 
-    <TextView
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_error"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/animation_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.169"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/error" />
+
+        <TextView
+            android:id="@+id/error_title"
+            style="@style/CustomTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error_hint"
+            android:textSize="@dimen/big_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/animation_error" />
+
+        <TextView
+            android:id="@+id/error_description"
+            style="@style/CustomTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/Space8x"
+            android:text="@string/error_description"
+            android:textSize="@dimen/FontSize7x"
+            android:gravity="center"
+            android:textColor="@color/text_hint"
+            app:layout_constraintEnd_toEndOf="@id/try_again"
+            app:layout_constraintStart_toStartOf="@id/try_again"
+            app:layout_constraintTop_toBottomOf="@id/error_title" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/try_again"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/small_button_margin"
+            android:layout_marginEnd="@dimen/small_button_margin"
+            android:layout_marginBottom="@dimen/small_button_margin"
+            android:background="@drawable/green_button_background"
+            android:text="@string/try_again"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+  <TextView
         android:id="@+id/label_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/more_larg_margin"
-        android:layout_marginTop="@dimen/dim40"
-        android:drawableStart="@drawable/ic_monyicone"
-        android:drawablePadding="@dimen/small_padding"
+        android:layout_marginStart="@dimen/Space5x"
+        android:layout_marginTop="@dimen/Space20x"
         android:background="@drawable/score_background"
-        android:padding="4dp"
+        android:drawableStart="@drawable/ic_score"
+        android:drawablePadding="@dimen/Space2x"
+        android:padding="@dimen/Space2x"
         android:textColor="@color/blue"
-        android:textSize="@dimen/small_text_size"
+        android:textSize="@dimen/FontSize7x"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="200" />
 
     <TextView
-        android:id="@+id/number_of_qustion"
+        android:id="@+id/number_of_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/small_text_size"
         android:textColor="@color/black_overlay"
+        android:textSize="@dimen/FontSize7x"
         app:layout_constraintBottom_toBottomOf="@+id/label_score"
         app:layout_constraintEnd_toEndOf="@+id/progress_bar"
         app:layout_constraintStart_toStartOf="@+id/progress_bar"
@@ -39,7 +104,7 @@
         android:id="@+id/exit_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginEnd="@dimen/more_larg_margin"
+        android:layout_marginEnd="@dimen/Space10x"
         android:background="@drawable/ic_sign_in_squre"
         app:layout_constraintBottom_toBottomOf="@+id/label_score"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,12 +114,12 @@
         android:id="@+id/progress_bar"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="@dimen/dim32"
+        android:layout_marginTop="@dimen/Space16x"
         android:indeterminateOnly="false"
         android:progressDrawable="@drawable/circle_progress_bar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number_of_qustion"
+        app:layout_constraintTop_toBottomOf="@+id/number_of_question"
         tools:progress="50" />
 
     <TextView
@@ -62,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="@dimen/medum_text_size"
+        android:textSize="@dimen/FontSize8x"
         app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
         app:layout_constraintEnd_toEndOf="@+id/progress_bar"
         app:layout_constraintStart_toStartOf="@+id/progress_bar"
@@ -70,50 +135,44 @@
         tools:text="@string/time" />
 
     <TextView
-        android:id="@+id/label_qustion"
+        android:id="@+id/label_question"
+        style="@style/QuestionTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/more_larg_margin"
+        android:layout_marginHorizontal="@dimen/Space10x"
         android:gravity="center"
-        android:textColor="@color/blue"
-        android:textSize="@dimen/larg_text_size"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar"
-        tools:text="@string/the_qustion" />
+        tools:text="@string/the_question" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_answer_a"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="@dimen/larg_margin"
-        app:cardCornerRadius="@dimen/reduse_medum"
-        app:layout_constraintEnd_toEndOf="@+id/label_qustion"
-        app:layout_constraintStart_toStartOf="@+id/label_qustion"
-        app:layout_constraintTop_toBottomOf="@+id/label_qustion" />
+        android:layout_marginTop="@dimen/Space8x"
+        app:cardCornerRadius="@dimen/Radius4X"
+        app:layout_constraintEnd_toEndOf="@+id/label_question"
+        app:layout_constraintStart_toStartOf="@+id/label_question"
+        app:layout_constraintTop_toBottomOf="@+id/label_question" />
 
     <TextView
         android:id="@+id/label_answer_a"
-        style="@style/text_in_card"
+        style="@style/ChoiceTextStyle.NotSelectedAlphabet"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_marginStart="@dimen/larg_margin"
-        android:background="@drawable/circle"
-        android:gravity="center"
+        android:layout_marginStart="@dimen/Space8x"
         android:text="@string/a"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/card_answer_a"
         app:layout_constraintStart_toStartOf="@+id/card_answer_a"
         app:layout_constraintTop_toTopOf="@+id/card_answer_a" />
 
     <TextView
         android:id="@+id/text_answer_a"
-        style="@style/text_in_card"
+        style="@style/ChoiceTextStyle.NotSelectedBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/larg_padding"
-        android:textColor="@color/black"
+        android:paddingHorizontal="@dimen/Space8x"
         app:layout_constraintBottom_toBottomOf="@+id/label_answer_a"
         app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
         app:layout_constraintStart_toEndOf="@+id/label_answer_a"
@@ -124,32 +183,29 @@
         android:id="@+id/card_answer_b"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="@dimen/larg_margin"
-        app:cardCornerRadius="@dimen/reduse_medum"
+        android:layout_marginTop="@dimen/Space8x"
+        app:cardCornerRadius="@dimen/Radius4X"
         app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
         app:layout_constraintStart_toStartOf="@+id/card_answer_a"
         app:layout_constraintTop_toBottomOf="@+id/card_answer_a" />
 
     <TextView
         android:id="@+id/label_answer_b"
-        style="@style/text_in_card"
+        style="@style/ChoiceTextStyle.SelectedAlphabet.Wrong"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_marginStart="@dimen/larg_margin"
-        android:background="@drawable/circle"
-        android:gravity="center"
+        android:layout_marginStart="@dimen/Space8x"
         android:text="@string/b"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/card_answer_b"
         app:layout_constraintStart_toStartOf="@+id/card_answer_b"
         app:layout_constraintTop_toTopOf="@+id/card_answer_b" />
 
     <TextView
         android:id="@+id/text_answer_b"
-        style="@style/text_in_card"
+        style="@style/ChoiceTextStyle.NotSelectedBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/larg_padding"
+        android:paddingHorizontal="@dimen/Space8x"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/label_answer_b"
         app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
@@ -161,33 +217,29 @@
         android:id="@+id/card_answer_c"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="@dimen/larg_margin"
-        app:cardCornerRadius="@dimen/reduse_medum"
+        android:layout_marginTop="@dimen/Space8x"
+        app:cardCornerRadius="@dimen/Radius4X"
         app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
         app:layout_constraintStart_toStartOf="@+id/card_answer_b"
         app:layout_constraintTop_toBottomOf="@+id/card_answer_b" />
 
     <TextView
         android:id="@+id/label_answer_c"
-        style="@style/text_in_card"
+        style="@style/ChoiceTextStyle.NotSelectedAlphabet"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_marginStart="@dimen/larg_margin"
-        android:background="@drawable/circle"
-        android:gravity="center"
+        android:layout_marginStart="@dimen/Space8x"
         android:text="@string/c"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/card_answer_c"
         app:layout_constraintStart_toStartOf="@+id/card_answer_c"
         app:layout_constraintTop_toTopOf="@+id/card_answer_c" />
 
     <TextView
         android:id="@+id/text_answer_c"
-        style="@style/text_in_card"
+        style="@style/ChoiceTextStyle.NotSelectedBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/larg_padding"
-        android:textColor="@color/black"
+        android:paddingHorizontal="@dimen/Space8x"
         app:layout_constraintBottom_toBottomOf="@+id/label_answer_c"
         app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
         app:layout_constraintStart_toEndOf="@+id/label_answer_c"
@@ -198,33 +250,29 @@
         android:id="@+id/card_answer_d"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginTop="@dimen/larg_margin"
-        app:cardCornerRadius="@dimen/reduse_medum"
+        android:layout_marginTop="@dimen/Space8x"
+        app:cardCornerRadius="@dimen/Radius4X"
         app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
         app:layout_constraintStart_toStartOf="@+id/card_answer_c"
         app:layout_constraintTop_toBottomOf="@+id/card_answer_c" />
 
     <TextView
         android:id="@+id/label_answer_d"
-        style="@style/text_in_card"
+        style="@style/ChoiceTextStyle.SelectedAlphabet.Wrong"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_marginStart="@dimen/larg_margin"
-        android:background="@drawable/circle"
-        android:gravity="center"
+        android:layout_marginStart="@dimen/Space8x"
         android:text="@string/d"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/card_answer_d"
         app:layout_constraintStart_toStartOf="@+id/card_answer_d"
         app:layout_constraintTop_toTopOf="@+id/card_answer_d" />
 
     <TextView
         android:id="@+id/text_answer_d"
-        style="@style/text_in_card"
+        style="@style/ChoiceTextStyle.NotSelectedBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/larg_padding"
-        android:textColor="@color/black"
+        android:paddingHorizontal="@dimen/Space8x"
         app:layout_constraintBottom_toBottomOf="@+id/label_answer_d"
         app:layout_constraintEnd_toEndOf="@+id/card_answer_d"
         app:layout_constraintStart_toEndOf="@+id/label_answer_d"
@@ -232,50 +280,54 @@
         tools:text="For loops" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/delet_two_answer_button"
+        android:id="@+id/delete_two_answer_button"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginHorizontal="@dimen/more_larg_margin"
-        android:layout_marginTop="@dimen/dim40"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginHorizontal="@dimen/Space10x"
+        android:layout_marginTop="@dimen/Space20x"
         android:background="@drawable/white_button_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/raplace_qustion_button"
+        app:layout_constraintEnd_toStartOf="@+id/replace_question_button"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_answer_d" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/raplace_qustion_button"
+        android:id="@+id/replace_question_button"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="@dimen/more_larg_margin"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginEnd="@dimen/Space10x"
         android:background="@drawable/white_button_background"
-        app:layout_constraintBottom_toBottomOf="@+id/delet_two_answer_button"
+        app:layout_constraintBottom_toBottomOf="@+id/delete_two_answer_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/delet_two_answer_button"
-        app:layout_constraintTop_toTopOf="@+id/delet_two_answer_button"
-        />
+        app:layout_constraintStart_toEndOf="@+id/delete_two_answer_button"
+        app:layout_constraintTop_toTopOf="@+id/delete_two_answer_button" />
 
     <View
-        android:id="@+id/delet_two_answer_icon"
+        android:id="@+id/delete_two_answer_icon"
         android:layout_width="40dp"
         android:layout_height="15dp"
-        android:elevation="@dimen/dim2"
-        android:background="@drawable/ic_delet_two_answer_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/delet_two_answer_button"
-        app:layout_constraintEnd_toEndOf="@+id/delet_two_answer_button"
-        app:layout_constraintStart_toStartOf="@+id/delet_two_answer_button"
-        app:layout_constraintTop_toTopOf="@+id/delet_two_answer_button" />
+        android:background="@drawable/ic_delete_two_answer_icon"
+        android:elevation="@dimen/Space1x"
+        app:layout_constraintBottom_toBottomOf="@+id/delete_two_answer_button"
+        app:layout_constraintEnd_toEndOf="@+id/delete_two_answer_button"
+        app:layout_constraintStart_toStartOf="@+id/delete_two_answer_button"
+        app:layout_constraintTop_toTopOf="@+id/delete_two_answer_button" />
 
     <View
         android:id="@+id/replace_icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/ic_replace_qustion_icon"
-        android:elevation="@dimen/dim2"
-        app:layout_constraintBottom_toBottomOf="@+id/raplace_qustion_button"
-        app:layout_constraintEnd_toEndOf="@+id/raplace_qustion_button"
-        app:layout_constraintStart_toStartOf="@+id/raplace_qustion_button"
-        app:layout_constraintTop_toTopOf="@+id/raplace_qustion_button" />
+        android:background="@drawable/ic_replace_question_icon"
+        android:elevation="@dimen/Space1x"
+        app:layout_constraintBottom_toBottomOf="@+id/replace_question_button"
+        app:layout_constraintEnd_toEndOf="@+id/replace_question_button"
+        app:layout_constraintStart_toStartOf="@+id/replace_question_button"
+        app:layout_constraintTop_toTopOf="@+id/replace_question_button" />
+
+    <include
+        android:id="@+id/loading"
+        layout="@layout/loading"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
