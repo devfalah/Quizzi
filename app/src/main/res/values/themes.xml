@@ -28,4 +28,5 @@
     <style name="dialog_text_sub_title">
         <item name="android:textColor">#999999</item>
     </style>
+
 </resources>

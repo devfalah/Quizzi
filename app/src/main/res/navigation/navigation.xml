@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/mcqFragment"
-        android:name="com.devfalah.quiz.ui.McqFragment"
+        android:name="com.devfalah.quiz.ui.mcq.McqFragment"
         android:label="McqFragment"
         tools:layout="@layout/fragment_mcq">
         <action
