@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_mcqFragment"
             app:destination="@id/mcqFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_how_to_play_dialog"
+            app:destination="@id/how_to_play_dialog" />
     </fragment>
     <fragment
         android:id="@+id/mcqFragment"
@@ -22,10 +25,43 @@
         <action
             android:id="@+id/action_mcqFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_mcqFragment_to_exit_dialog"
+            app:destination="@id/exit_dialog" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.devfalah.quiz.ui.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />
+    <dialog
+        android:id="@+id/how_to_play_dialog"
+        android:name="com.devfalah.quiz.ui.HowToPlayDialogFragment"
+        android:label="How to play"
+        tools:layout="@layout/fragment_dialog_how_to_play"
+        >
+        <action
+            android:id="@+id/action_how_to_play_dialog_pop_including_homeFragment2"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </dialog>
+    <dialog
+        android:id="@+id/exit_dialog"
+        android:name="com.devfalah.quiz.ui.ExitDialogFragment"
+        android:label="Exit"
+        tools:layout="@layout/fragment_dialog_exit"
+        >
+
+        <action
+            android:id="@+id/action_exit_dialog_to_mcqFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popUpTo="@id/mcqFragment"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </dialog>
 </navigation>

@@ -7,7 +7,7 @@
     android:background="@drawable/dialog_background"
     android:padding="16dp">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/close_icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -53,10 +53,10 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/exit_button"
-        style="@style/ButtonTextStyle.Main"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:text="@string/exit"
+        style="@style/ButtonTextStyle.Main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

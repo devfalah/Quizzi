@@ -11,30 +11,35 @@ import com.devfalah.quiz.databinding.FragmentHomeBinding
 
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
-    private lateinit var binding: FragmentHomeBinding
 
+    lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?,
+    ): View? {
+
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.playButton.setOnClickListener { v ->
-            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_mcqFragment)
-        }
+        
 
 
         binding.playButton.setOnClickListener { v ->
 
+
             Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_mcqFragment)
 
+        }
+        binding.howToPlayButton.setOnClickListener { v ->
+
+            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_how_to_play_dialog)
 
         }
+
+
     }
 }

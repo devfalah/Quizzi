@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="@+id/dialog_image_1"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/close_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
