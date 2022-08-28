@@ -1,5 +1,7 @@
 package com.devfalah.quiz.utilities
 
-object Constant {
+object Constants {
     const val BASE_URL = "https://opentdb.com/"
+    const val MCQ_TYPE = "multiple"
+    const val MCQ_AMOUNT = 5
 }

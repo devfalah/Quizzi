@@ -2,8 +2,9 @@
 <resources>
 
     <dimen name="button_width">343dp</dimen>
+
     <dimen name="button_height">40dp</dimen>
-    <dimen name="small_button_margin">16dp</dimen>
+
 
 
 
@@ -47,6 +48,5 @@
     <dimen name="dim2">2dp</dimen>
     <dimen name="dim40">40dp</dimen>
     <dimen name="dim32">38dp</dimen>
-
 
 </resources>

@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
-    android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer">
+    android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer"
+    android:background="@color/background_color">
+
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="@dimen/animation_size"
