@@ -1,5 +1,7 @@
 package com.devfalah.quiz.ui.mcq
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.devfalah.quiz.data.repository.QuizRepositoryImp
@@ -16,8 +18,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class McqViewModel : ViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
 
-    private var _requestState = MutableLiveData<State<QuizResponse>>()
-    val requestState get() = _requestState
+    private var _requestState = MutableLiveData<State<QuizResponse>>(State.Loading)
+    val requestState get() : LiveData<State<QuizResponse>> = _requestState
 
     val easyQuestions = mutableListOf<Result>()
     val mediumQuestions = mutableListOf<Result>()
@@ -49,7 +51,9 @@ class McqViewModel : ViewModel() {
             McqDifficulty.MEDIUM.name.lowercase() -> results.forEach { mediumQuestions.add(it!!) }
             McqDifficulty.HARD.name.lowercase() -> {
                 results.forEach { hardQuestions.add(it!!) }
-                if (state is State.Success) _requestState.postValue(state)
+                if (state is State.Success) {
+                    _requestState.postValue(state)
+                }
             }
         }
     }
