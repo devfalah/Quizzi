@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="button_width">343dp</dimen>
+
     <dimen name="button_height">40dp</dimen>
+
+
+
+
 
     <!--    Spaces-->
     <dimen name="Space0x">0dp</dimen>
@@ -30,9 +37,16 @@
 
 
 
+    <dimen name="larg_text_size">20sp</dimen>
+    <dimen name="big_text_size">26sp</dimen>
+    <dimen name="medum_text_size">16sp</dimen>
+    <dimen name="small_text_size">14sp</dimen>
+
+
     <dimen name="animation_size">255dp</dimen>
 
-
-
+    <dimen name="dim2">2dp</dimen>
+    <dimen name="dim40">40dp</dimen>
+    <dimen name="dim32">38dp</dimen>
 
 </resources>

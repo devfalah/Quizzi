@@ -27,6 +27,9 @@
     <string name="b">B</string>
     <string name="c">C</string>
     <string name="d">D</string>
+    <string name="error_hint">Ooops!</string>
+    <string name="error_description">It seems there is something wrong with your Internet connection. Please connect to the Internet and start PLAY again.</string>
+    <string name="try_again">Try again</string>
     <string name="loading">Loading...</string>
 
 </resources>

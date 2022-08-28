@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/ThemeOverlay.Quiz.FullscreenContainer"
+    android:id="@+id/error"
+    android:background="@color/background_color">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_error"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/animation_size"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/error"
+        app:layout_constraintVertical_bias="0.169"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/error_title"
+        style="@style/CustomTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_hint"
+        android:textSize="@dimen/big_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animation_error" />
+
+    <TextView
+        android:id="@+id/error_description"
+        style="@style/CustomTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/Space8x"
+        android:text="@string/error_description"
+        android:textSize="@dimen/FontSize7x"
+        android:gravity="center"
+        android:textColor="@color/text_hint"
+        app:layout_constraintEnd_toEndOf="@id/try_again"
+        app:layout_constraintStart_toStartOf="@id/try_again"
+        app:layout_constraintTop_toBottomOf="@id/error_title" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/try_again"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginStart="@dimen/Space4x"
+        android:layout_marginEnd="@dimen/Space4x"
+        android:layout_marginBottom="@dimen/Space4x"
+        android:background="@drawable/green_button_background"
+        android:text="@string/try_again"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
