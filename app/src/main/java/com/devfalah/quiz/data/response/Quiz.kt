@@ -3,7 +3,7 @@ package com.devfalah.quiz.data.response
 import com.google.gson.annotations.SerializedName
 
 
-data class Result(
+data class Quiz(
     @SerializedName("category")
     val category: String?,
     @SerializedName("correct_answer")

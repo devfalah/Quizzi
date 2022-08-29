@@ -1,83 +1,105 @@
 package com.devfalah.quiz.ui.mcq
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.devfalah.quiz.data.repository.QuizRepositoryImp
 import com.devfalah.quiz.data.response.QuizResponse
-import com.devfalah.quiz.data.response.Result
+import com.devfalah.quiz.data.response.Quiz
 import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.utilities.McqDifficulty
 import com.devfalah.quiz.utilities.State
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.devfalah.quiz.utilities.addAll
+import com.devfalah.quiz.utilities.observeOnMainThread
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
-import okhttp3.Request
 
 class McqViewModel : ViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
 
     private var _requestState = MutableLiveData<State<QuizResponse>>(State.Loading)
     val requestState get() : LiveData<State<QuizResponse>> = _requestState
-
-    val easyQuestions = mutableListOf<Result>()
-    val mediumQuestions = mutableListOf<Result>()
-    val hardQuestions = mutableListOf<Result>()
+    private val questions = mutableListOf<Quiz>()
 
 
-    private var _currentQuestionIndex =   MutableLiveData<Int?>(0)
-    val currentQuestionIndex get() : LiveData<Int?> = _currentQuestionIndex
+    private var _currentQuestionIndex = MutableLiveData<Int>(0)
+    val currentQuestionIndex get() : LiveData<Int> = _currentQuestionIndex
 
-    private  val  _currentQuestion =  MutableLiveData<Result>()
-    val currentQuestion get() : LiveData<Result> = _currentQuestion
+    private var _allQuestionsSize = MutableLiveData<Int>(0)
+    val allQuestionsSize get() : LiveData<Int> = _allQuestionsSize
+    private val _currentQuestion = MutableLiveData<Quiz>()
+    val currentQuestion get() : LiveData<Quiz> = _currentQuestion
 
-    private  val  _currentQuestionAnswers =  MutableLiveData<List<String>?>()
-    val currentQuestionAnswers : LiveData<List<String>?>  get() = _currentQuestionAnswers
+    private val _currentQuestionAnswers = MutableLiveData<List<String>?>()
+    val currentQuestionAnswers: LiveData<List<String>?> get() = _currentQuestionAnswers
+
+    private val _score = MutableLiveData<Int>()
+    val score: LiveData<Int> = _score
 
 
     init {
-        getFifteenMCQs()
+        getFifteenQuestions()
     }
 
-    private fun getFifteenMCQs() {
-        Observable.concat(getFiveMCQs(McqDifficulty.EASY).toObservable(),
-            getFiveMCQs(McqDifficulty.MEDIUM).toObservable(),
-            getFiveMCQs(McqDifficulty.HARD).toObservable()
+
+    fun onClickAnswer(answer: String) {
+        goToNextQuestion()
+
+    }
+
+
+    private fun getFifteenQuestions() {
+        Observable.concat(
+            getFiveQuestions(McqDifficulty.EASY).toObservable(),
+            getFiveQuestions(McqDifficulty.MEDIUM).toObservable(),
+            getFiveQuestions(McqDifficulty.HARD).toObservable()
         ).run {
-            subscribeOn(Schedulers.io())
-            observeOn(AndroidSchedulers.mainThread())
+            observeOnMainThread()
             subscribe(::onGetMCQsSuccess, ::onGetMCQsError)
         }
     }
 
     private fun onGetMCQsSuccess(state: State<QuizResponse>) {
-        sortMCQsDueToDifficulty(state)
-    }
-
-    private fun sortMCQsDueToDifficulty(state: State<QuizResponse>) {
-
-        val results = requireNotNull(state.toData()?.results)
-        when (results[0]?.difficulty) {
-            McqDifficulty.EASY.name.lowercase() -> results.forEach { easyQuestions.add(it!!) }
-            McqDifficulty.MEDIUM.name.lowercase() -> results.forEach { mediumQuestions.add(it!!) }
+        val result = requireNotNull(state.toData()?.questions)
+        questions.addAll(result)
+        when (result.first()?.difficulty) {
             McqDifficulty.HARD.name.lowercase() -> {
-                results.forEach { hardQuestions.add(it!!) }
                 if (state is State.Success) {
                     _requestState.postValue(state)
-                }
-                easyQuestions.get(0).apply {
-                    _currentQuestion.postValue(this)
-                    _currentQuestionAnswers.postValue(this.incorrectAnswers?.plus(this.correctAnswer)?.shuffled()  as List<String> )
+                    setQuestion(questions.first())
+                    _allQuestionsSize.postValue(questions.size)
                 }
             }
         }
-
     }
 
-    private fun onGetMCQsError(throwable: Throwable) = _requestState.postValue(State.Error(requireNotNull(throwable.message)))
 
-    private fun getFiveMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> = repository.getQuizQuestions(difficulty)
+    private fun setQuestion(quiz: Quiz) {
+        _currentQuestion.postValue(quiz)
+        _currentQuestionAnswers.postValue(quiz.incorrectAnswers?.plus(quiz.correctAnswer)
+            ?.shuffled() as List<String>)
+    }
+
+    private fun goToNextQuestion() {
+        incrementCurrentQuestionIndex()
+        if (questions.size > _currentQuestionIndex.value!!) {
+            setQuestion(questions[_currentQuestionIndex.value!!])
+        } else {
+            _score.postValue(0)
+        }
+    }
+
+    private fun incrementCurrentQuestionIndex() {
+        _currentQuestionIndex.value = _currentQuestionIndex.value?.plus(1)!!
+    }
+
+    private fun onGetMCQsError(throwable: Throwable) =
+        _requestState.postValue(State.Error(requireNotNull(throwable.message)))
+
+    private fun getFiveQuestions(difficulty: McqDifficulty): Single<State<QuizResponse>> =
+        repository.getQuizQuestions(difficulty)
 
 }
+
+

@@ -42,6 +42,7 @@
       android:layout_height="wrap_content"
       android:textColor="@color/black_overlay"
       android:textSize="@dimen/FontSize7x"
+      android:text="@{(viewModel.currentQuestionIndex + 1) +`/`+viewModel.allQuestionsSize}"
       app:layout_constraintBottom_toBottomOf="@+id/label_score"
       app:layout_constraintEnd_toEndOf="@+id/progress_bar"
       app:layout_constraintStart_toStartOf="@+id/progress_bar"
@@ -101,6 +102,7 @@
       android:layout_height="60dp"
       android:layout_marginTop="@dimen/Space8x"
       app:cardCornerRadius="@dimen/Radius4X"
+      android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentQuestionAnswers[0])}"
       app:layout_constraintEnd_toEndOf="@+id/label_question"
       app:layout_constraintStart_toStartOf="@+id/label_question"
       app:layout_constraintTop_toBottomOf="@+id/label_question" />
@@ -134,6 +136,7 @@
       android:layout_height="60dp"
       android:layout_marginTop="@dimen/Space8x"
       app:cardCornerRadius="@dimen/Radius4X"
+      android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentQuestionAnswers[1])}"
       app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
       app:layout_constraintStart_toStartOf="@+id/card_answer_a"
       app:layout_constraintTop_toBottomOf="@+id/card_answer_a" />
@@ -168,6 +171,7 @@
       android:layout_height="60dp"
       android:layout_marginTop="@dimen/Space8x"
       app:cardCornerRadius="@dimen/Radius4X"
+      android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentQuestionAnswers[2])}"
       app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
       app:layout_constraintStart_toStartOf="@+id/card_answer_b"
       app:layout_constraintTop_toBottomOf="@+id/card_answer_b" />
@@ -201,6 +205,7 @@
       android:layout_height="60dp"
       android:layout_marginTop="@dimen/Space8x"
       app:cardCornerRadius="@dimen/Radius4X"
+      android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentQuestionAnswers[3])}"
       app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
       app:layout_constraintStart_toStartOf="@+id/card_answer_c"
       app:layout_constraintTop_toBottomOf="@+id/card_answer_c" />
