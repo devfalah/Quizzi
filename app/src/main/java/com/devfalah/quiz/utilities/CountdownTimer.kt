@@ -1,15 +1,13 @@
-package com.devfalah.quiz.data.service
+package com.devfalah.quiz.utilities
 
-import com.devfalah.quiz.utilities.add
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 
-abstract class TimerService(private val endValue: Long, private val timeUnit: TimeUnit) {
+abstract class CountdownTimer(private val endValue: Long, private val timeUnit: TimeUnit) {
     lateinit var compositeDisposable: CompositeDisposable
 
     abstract fun onTick(tickValue: Long)
