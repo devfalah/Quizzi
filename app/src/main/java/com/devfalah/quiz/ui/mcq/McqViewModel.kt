@@ -14,6 +14,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import okhttp3.Request
 
 class McqViewModel : ViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
@@ -24,6 +25,17 @@ class McqViewModel : ViewModel() {
     val easyQuestions = mutableListOf<Result>()
     val mediumQuestions = mutableListOf<Result>()
     val hardQuestions = mutableListOf<Result>()
+
+
+    private var _currentQuestionIndex =   MutableLiveData<Int?>(0)
+    val currentQuestionIndex get() : LiveData<Int?> = _currentQuestionIndex
+
+    private  val  _currentQuestion =  MutableLiveData<Result>()
+    val currentQuestion get() : LiveData<Result> = _currentQuestion
+
+    private  val  _currentQuestionAnswers =  MutableLiveData<List<String>?>()
+    val currentQuestionAnswers : LiveData<List<String>?>  get() = _currentQuestionAnswers
+
 
     init {
         getFifteenMCQs()
@@ -45,6 +57,7 @@ class McqViewModel : ViewModel() {
     }
 
     private fun sortMCQsDueToDifficulty(state: State<QuizResponse>) {
+
         val results = requireNotNull(state.toData()?.results)
         when (results[0]?.difficulty) {
             McqDifficulty.EASY.name.lowercase() -> results.forEach { easyQuestions.add(it!!) }
@@ -54,11 +67,17 @@ class McqViewModel : ViewModel() {
                 if (state is State.Success) {
                     _requestState.postValue(state)
                 }
+                easyQuestions.get(0).apply {
+                    _currentQuestion.postValue(this)
+                    _currentQuestionAnswers.postValue(this.incorrectAnswers?.plus(this.correctAnswer)?.shuffled()  as List<String> )
+                }
             }
         }
+
     }
 
     private fun onGetMCQsError(throwable: Throwable) = _requestState.postValue(State.Error(requireNotNull(throwable.message)))
 
     private fun getFiveMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> = repository.getQuizQuestions(difficulty)
+
 }
