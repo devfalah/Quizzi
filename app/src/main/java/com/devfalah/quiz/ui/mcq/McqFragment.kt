@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentMcqBinding
 import com.devfalah.quiz.ui.base.BaseFragment
@@ -19,6 +20,13 @@ class McqFragment:BaseFragment<FragmentMcqBinding>(){
         binding?.apply {
             this.lifecycleOwner = viewLifecycleOwner
             this.viewModel = this@McqFragment.viewModel
+        }
+
+        binding?.exitIcon?.setOnClickListener{ v->
+            v.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
+        }
+        viewModel.score.observe(this) {
+            requireView().findNavController().navigate(R.id.action_mcqFragment_to_resultFragment)
         }
     }
 
