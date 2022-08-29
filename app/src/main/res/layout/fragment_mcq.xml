@@ -128,7 +128,7 @@
       app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
       app:layout_constraintStart_toEndOf="@+id/label_answer_a"
       app:layout_constraintTop_toTopOf="@+id/label_answer_a"
-      android:text="@{viewModel.currentQuestionAnswers[0]}" />
+      android:text="@{viewModel.currentQuestionAnswers[0].answer}" />
 
   <androidx.cardview.widget.CardView
       android:id="@+id/card_answer_b"
@@ -163,7 +163,7 @@
       app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
       app:layout_constraintStart_toEndOf="@+id/label_answer_b"
       app:layout_constraintTop_toTopOf="@+id/label_answer_b"
-      android:text="@{viewModel.currentQuestionAnswers[1]}" />
+      android:text="@{viewModel.currentQuestionAnswers[1].answer}" />
 
   <androidx.cardview.widget.CardView
       android:id="@+id/card_answer_c"
@@ -197,7 +197,7 @@
       app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
       app:layout_constraintStart_toEndOf="@+id/label_answer_c"
       app:layout_constraintTop_toTopOf="@+id/label_answer_c"
-      android:text="@{viewModel.currentQuestionAnswers[2]}" />
+      android:text="@{viewModel.currentQuestionAnswers[2].answer}" />
 
   <androidx.cardview.widget.CardView
       android:id="@+id/card_answer_d"
@@ -231,7 +231,7 @@
       app:layout_constraintEnd_toEndOf="@+id/card_answer_d"
       app:layout_constraintStart_toEndOf="@+id/label_answer_d"
       app:layout_constraintTop_toTopOf="@+id/label_answer_d"
-      android:text="@{viewModel.currentQuestionAnswers[3]}" />
+      android:text="@{viewModel.currentQuestionAnswers[3].answer}" />
 
   <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/delete_two_answer_button"
