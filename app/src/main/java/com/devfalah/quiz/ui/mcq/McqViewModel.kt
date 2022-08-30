@@ -1,5 +1,6 @@
 package com.devfalah.quiz.ui.mcq
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.utilities.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import java.util.concurrent.TimeUnit
 
 class McqViewModel : ViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
@@ -33,8 +35,22 @@ class McqViewModel : ViewModel() {
     private val _isReplaceMCQUsed = MutableLiveData(false)
     val isReplaceMCQUsed: LiveData<Boolean> get() = _isReplaceMCQUsed
 
+    private val _time = MutableLiveData<Long>(0)
+    val time: LiveData<Long> get() = _time
+
     init {
         getAllMCQs()
+    }
+
+     val timer = object: CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
+        override fun onTick(tickValue: Long) {
+            _time.postValue(tickValue)
+        }
+
+        override fun onFinish() {
+            goToNextMCQ()
+        }
+
     }
 
     private fun getAllMCQs() {
@@ -95,6 +111,7 @@ class McqViewModel : ViewModel() {
         if (currentMCQIndex.value!! < allMCQsList.lastIndex) {
             _currentMCQIndex.value = _currentMCQIndex.value!! + 1
             setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
+            timer.start()
         } else endGame()
     }
 

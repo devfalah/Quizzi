@@ -80,7 +80,7 @@
       app:layout_constraintEnd_toEndOf="@+id/progress_bar"
       app:layout_constraintStart_toStartOf="@+id/progress_bar"
       app:layout_constraintTop_toTopOf="@+id/progress_bar"
-      tools:text="@string/time" />
+      tools:text="@{viewModel.time.toString()}" />
 
   <TextView
       android:id="@+id/label_question"
