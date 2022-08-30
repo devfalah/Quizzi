@@ -13,20 +13,17 @@ import com.devfalah.quiz.ui.base.BaseFragment
 
 class McqFragment:BaseFragment<FragmentMcqBinding>(){
     override val layoutId = R.layout.fragment_mcq
-     private val viewModel : McqViewModel by viewModels()
-    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) ->
-    FragmentMcqBinding =DataBindingUtil::inflate
+    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentMcqBinding =DataBindingUtil::inflate
+    private val viewModel : McqViewModel by viewModels()
+
     override fun setup() {
         binding?.apply {
-            this.lifecycleOwner = viewLifecycleOwner
-            this.viewModel = this@McqFragment.viewModel
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = this@McqFragment.viewModel
         }
 
         binding?.exitIcon?.setOnClickListener{ v->
             v.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
         }
-
     }
-
-
 }

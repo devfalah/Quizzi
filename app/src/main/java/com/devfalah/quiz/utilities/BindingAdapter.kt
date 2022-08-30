@@ -20,3 +20,8 @@ fun <T> showWhenError(view: View, state: State<T>?) {
 fun <T> showWhenLoading(view: View, state: State<T>?) {
     view.isVisible = (state is State.Loading)
 }
+
+@BindingAdapter(value = ["isVisible"])
+fun showIfTrue(view: View, status: Boolean) {
+    view.isVisible = status
+}
