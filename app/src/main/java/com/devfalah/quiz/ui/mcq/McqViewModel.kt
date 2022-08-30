@@ -19,7 +19,9 @@ class McqViewModel : ViewModel() {
     val requestState: LiveData<State<QuizResponse>> get() = _requestState
 
     private val _currentMCQ = MutableLiveData<Quiz>()
-    val currentMCQ: LiveData<Quiz> get() = _currentMCQ
+
+    private val _currentDecodedMCQ = MutableLiveData<String>()
+    val currentDecodedMCQ: LiveData<String> get() = _currentDecodedMCQ
 
     private val _currentMCQAnswers = MutableLiveData<List<Answer>>()
     val currentMCQAnswers: LiveData<List<Answer>> get() = _currentMCQAnswers
@@ -78,6 +80,7 @@ class McqViewModel : ViewModel() {
 
     private fun setCurrentMCQ(quiz: Quiz) {
         _currentMCQ.postValue(quiz)
+        _currentDecodedMCQ.postValue(quiz.question!!.decodeHtml())
         setCurrentMCQAnswers(quiz)
     }
 
@@ -103,7 +106,7 @@ class McqViewModel : ViewModel() {
     }
 
     fun onReplaceMCQClickListener() {
-        when (currentMCQ.value!!.difficulty) {
+        when (_currentMCQ.value!!.difficulty) {
             McqDifficulty.EASY.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_EASY_MCQ_INDEX])
             McqDifficulty.MEDIUM.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_MEDIUM_MCQ_INDEX])
             McqDifficulty.HARD.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_HARD_MCQ_INDEX])
