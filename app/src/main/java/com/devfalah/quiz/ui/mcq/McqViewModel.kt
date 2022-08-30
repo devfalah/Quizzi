@@ -35,7 +35,7 @@ class McqViewModel : ViewModel() {
     private val _isReplaceMCQUsed = MutableLiveData(false)
     val isReplaceMCQUsed: LiveData<Boolean> get() = _isReplaceMCQUsed
 
-    private val _time = MutableLiveData<Long>(0)
+    private val _time = MutableLiveData<Long>(Constants.MCQ_TIMER.toLong())
     val time: LiveData<Long> get() = _time
 
     init {
