@@ -43,10 +43,11 @@ class McqViewModel : ViewModel() {
 
 
     fun onClickAnswer(answer: Answer) {
-        goToNextQuestion()
         if (answer.isCorrect){
             _score.postValue(_score.value!!.plus(Constants.SCORE))
         }
+        goToNextQuestion()
+
     }
 
 
