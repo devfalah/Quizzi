@@ -1,5 +1,6 @@
 package com.devfalah.quiz.utilities
 
+import com.devfalah.quiz.data.model.Answer
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -14,3 +15,5 @@ fun <E> MutableList<E>.addAll(elements: List<E?>) {
 fun <T> Observable<T>.observeOnMainThread(){
     observeOn(AndroidSchedulers.mainThread())
 }
+
+fun String.toAnswer(isCorrect:Boolean) = Answer(this,isCorrect)

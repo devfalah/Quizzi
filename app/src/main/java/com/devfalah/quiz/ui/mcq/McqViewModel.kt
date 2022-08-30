@@ -1,17 +1,16 @@
 package com.devfalah.quiz.ui.mcq
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.devfalah.quiz.data.model.Answer
 import com.devfalah.quiz.data.repository.QuizRepositoryImp
-import com.devfalah.quiz.data.response.QuizResponse
-import com.devfalah.quiz.data.response.Quiz
+import com.devfalah.quiz.data.model.QuizResponse
+import com.devfalah.quiz.data.model.Quiz
 import com.devfalah.quiz.data.service.WebRequest
-import com.devfalah.quiz.utilities.McqDifficulty
-import com.devfalah.quiz.utilities.State
-import com.devfalah.quiz.utilities.addAll
-import com.devfalah.quiz.utilities.observeOnMainThread
+import com.devfalah.quiz.utilities.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
@@ -31,8 +30,8 @@ class McqViewModel : ViewModel() {
     private val _currentQuestion = MutableLiveData<Quiz>()
     val currentQuestion get() : LiveData<Quiz> = _currentQuestion
 
-    private val _currentQuestionAnswers = MutableLiveData<List<String>?>()
-    val currentQuestionAnswers: LiveData<List<String>?> get() = _currentQuestionAnswers
+    private val _currentQuestionAnswers = MutableLiveData<List<Answer>?>()
+    val currentQuestionAnswers: LiveData<List<Answer>?> get() = _currentQuestionAnswers
 
     private val _score = MutableLiveData<Int>()
     val score: LiveData<Int> = _score
@@ -43,7 +42,7 @@ class McqViewModel : ViewModel() {
     }
 
 
-    fun onClickAnswer(answer: String) {
+    fun onClickAnswer(answer: Answer) {
         goToNextQuestion()
 
     }
@@ -77,8 +76,13 @@ class McqViewModel : ViewModel() {
 
     private fun setQuestion(quiz: Quiz) {
         _currentQuestion.postValue(quiz)
-        _currentQuestionAnswers.postValue(quiz.incorrectAnswers?.plus(quiz.correctAnswer)
-            ?.shuffled() as List<String>)
+    }
+
+    private fun setAnswer(quiz: Quiz){
+        val answers=quiz.incorrectAnswers?.map { it?.toAnswer(false)  }
+        _currentQuestionAnswers.postValue(
+            answers?.plus(quiz.correctAnswer?.toAnswer(true))
+                ?.shuffled() as List<Answer>)
     }
 
     private fun goToNextQuestion() {
