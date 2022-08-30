@@ -18,7 +18,6 @@ fun <T> Observable<T>.observeOnMainThread() {
     observeOn(AndroidSchedulers.mainThread())
 }
 
-
 fun Disposable.add(compositeDisposable: CompositeDisposable) {
     compositeDisposable.add(this)
 }
