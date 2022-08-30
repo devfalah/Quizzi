@@ -33,7 +33,7 @@ class McqViewModel : ViewModel() {
     private val _currentQuestionAnswers = MutableLiveData<List<Answer>?>()
     val currentQuestionAnswers: LiveData<List<Answer>?> get() = _currentQuestionAnswers
 
-    private val _score = MutableLiveData<Int>()
+    private val _score = MutableLiveData<Int>(0)
     val score: LiveData<Int> = _score
 
 
@@ -44,6 +44,9 @@ class McqViewModel : ViewModel() {
 
     fun onClickAnswer(answer: Answer) {
         goToNextQuestion()
+        if (answer.isCorrect){
+            _score.postValue(_score.value!!.plus(Constants.SCORE))
+        }
     }
 
 
@@ -90,8 +93,6 @@ class McqViewModel : ViewModel() {
         incrementCurrentQuestionIndex()
         if (questions.size > _currentQuestionIndex.value!!) {
             setQuestion(questions[_currentQuestionIndex.value!!])
-        } else {
-            _score.postValue(0)
         }
     }
 

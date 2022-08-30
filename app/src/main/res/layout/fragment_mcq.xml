@@ -27,6 +27,7 @@
       android:layout_marginTop="@dimen/Space20x"
       android:background="@drawable/score_background"
       android:drawableStart="@drawable/ic_score"
+      android:text="@{String.valueOf(viewModel.score)}"
       android:drawablePadding="@dimen/Space2x"
       android:padding="@dimen/Space2x"
       android:textColor="@color/blue"
