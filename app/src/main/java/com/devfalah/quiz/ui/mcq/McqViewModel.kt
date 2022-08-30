@@ -44,7 +44,6 @@ class McqViewModel : ViewModel() {
 
     fun onClickAnswer(answer: Answer) {
         goToNextQuestion()
-
     }
 
 
@@ -76,6 +75,8 @@ class McqViewModel : ViewModel() {
 
     private fun setQuestion(quiz: Quiz) {
         _currentQuestion.postValue(quiz)
+        setAnswer(quiz)
+
     }
 
     private fun setAnswer(quiz: Quiz){
