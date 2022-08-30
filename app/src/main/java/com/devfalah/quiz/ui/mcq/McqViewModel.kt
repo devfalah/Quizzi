@@ -2,6 +2,7 @@ package com.devfalah.quiz.ui.mcq
 
 
 import android.util.Log
+import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,13 @@ import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.utilities.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.*
+import java.util.logging.Handler
+import kotlin.concurrent.schedule
 
 class McqViewModel : ViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
@@ -43,10 +51,13 @@ class McqViewModel : ViewModel() {
 
 
     fun onClickAnswer(answer: Answer) {
-        if (answer.isCorrect){
-            _score.postValue(_score.value!!.plus(Constants.SCORE))
+        changeAnswerState(answer)
+        _score.postValue(_score.value!!.plus(Constants.SCORE))
+
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(1000)
+            goToNextQuestion()
         }
-        goToNextQuestion()
 
     }
 
@@ -65,6 +76,7 @@ class McqViewModel : ViewModel() {
     private fun onGetMCQsSuccess(state: State<QuizResponse>) {
         val result = requireNotNull(state.toData()?.questions)
         questions.addAll(result)
+        questions.forEach { q -> Log.d("Sadeq", q.correctAnswer.toString()) }
         when (result.first()?.difficulty) {
             McqDifficulty.HARD.name.lowercase() -> {
                 if (state is State.Success) {
@@ -83,11 +95,12 @@ class McqViewModel : ViewModel() {
 
     }
 
-    private fun setAnswer(quiz: Quiz){
-        val answers=quiz.incorrectAnswers?.map { it?.toAnswer(false)  }
+    private fun setAnswer(quiz: Quiz) {
+        val answers = quiz.incorrectAnswers?.map { it?.toAnswer(false) }
         _currentQuestionAnswers.postValue(
             answers?.plus(quiz.correctAnswer?.toAnswer(true))
-                ?.shuffled() as List<Answer>)
+                ?.shuffled() as List<Answer>
+        )
     }
 
     private fun goToNextQuestion() {
@@ -107,6 +120,17 @@ class McqViewModel : ViewModel() {
     private fun getFiveQuestions(difficulty: McqDifficulty): Single<State<QuizResponse>> =
         repository.getQuizQuestions(difficulty)
 
+
+    private fun changeAnswerState(answer: Answer) {
+        _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
+            if (answer.isCorrect) {
+                answer.state = AnswerState.CORRECT
+            } else {
+                answer.state = AnswerState.INCORRECT
+                this.filter { it.isCorrect }.forEach { it.state = AnswerState.CORRECT }
+            }
+        })
+    }
 }
 
 
