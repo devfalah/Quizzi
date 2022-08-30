@@ -26,6 +26,11 @@ fun <T> showWhenLoading(view: View, state: State<T>?) {
     view.isVisible = (state is State.Loading)
 }
 
+@BindingAdapter(value = ["isVisible"])
+fun showIfTrue(view: View, status: Boolean) {
+    view.isVisible = status
+}
+
 @BindingAdapter(value = ["app:setAnswerBackgroundColor"])
 fun setAnswerBackgroundColor(view: CardView, state: AnswerState?) {
     when (state) {

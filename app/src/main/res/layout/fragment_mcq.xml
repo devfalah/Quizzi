@@ -4,8 +4,6 @@
 
     <data>
 
-        <import type="com.devfalah.quiz.utilities.AnswerState" />
-
         <variable
             name="viewModel"
             type="com.devfalah.quiz.ui.mcq.McqViewModel" />
@@ -28,13 +26,13 @@
                 android:layout_marginStart="@dimen/Space5x"
                 android:layout_marginTop="@dimen/Space20x"
                 android:background="@drawable/score_background"
-                android:drawableStart="@drawable/ic_score"
                 android:drawablePadding="@dimen/Space2x"
                 android:padding="@dimen/Space2x"
                 android:text="@{String.valueOf(viewModel.score)}"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/FontSize7x"
                 android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_score"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="200" />
@@ -43,7 +41,7 @@
                 android:id="@+id/number_of_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{(viewModel.currentQuestionIndex + 1) +`/`+viewModel.allQuestionsSize}"
+                android:text="@{(viewModel.currentMCQIndex + 1) + `/` + 15}"
                 android:textColor="@color/black_overlay"
                 android:textSize="@dimen/FontSize7x"
                 app:layout_constraintBottom_toBottomOf="@+id/label_score"
@@ -93,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/Space10x"
                 android:gravity="center"
-                android:text="@{viewModel.currentQuestion.question}"
+                android:text="@{viewModel.currentMCQ.question}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/progress_bar"
@@ -104,153 +102,153 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
-                android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentQuestionAnswers[0])}"
+                android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentMCQAnswers[0])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/label_question"
                 app:layout_constraintStart_toStartOf="@+id/label_question"
                 app:layout_constraintTop_toBottomOf="@+id/label_question"
-                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[0].state}" />
+                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[0].state}" />
 
             <TextView
                 android:id="@+id/label_answer_a"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[0].state}"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:gravity="center"
                 android:layout_marginStart="@dimen/Space8x"
+                android:elevation="@dimen/dim2"
+                android:gravity="center"
                 android:text="@string/a"
-                android:elevation="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_a"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
-                app:layout_constraintTop_toTopOf="@+id/card_answer_a" />
+                app:layout_constraintTop_toTopOf="@+id/card_answer_a"
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[0].state}" />
 
             <TextView
                 android:id="@+id/text_answer_a"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:elevation="2dp"
+                android:elevation="@dimen/dim2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:text="@{viewModel.currentQuestionAnswers[0].answer}"
+                android:text="@{viewModel.currentMCQAnswers[0].answer}"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_a"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_a"
-                app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[0].state}" />
+                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[0].state}" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_answer_b"
-                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[1].state}"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
-                android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentQuestionAnswers[1])}"
+                android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentMCQAnswers[1])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
-                app:layout_constraintTop_toBottomOf="@+id/card_answer_a" />
+                app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
+                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[1].state}" />
 
             <TextView
                 android:id="@+id/label_answer_b"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[1].state}"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:gravity="center"
                 android:layout_marginStart="@dimen/Space8x"
-                android:elevation="2dp"
+                android:elevation="@dimen/dim2"
+                android:gravity="center"
                 android:text="@string/b"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_b"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
-                app:layout_constraintTop_toTopOf="@+id/card_answer_b" />
+                app:layout_constraintTop_toTopOf="@+id/card_answer_b"
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[1].state}" />
 
             <TextView
                 android:id="@+id/text_answer_b"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:elevation="2dp"
+                android:elevation="@dimen/dim2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:text="@{viewModel.currentQuestionAnswers[1].answer}"
+                android:text="@{viewModel.currentMCQAnswers[1].answer}"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_b"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_b"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_b"
-                app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[1].state}" />
+                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[1].state}" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_answer_c"
-                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[2].state}"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
-                android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentQuestionAnswers[2])}"
+                android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentMCQAnswers[2])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
-                app:layout_constraintTop_toBottomOf="@+id/card_answer_b" />
+                app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
+                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[2].state}" />
 
             <TextView
                 android:id="@+id/label_answer_c"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[2].state}"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:gravity="center"
                 android:layout_marginStart="@dimen/Space8x"
-                android:elevation="2dp"
+                android:elevation="@dimen/dim2"
+                android:gravity="center"
                 android:text="@string/c"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_c"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
-                app:layout_constraintTop_toTopOf="@+id/card_answer_c"/>
+                app:layout_constraintTop_toTopOf="@+id/card_answer_c"
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[2].state}" />
 
             <TextView
                 android:id="@+id/text_answer_c"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:elevation="2dp"
+                android:elevation="@dimen/dim2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:text="@{viewModel.currentQuestionAnswers[2].answer}"
+                android:text="@{viewModel.currentMCQAnswers[2].answer}"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_c"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_c"
-                app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[2].state}" />
+                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[2].state}" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_answer_d"
-                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[3].state}"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
-                android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentQuestionAnswers[3])}"
+                android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentMCQAnswers[3])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
-                app:layout_constraintTop_toBottomOf="@+id/card_answer_c" />
+                app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
+                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[3].state}" />
 
             <TextView
                 android:id="@+id/label_answer_d"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[3].state}"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
                 android:layout_marginStart="@dimen/Space8x"
-                android:text="@string/d"
+                android:elevation="@dimen/dim2"
                 android:gravity="center"
-                android:elevation="2dp"
+                android:text="@string/d"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_d"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_d"
-                app:layout_constraintTop_toTopOf="@+id/card_answer_d" />
+                app:layout_constraintTop_toTopOf="@+id/card_answer_d"
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[3].state}" />
 
             <TextView
                 android:id="@+id/text_answer_d"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:elevation="2dp"
+                android:elevation="@dimen/dim2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:text="@{viewModel.currentQuestionAnswers[3].answer}"
+                android:text="@{viewModel.currentMCQAnswers[3].answer}"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_d"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_d"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_d"
-                app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[3].state}" />
+                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[3].state}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/delete_two_answer_button"
@@ -271,10 +269,23 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginEnd="@dimen/Space10x"
                 android:background="@drawable/white_button_background"
+                android:enabled="@{!viewModel.isReplaceMCQUsed()}"
+                android:onClick="@{()->viewModel.onReplaceMCQClickListener()}"
                 app:layout_constraintBottom_toBottomOf="@+id/delete_two_answer_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/delete_two_answer_button"
                 app:layout_constraintTop_toTopOf="@+id/delete_two_answer_button" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="50dp"
+                android:layout_height="1dp"
+                android:elevation="2dp"
+                app:dividerColor="@color/red"
+                app:isVisible="@{viewModel.isReplaceMCQUsed()}"
+                app:layout_constraintBottom_toBottomOf="@id/replace_question_button"
+                app:layout_constraintEnd_toEndOf="@id/replace_question_button"
+                app:layout_constraintStart_toStartOf="@id/replace_question_button"
+                app:layout_constraintTop_toTopOf="@id/replace_question_button" />
 
             <View
                 android:id="@+id/delete_two_answer_icon"
@@ -297,6 +308,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/replace_question_button"
                 app:layout_constraintStart_toStartOf="@+id/replace_question_button"
                 app:layout_constraintTop_toTopOf="@+id/replace_question_button" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
