@@ -50,7 +50,13 @@ class McqViewModel : ViewModel() {
 
     private val _time = MutableLiveData(Constants.MCQ_TIMER)
     val time: LiveData<Int> get() = _time
+
     private lateinit var timer: CountdownTimer
+
+
+    private val _isMCQsClickable = MutableLiveData<Boolean>(true)
+    val isMCQsClickable: LiveData<Boolean> get() = _isMCQsClickable
+
 
     init {
         getAllMCQs()
@@ -68,11 +74,16 @@ class McqViewModel : ViewModel() {
         }
     }
 
-    private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> = repository.getQuizQuestions(difficulty)
+    private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> =
+        repository.getQuizQuestions(difficulty)
 
-    private fun onGetMCQsSuccess(state: State<QuizResponse>) = if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(state)
+    private fun onGetMCQsSuccess(state: State<QuizResponse>) =
+        if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(
+            state
+        )
 
-    private fun onGetMCQsError(throwable: Throwable) = _requestState.postValue(State.Error(requireNotNull(throwable.message)))
+    private fun onGetMCQsError(throwable: Throwable) =
+        _requestState.postValue(State.Error(requireNotNull(throwable.message)))
 
     private val allMCQsList = mutableListOf<Quiz>()
     private val forReplaceMCQsList = mutableListOf<Quiz>()
@@ -89,7 +100,9 @@ class McqViewModel : ViewModel() {
         }
     }
 
-    private fun sortMCQsAccordingToPriority(mcqList: List<Quiz?>) = mcqList.subList(0, 5).forEach { allMCQsList.add(it!!) }.also { forReplaceMCQsList.add(mcqList.last()!!) }
+    private fun sortMCQsAccordingToPriority(mcqList: List<Quiz?>) =
+        mcqList.subList(0, 5).forEach { allMCQsList.add(it!!) }
+            .also { forReplaceMCQsList.add(mcqList.last()!!) }
 
     private fun onAllMCQsSortedSuccessfully(state: State<QuizResponse>) {
         timer.start()
@@ -104,15 +117,21 @@ class McqViewModel : ViewModel() {
     }
 
     private fun setCurrentMCQAnswers(quiz: Quiz) {
-        val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }.plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled().toMutableList()
+        val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }
+            .plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled().toMutableList()
         _currentMCQAnswers.postValue(listOfAnswers)
     }
 
+
     fun onAnswerClick(answer: Answer) {
         timer.dispose()
+         _isMCQsClickable.postValue(false)
         if (answer.isCorrect) onAnswerCorrectly(answer) else onAnswerWrongly(answer)
         if (isNotLastQuestion()) goToNextMCQ() else endGame()
-    }
+
+  
+       }
+
 
     private fun onAnswerCorrectly(answer: Answer) {
         _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
@@ -128,12 +147,17 @@ class McqViewModel : ViewModel() {
     private fun isNotLastQuestion(): Boolean = currentMCQIndex.value!! < allMCQsList.lastIndex
 
     private fun goToNextMCQ() {
-        viewModelScope.launch {
-            timer.start()
-            _currentMCQIndex.value = _currentMCQIndex.value!! + 1
-            delay(1000)
-            setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
-        }
+        timer.dispose()
+        if (currentMCQIndex.value!! < allMCQsList.lastIndex) {
+            viewModelScope.launch {
+                timer.start()
+                _currentMCQIndex.value = _currentMCQIndex.value!! + 1
+                delay(1000)
+                _isMCQsClickable.postValue(true)
+                setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
+            }
+        } else endGame()
+
     }
 
     private fun endGame() = _isGameOver.postValue(true)
@@ -161,7 +185,11 @@ class McqViewModel : ViewModel() {
 
     private fun prepareTimer() {
         timer = object : CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
+
             override fun onTick(tickValue: Long) = _time.postValue(tickValue.toInt())
+
+
+
             override fun onFinish() {
                 changeAnswersStateOnTimeOut()
                 goToNextMCQ()
