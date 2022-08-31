@@ -8,13 +8,14 @@ import java.util.concurrent.TimeUnit
 
 
 abstract class CountdownTimer(private val endValue: Long, private val timeUnit: TimeUnit) {
-     private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
+    private lateinit var compositeDisposable: CompositeDisposable
 
     abstract fun onTick(tickValue: Long)
 
     abstract fun onFinish()
 
     fun start() {
+        compositeDisposable = CompositeDisposable()
         val rangeObservable = Observable.range(0, endValue.toInt())
         val intervalObservable = Observable.interval(1, timeUnit)
 

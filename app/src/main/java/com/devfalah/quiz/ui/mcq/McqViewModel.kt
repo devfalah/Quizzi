@@ -33,12 +33,17 @@ class McqViewModel : ViewModel() {
 
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
+    private val _correctAnswersCountLive = MutableLiveData<Int>()
+    val correctAnswersCount: LiveData<Int> get() = _correctAnswersCountLive
+    private var _correctAnswersCount = 0
 
     private val _currentMCQIndex = MutableLiveData(0)
     val currentMCQIndex: LiveData<Int> get() = _currentMCQIndex
 
     private val _isReplaceMCQUsed = MutableLiveData(false)
     val isReplaceMCQUsed: LiveData<Boolean> get() = _isReplaceMCQUsed
+    private val _isDelete2AnswerUsed = MutableLiveData(false)
+    val isDelete2AnswerUsed: LiveData<Boolean> get() = _isDelete2AnswerUsed
 
     private val _time = MutableLiveData<Int>(Constants.MCQ_TIMER)
     val time: LiveData<Int> get() = _time
@@ -99,13 +104,16 @@ class McqViewModel : ViewModel() {
     }
 
     private fun setCurrentMCQAnswers(quiz: Quiz) {
-        val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }.plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled()
+        val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }.plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled().toMutableList()
         _currentMCQAnswers.postValue(listOfAnswers)
     }
 
     fun onClickAnswer(answer: Answer) {
         changeAnswerState(answer)
-        if (answer.isCorrect) _score.postValue(_score.value?.plus(Constants.SCORE))
+        if (answer.isCorrect){
+            _score.postValue(_score.value?.plus(Constants.SCORE))
+            _correctAnswersCount ++
+        }
         goToNextMCQ()
 
     }
@@ -127,10 +135,11 @@ class McqViewModel : ViewModel() {
         })
     }
     private fun goToNextMCQ() {
+        timer.dispose()
+
         if (currentMCQIndex.value!! < allMCQsList.lastIndex) {
-            timer.dispose()
-            timer.start()
             CoroutineScope(Dispatchers.Main).launch {
+                timer.start()
                 delay(1000)
                 _currentMCQIndex.value = _currentMCQIndex.value!! + 1
                 setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
@@ -139,7 +148,7 @@ class McqViewModel : ViewModel() {
     }
 
     private fun endGame() {
-        // Do something here
+        _correctAnswersCountLive.postValue(_correctAnswersCount)
     }
 
     fun onReplaceMCQClickListener() {
@@ -154,6 +163,12 @@ class McqViewModel : ViewModel() {
         allMCQsList.replaceAtIndex(currentMCQIndex.value!!, newMCQ)
         setCurrentMCQ(allMCQsList[currentMCQIndex.value!!])
         _isReplaceMCQUsed.postValue(true)
+    }
+     fun onDelete2AnswerClickListener() {
+         val correctAnswer= _currentMCQAnswers.value!!.first { it.isCorrect}
+         val  incorrectAnswer= _currentMCQAnswers.value!!.first { !it.isCorrect }
+        _currentMCQAnswers.postValue(listOf(correctAnswer,incorrectAnswer))
+        _isDelete2AnswerUsed.postValue(true)
     }
 
     private fun prepareTimer(){

@@ -27,5 +27,10 @@ class McqFragment:BaseFragment<FragmentMcqBinding>(){
         binding?.exitIcon?.setOnClickListener{ v->
             v.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
         }
+
+        viewModel.correctAnswersCount.observe(this){
+            requireView().findNavController().navigate(R.id.action_mcqFragment_to_resultFragment)
+        }
+
     }
 }
