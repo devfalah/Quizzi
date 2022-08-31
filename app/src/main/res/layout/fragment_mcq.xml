@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.devfalah.quiz.ui.mcq.McqViewModel" />
@@ -54,17 +55,17 @@
                 tools:text="1/15" />
 
 
-  <TextView
-      android:id="@+id/timer_progress"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="@style/TextAppearance.AppCompat.Large"
-      android:textSize="@dimen/FontSize8x"
-      app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
-      app:layout_constraintEnd_toEndOf="@+id/progress_bar"
-      app:layout_constraintStart_toStartOf="@+id/progress_bar"
-      app:layout_constraintTop_toTopOf="@+id/progress_bar"
-      tools:text="@{viewModel.time.toString()}" />
+            <TextView
+                android:id="@+id/timer_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="@dimen/FontSize8x"
+                app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+                app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+                app:layout_constraintStart_toStartOf="@+id/progress_bar"
+                app:layout_constraintTop_toTopOf="@+id/progress_bar"
+                tools:text="@{viewModel.time.toString()}" />
 
             <View
                 android:id="@+id/exit_icon"
@@ -82,15 +83,14 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="@dimen/Space16x"
-                android:max="@{constant.MCQ_TIMER}"
-                app:progressBarDrawable="@{viewModel.time}"
-                app:progressBarValue="@{viewModel.time}"
                 android:indeterminateOnly="false"
+                android:max="@{constant.MCQ_TIMER}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/number_of_question"
+                app:progressBarDrawable="@{viewModel.time}"
+                app:progressBarValue="@{viewModel.time}"
                 tools:progress="50" />
-
 
 
             <TextView
@@ -111,6 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
+                android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentMCQAnswers[0])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/label_question"
@@ -149,6 +150,7 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
+                android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentMCQAnswers[1])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
@@ -188,6 +190,7 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
+                android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentMCQAnswers[2])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
@@ -226,6 +229,7 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
+                android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onClickAnswer(viewModel.currentMCQAnswers[3])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
@@ -265,14 +269,15 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginHorizontal="@dimen/Space10x"
                 android:layout_marginTop="@dimen/Space20x"
+                android:background="@drawable/white_button_background"
                 android:enabled="@{!viewModel.isDelete2AnswersUsed}"
                 android:onClick="@{()->viewModel.onDelete2AnswersClickListener()}"
-                android:background="@drawable/white_button_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/replace_question_button"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_d" />
+
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="50dp"
                 android:layout_height="1dp"

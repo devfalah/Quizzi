@@ -10,10 +10,11 @@ import com.devfalah.quiz.databinding.FragmentMcqBinding
 import com.devfalah.quiz.ui.base.BaseFragment
 import com.devfalah.quiz.ui.home.HomeFragmentDirections
 
-class McqFragment:BaseFragment<FragmentMcqBinding>(){
+class McqFragment : BaseFragment<FragmentMcqBinding>() {
     override val layoutId = R.layout.fragment_mcq
-    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentMcqBinding =DataBindingUtil::inflate
-    private val viewModel : McqViewModel by viewModels()
+    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentMcqBinding =
+        DataBindingUtil::inflate
+    private val viewModel: McqViewModel by viewModels()
 
     override fun setup() {
         binding?.apply {
@@ -28,13 +29,18 @@ class McqFragment:BaseFragment<FragmentMcqBinding>(){
         }
 
         viewModel.isGameOver.observe(this) { isGameOver ->
-            val action  = McqFragmentDirections.actionMcqFragmentToResultFragment(this.viewModel.correctAnswersCount.value!! , this.viewModel.score.value!!)
-            requireView().findNavController().navigate(action)
+            if (isGameOver) {
+                val action = McqFragmentDirections.actionMcqFragmentToResultFragment(
+                    this.viewModel.correctAnswersCount.value!!,
+                    this.viewModel.score.value!!
+                )
+                requireView().findNavController().navigate(action)
             }
+        }
 
-        binding?.exitIcon?.setOnClickListener{ v->
+        binding?.exitIcon?.setOnClickListener { v ->
             val action = McqFragmentDirections.actionMcqFragmentToExitDialog()
             v.findNavController().navigate(action)
-        }    
+        }
     }
 }
