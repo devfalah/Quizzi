@@ -54,6 +54,8 @@ class McqViewModel : ViewModel() {
     val time: LiveData<Int> get() = _time
     lateinit var timer: CountdownTimer
 
+    private val _isMCQsClickable = MutableLiveData<Boolean>(true)
+    val isMCQsClickable: LiveData<Boolean> get() = _isMCQsClickable
 
     init {
         getAllMCQs()
@@ -71,11 +73,16 @@ class McqViewModel : ViewModel() {
         }
     }
 
-    private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> = repository.getQuizQuestions(difficulty)
+    private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> =
+        repository.getQuizQuestions(difficulty)
 
-    private fun onGetMCQsSuccess(state: State<QuizResponse>) = if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(state)
+    private fun onGetMCQsSuccess(state: State<QuizResponse>) =
+        if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(
+            state
+        )
 
-    private fun onGetMCQsError(throwable: Throwable) = _requestState.postValue(State.Error(requireNotNull(throwable.message)))
+    private fun onGetMCQsError(throwable: Throwable) =
+        _requestState.postValue(State.Error(requireNotNull(throwable.message)))
 
     private val allMCQsList = mutableListOf<Quiz>()
     private val forReplaceMCQsList = mutableListOf<Quiz>()
@@ -92,7 +99,9 @@ class McqViewModel : ViewModel() {
         }
     }
 
-    private fun sortMCQsAccordingToPriority(mcqList: List<Quiz?>) = mcqList.subList(0, 5).forEach { allMCQsList.add(it!!) }.also { forReplaceMCQsList.add(mcqList.last()!!) }
+    private fun sortMCQsAccordingToPriority(mcqList: List<Quiz?>) =
+        mcqList.subList(0, 5).forEach { allMCQsList.add(it!!) }
+            .also { forReplaceMCQsList.add(mcqList.last()!!) }
 
     private fun onAllMCQsSortedSuccessfully(state: State<QuizResponse>) {
         _requestState.postValue(state)
@@ -106,15 +115,17 @@ class McqViewModel : ViewModel() {
     }
 
     private fun setCurrentMCQAnswers(quiz: Quiz) {
-        val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }.plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled().toMutableList()
+        val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }
+            .plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled().toMutableList()
         _currentMCQAnswers.postValue(listOfAnswers)
     }
 
     fun onClickAnswer(answer: Answer) {
         changeAnswersState(answer)
-        if (answer.isCorrect){
+        if (answer.isCorrect) {
             _score.postValue(_score.value?.plus(Constants.SCORE))
             _correctAnswersCount.value = _correctAnswersCount.value!! + 1
+            _isMCQsClickable.postValue(false)
         }
         goToNextMCQ()
     }
@@ -137,6 +148,7 @@ class McqViewModel : ViewModel() {
                 timer.start()
                 _currentMCQIndex.value = _currentMCQIndex.value!! + 1
                 delay(1000)
+                _isMCQsClickable.postValue(true)
                 setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
             }
         } else endGame()
@@ -161,8 +173,8 @@ class McqViewModel : ViewModel() {
     }
 
     fun onDelete2AnswersClickListener() {
-         val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect}
-         val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
+        val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect }
+        val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
         _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer))
         _isDelete2AnswersUsed.postValue(true)
     }
@@ -172,6 +184,7 @@ class McqViewModel : ViewModel() {
             override fun onTick(tickValue: Long) {
                 _time.postValue(tickValue.toInt())
             }
+
             override fun onFinish() {
                 changeAnswersStateOnTimeOut()
                 goToNextMCQ()
