@@ -121,11 +121,11 @@ class McqViewModel : ViewModel() {
     }
 
     fun onClickAnswer(answer: Answer) {
+        _isMCQsClickable.postValue(false)
         changeAnswersState(answer)
         if (answer.isCorrect) {
             _score.postValue(_score.value?.plus(Constants.SCORE))
             _correctAnswersCount.value = _correctAnswersCount.value!! + 1
-            _isMCQsClickable.postValue(false)
         }
         goToNextMCQ()
     }
