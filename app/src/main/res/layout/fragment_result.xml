@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.devfalah.quiz.ui.result.ResultViewModel" />
@@ -28,7 +29,7 @@
             app:layout_constraintVertical_bias="0.071"
             app:lottie_autoPlay="true"
             app:lottie_loop="false"
-            app:lottie_rawRes="@raw/congrats" />
+            app:setResultLottieAnimation="@{viewModel.correctAnswerCount}" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
