@@ -9,4 +9,5 @@ object Constants {
     const val FOR_REPLACE_MEDIUM_MCQ_INDEX = 1
     const val FOR_REPLACE_HARD_MCQ_INDEX = 2
     const val MCQ_TIMER = 30
+    const val MINIMUM_REQUIRED_ANSWER_TO_PASS = 7
 }

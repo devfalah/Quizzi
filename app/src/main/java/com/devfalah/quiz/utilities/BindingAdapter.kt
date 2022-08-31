@@ -124,7 +124,7 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
 
 @BindingAdapter(value = ["setResultLottieAnimation"])
 fun setResultLottieAnimation(view: LottieAnimationView, correctAnswerCount: Int) {
-    if (correctAnswerCount >= 7) {
+    if (correctAnswerCount >= Constants.MINIMUM_REQUIRED_ANSWER_TO_PASS) {
         view.setAnimation(R.raw.congrats)
     } else {
         view.setAnimation(R.raw.failed)
