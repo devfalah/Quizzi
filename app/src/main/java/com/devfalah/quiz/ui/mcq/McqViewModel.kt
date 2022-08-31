@@ -12,8 +12,6 @@ import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.utilities.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -41,7 +39,7 @@ class McqViewModel : ViewModel() {
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
 
-    private val _isGameOver = MutableLiveData(false)
+    private val _isGameOver = MutableLiveData<Boolean>()
     val isGameOver: LiveData<Boolean> get() = _isGameOver
 
     private val _isReplaceMCQUsed = MutableLiveData(false)
@@ -52,8 +50,7 @@ class McqViewModel : ViewModel() {
 
     private val _time = MutableLiveData(Constants.MCQ_TIMER)
     val time: LiveData<Int> get() = _time
-    lateinit var timer: CountdownTimer
-
+    private lateinit var timer: CountdownTimer
 
     init {
         getAllMCQs()
@@ -95,6 +92,7 @@ class McqViewModel : ViewModel() {
     private fun sortMCQsAccordingToPriority(mcqList: List<Quiz?>) = mcqList.subList(0, 5).forEach { allMCQsList.add(it!!) }.also { forReplaceMCQsList.add(mcqList.last()!!) }
 
     private fun onAllMCQsSortedSuccessfully(state: State<QuizResponse>) {
+        timer.start()
         _requestState.postValue(state)
         setCurrentMCQ(allMCQsList.first())
     }
@@ -110,41 +108,35 @@ class McqViewModel : ViewModel() {
         _currentMCQAnswers.postValue(listOfAnswers)
     }
 
-    fun onClickAnswer(answer: Answer) {
-        changeAnswersState(answer)
-        if (answer.isCorrect){
-            _score.postValue(_score.value?.plus(Constants.SCORE))
-            _correctAnswersCount.value = _correctAnswersCount.value!! + 1
-        }
-        goToNextMCQ()
+    fun onAnswerClick(answer: Answer) {
+        timer.dispose()
+        if (answer.isCorrect) onAnswerCorrectly(answer) else onAnswerWrongly(answer)
+        if (isNotLastQuestion()) goToNextMCQ() else endGame()
     }
 
-    private fun changeAnswersState(answer: Answer) {
-        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
-            if (answer.isCorrect) {
-                answer.state = AnswerState.SELECTED_CORRECT
-            } else {
-                answer.state = AnswerState.SELECTED_INCORRECT
-                this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
-            }
-        })
+    private fun onAnswerCorrectly(answer: Answer) {
+        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
+        _score.postValue(_score.value?.plus(Constants.SCORE))
+        _correctAnswersCount.value = _correctAnswersCount.value!! + 1
     }
+
+    private fun onAnswerWrongly(answer: Answer) = _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
+        answer.state = AnswerState.SELECTED_INCORRECT
+        this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
+    })
+
+    private fun isNotLastQuestion(): Boolean = currentMCQIndex.value!! < allMCQsList.lastIndex
 
     private fun goToNextMCQ() {
-        timer.dispose()
-        if (currentMCQIndex.value!! < allMCQsList.lastIndex) {
-            viewModelScope.launch {
-                timer.start()
-                _currentMCQIndex.value = _currentMCQIndex.value!! + 1
-                delay(1000)
-                setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
-            }
-        } else endGame()
+        viewModelScope.launch {
+            timer.start()
+            _currentMCQIndex.value = _currentMCQIndex.value!! + 1
+            delay(1000)
+            setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
+        }
     }
 
-    private fun endGame() {
-        _isGameOver.postValue(true)
-    }
+    private fun endGame() = _isGameOver.postValue(true)
 
     fun onReplaceMCQClickListener() {
         when (_currentMCQ.value!!.difficulty) {
@@ -161,7 +153,7 @@ class McqViewModel : ViewModel() {
     }
 
     fun onDelete2AnswersClickListener() {
-         val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect}
+         val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect }
          val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
         _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer))
         _isDelete2AnswersUsed.postValue(true)
@@ -169,9 +161,7 @@ class McqViewModel : ViewModel() {
 
     private fun prepareTimer() {
         timer = object : CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
-            override fun onTick(tickValue: Long) {
-                _time.postValue(tickValue.toInt())
-            }
+            override fun onTick(tickValue: Long) = _time.postValue(tickValue.toInt())
             override fun onFinish() {
                 changeAnswersStateOnTimeOut()
                 goToNextMCQ()
