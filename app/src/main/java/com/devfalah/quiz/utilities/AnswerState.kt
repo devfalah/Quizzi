@@ -1,8 +1,9 @@
 package com.devfalah.quiz.utilities
 
 enum class AnswerState {
-    CORRECT,
-    INCORRECT,
+    SELECTED_CORRECT,
+    SELECTED_INCORRECT,
     UNSELECTED,
-    TIMEOUT,
+    TIMEOUT_CORRECT,
+    TIMEOUT_INCORRECT
 }

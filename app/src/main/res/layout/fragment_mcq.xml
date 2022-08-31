@@ -7,6 +7,10 @@
         <variable
             name="viewModel"
             type="com.devfalah.quiz.ui.mcq.McqViewModel" />
+
+        <variable
+            name="constant"
+            type="com.devfalah.quiz.utilities.Constants" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,24 +83,16 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="@dimen/Space16x"
+                android:max="@{constant.MCQ_TIMER}"
+                app:progressBarDrawable="@{viewModel.time}"
+                app:progressBarValue="@{viewModel.time}"
                 android:indeterminateOnly="false"
-                android:progressDrawable="@drawable/circle_progress_bar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/number_of_question"
                 tools:progress="50" />
 
-            <TextView
-                android:id="@+id/timer_progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="@dimen/FontSize8x"
-                app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
-                app:layout_constraintEnd_toEndOf="@+id/progress_bar"
-                app:layout_constraintStart_toStartOf="@+id/progress_bar"
-                app:layout_constraintTop_toTopOf="@+id/progress_bar"
-                tools:text="@string/time" />
+
 
             <TextView
                 android:id="@+id/label_question"
@@ -105,13 +101,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/Space10x"
                 android:gravity="center"
-                android:text="@{viewModel.currentMCQ.question}"
+                android:text="@{viewModel.currentDecodedMCQ}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/progress_bar"
                 app:showWhenSuccess="@{viewModel.requestState}" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_answer_a"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -149,7 +145,7 @@
                 app:layout_constraintTop_toTopOf="@+id/label_answer_a"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[0].state}" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_answer_b"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -188,7 +184,7 @@
                 app:layout_constraintTop_toTopOf="@+id/label_answer_b"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[1].state}" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_answer_c"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -226,7 +222,7 @@
                 app:layout_constraintTop_toTopOf="@+id/label_answer_c"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[2].state}" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_answer_d"
                 android:layout_width="0dp"
                 android:layout_height="60dp"

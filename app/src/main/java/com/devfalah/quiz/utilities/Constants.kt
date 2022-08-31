@@ -8,5 +8,5 @@ object Constants {
     const val FOR_REPLACE_EASY_MCQ_INDEX = 0
     const val FOR_REPLACE_MEDIUM_MCQ_INDEX = 1
     const val FOR_REPLACE_HARD_MCQ_INDEX = 2
-    const val MCQ_TIMER = 10
+    const val MCQ_TIMER = 5
 }
