@@ -23,11 +23,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun addCallbacks() {
         binding?.let {
             it.playButton.setOnClickListener { v ->
-                Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_mcqFragment)
+                val action = HomeFragmentDirections.actionHomeFragmentToMcqFragment()
+                Navigation.findNavController(v).navigate(action)
             }
             it.howToPlayButton.setOnClickListener { v ->
+                val action = HomeFragmentDirections.actionHomeFragmentToHowToPlayDialog()
                 Navigation.findNavController(v)
-                    .navigate(R.id.action_homeFragment_to_how_to_play_dialog)
+                    .navigate(action)
             }
         }
 
