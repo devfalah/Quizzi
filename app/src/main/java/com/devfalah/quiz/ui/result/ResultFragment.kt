@@ -27,11 +27,9 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
         }
         viewModel.setResult(args.score, args.correctAnswersCount)
 
-        binding?.homeButton?.setOnClickListener() {
+        binding?.homeButton?.setOnClickListener { view ->
             val action = ResultFragmentDirections.actionResultFragmentToHomeFragment()
-            it.findNavController().navigate(action)
+            view.findNavController().navigate(action)
         }
     }
-
-
 }

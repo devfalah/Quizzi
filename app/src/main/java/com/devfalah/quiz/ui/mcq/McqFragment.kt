@@ -8,7 +8,6 @@ import androidx.navigation.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentMcqBinding
 import com.devfalah.quiz.ui.base.BaseFragment
-import com.devfalah.quiz.ui.home.HomeFragmentDirections
 
 class McqFragment : BaseFragment<FragmentMcqBinding>() {
     override val layoutId = R.layout.fragment_mcq
@@ -21,12 +20,17 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@McqFragment.viewModel
         }
-        viewModel.timer.start()
-
 
         binding?.exitIcon?.setOnClickListener { view ->
             view.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
         }
+
+
+
+        binding?.exitIcon?.setOnClickListener{ view ->
+            val action = McqFragmentDirections.actionMcqFragmentToExitDialog()
+            view.findNavController().navigate(action)
+        }    
 
         viewModel.isGameOver.observe(this) { isGameOver ->
             if (isGameOver) {
@@ -38,9 +42,6 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
             }
         }
 
-        binding?.exitIcon?.setOnClickListener { v ->
-            val action = McqFragmentDirections.actionMcqFragmentToExitDialog()
-            v.findNavController().navigate(action)
-        }
+
     }
 }
