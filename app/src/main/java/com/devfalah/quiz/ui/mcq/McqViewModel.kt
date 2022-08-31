@@ -1,6 +1,5 @@
 package com.devfalah.quiz.ui.mcq
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,14 +11,11 @@ import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.utilities.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-
-import java.util.concurrent.TimeUnit
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
+import java.util.concurrent.TimeUnit
 
 class McqViewModel : ViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
@@ -27,12 +23,10 @@ class McqViewModel : ViewModel() {
     private var _requestState = MutableLiveData<State<QuizResponse>>(State.Loading)
     val requestState: LiveData<State<QuizResponse>> get() = _requestState
 
-
     private val _currentMCQ = MutableLiveData<Quiz>()
 
     private val _currentDecodedMCQ = MutableLiveData<String>()
     val currentDecodedMCQ: LiveData<String> get() = _currentDecodedMCQ
-
 
     private val _currentMCQAnswers = MutableLiveData<List<Answer>>()
     val currentMCQAnswers: LiveData<List<Answer>> get() = _currentMCQAnswers
@@ -46,23 +40,17 @@ class McqViewModel : ViewModel() {
     private val _isReplaceMCQUsed = MutableLiveData(false)
     val isReplaceMCQUsed: LiveData<Boolean> get() = _isReplaceMCQUsed
 
-    private val _time = MutableLiveData<Long>(Constants.MCQ_TIMER.toLong())
-    val time: LiveData<Long> get() = _time
+    private val _time = MutableLiveData<Int>(Constants.MCQ_TIMER)
+    val time: LiveData<Int> get() = _time
+    lateinit var timer :CountdownTimer
+
+
 
     init {
         getAllMCQs()
+        prepareTimer()
     }
 
-     val timer = object: CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
-        override fun onTick(tickValue: Long) {
-            _time.postValue(tickValue)
-        }
-
-        override fun onFinish() {
-            goToNextMCQ()
-        }
-
-    }
 
     private fun getAllMCQs() {
         Observable.concat(
@@ -75,22 +63,12 @@ class McqViewModel : ViewModel() {
         }
     }
 
-    private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> =
-        repository.getQuizQuestions(difficulty)
-
-    private fun onGetMCQsSuccess(state: State<QuizResponse>) =
-        if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(
-            state
-        )
-
-    private fun onGetMCQsError(throwable: Throwable) =
-        _requestState.postValue(State.Error(requireNotNull(throwable.message)))
-
     private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> = repository.getQuizQuestions(difficulty)
 
     private fun onGetMCQsSuccess(state: State<QuizResponse>) = if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(state)
 
-  
+    private fun onGetMCQsError(throwable: Throwable) = _requestState.postValue(State.Error(requireNotNull(throwable.message)))
+
     private val allMCQsList = mutableListOf<Quiz>()
     private val forReplaceMCQsList = mutableListOf<Quiz>()
 
@@ -106,83 +84,18 @@ class McqViewModel : ViewModel() {
         }
     }
 
-
-    private fun sortMCQsAccordingToPriority(mcqList: List<Quiz?>) =
-        mcqList.subList(0, 5).forEach { allMCQsList.add(it!!) }
-            .also { forReplaceMCQsList.add(mcqList.last()!!) }
-
     private fun sortMCQsAccordingToPriority(mcqList: List<Quiz?>) = mcqList.subList(0, 5).forEach { allMCQsList.add(it!!) }.also { forReplaceMCQsList.add(mcqList.last()!!) }
-
 
     private fun onAllMCQsSortedSuccessfully(state: State<QuizResponse>) {
         _requestState.postValue(state)
         setCurrentMCQ(allMCQsList.first())
-
-    }
-
-    private fun setCurrentMCQ(quiz: Quiz) {
-        _currentMCQ.postValue(quiz)
-        setCurrentMCQAnswers(quiz)
-    }
-
-    private fun setCurrentMCQAnswers(quiz: Quiz) {
-        val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }
-            .plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled()
-        _currentMCQAnswers.postValue(listOfAnswers)
-    }
-
-    fun onClickAnswer(answer: Answer) {
-        changeAnswerState(answer)
-        if (answer.isCorrect) _score.postValue(_score.value?.plus(Constants.SCORE))
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(1000)
-            goToNextMCQ()
-        }
-    }
-
-    private fun goToNextMCQ() {
-        if (currentMCQIndex.value!! < allMCQsList.lastIndex) {
-            _currentMCQIndex.value = _currentMCQIndex.value!! + 1
-            setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
-        } else endGame()
-    }
-
-    private fun endGame() {
-        // Do something here
-    }
-
-    fun onReplaceMCQClickListener() {
-        when (currentMCQ.value!!.difficulty) {
-            McqDifficulty.EASY.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_EASY_MCQ_INDEX])
-            McqDifficulty.MEDIUM.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_MEDIUM_MCQ_INDEX])
-            McqDifficulty.HARD.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_HARD_MCQ_INDEX])
-        }
-    }
-
-    private fun replaceMCQ(newMCQ: Quiz) {
-        allMCQsList.replaceAtIndex(currentMCQIndex.value!!, newMCQ)
-        setCurrentMCQ(allMCQsList[currentMCQIndex.value!!])
-        _isReplaceMCQUsed.postValue(true)
-    }
-
-    private fun changeAnswerState(answer: Answer) {
-        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
-            if (answer.isCorrect) {
-                answer.state = AnswerState.CORRECT
-            } else {
-                answer.state = AnswerState.INCORRECT
-                this.filter { it.isCorrect }.forEach { it.state = AnswerState.CORRECT }
-            }
-        })
-    }
-}
-
     }
 
     private fun setCurrentMCQ(quiz: Quiz) {
         _currentMCQ.postValue(quiz)
         _currentDecodedMCQ.postValue(quiz.question!!.decodeHtml())
         setCurrentMCQAnswers(quiz)
+
     }
 
     private fun setCurrentMCQAnswers(quiz: Quiz) {
@@ -191,15 +104,37 @@ class McqViewModel : ViewModel() {
     }
 
     fun onClickAnswer(answer: Answer) {
+        changeAnswerState(answer)
         if (answer.isCorrect) _score.postValue(_score.value?.plus(Constants.SCORE))
         goToNextMCQ()
+
     }
 
+    private fun changeAnswerState(answer: Answer) {
+        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
+            if (answer.isCorrect) {
+                answer.state = AnswerState.SELECTED_CORRECT
+            } else {
+                answer.state = AnswerState.SELECTED_INCORRECT
+                this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
+            }
+        })
+    }
+    private fun changeAnswerState(){
+        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.onEach {
+            if (it.isCorrect) it.state = AnswerState.TIMEOUT_CORRECT
+            else it.state = AnswerState.TIMEOUT_INCORRECT
+        })
+    }
     private fun goToNextMCQ() {
         if (currentMCQIndex.value!! < allMCQsList.lastIndex) {
-            _currentMCQIndex.value = _currentMCQIndex.value!! + 1
-            setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
+            timer.dispose()
             timer.start()
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(1000)
+                _currentMCQIndex.value = _currentMCQIndex.value!! + 1
+                setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
+            }
         } else endGame()
     }
 
@@ -221,5 +156,16 @@ class McqViewModel : ViewModel() {
         _isReplaceMCQUsed.postValue(true)
     }
 
-}
+    private fun prepareTimer(){
+        timer = object: CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
+            override fun onTick(tickValue: Long) {
+                _time.postValue(tickValue.toInt())
+            }
+            override fun onFinish() {
+                changeAnswerState()
+                goToNextMCQ()
+            }
+        }
+    }
 
+}
