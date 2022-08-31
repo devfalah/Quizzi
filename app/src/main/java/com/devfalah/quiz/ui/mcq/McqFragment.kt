@@ -17,10 +17,12 @@ class McqFragment:BaseFragment<FragmentMcqBinding>(){
     private val viewModel : McqViewModel by viewModels()
 
     override fun setup() {
+
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@McqFragment.viewModel
         }
+        viewModel.timer.start()
 
         binding?.exitIcon?.setOnClickListener{ v->
             v.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)

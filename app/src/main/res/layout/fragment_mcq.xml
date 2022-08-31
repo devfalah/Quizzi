@@ -50,6 +50,19 @@
                 app:layout_constraintTop_toTopOf="@+id/label_score"
                 tools:text="1/15" />
 
+
+  <TextView
+      android:id="@+id/timer_progress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/TextAppearance.AppCompat.Large"
+      android:textSize="@dimen/FontSize8x"
+      app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+      app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+      app:layout_constraintStart_toStartOf="@+id/progress_bar"
+      app:layout_constraintTop_toTopOf="@+id/progress_bar"
+      tools:text="@{viewModel.time.toString()}" />
+
             <View
                 android:id="@+id/exit_icon"
                 android:layout_width="24dp"
@@ -59,6 +72,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/label_score"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/label_score" />
+
 
             <ProgressBar
                 android:id="@+id/progress_bar"
