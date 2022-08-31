@@ -3,14 +3,13 @@ package com.devfalah.quiz.utilities
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.devfalah.quiz.R
-import com.devfalah.quiz.data.model.Answer
+import com.devfalah.quiz.utilities.enums.AnswerState
 import com.google.android.material.card.MaterialCardView
 
 

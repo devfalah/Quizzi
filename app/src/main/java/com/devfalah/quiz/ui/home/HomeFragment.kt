@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentHomeBinding
 import com.devfalah.quiz.ui.base.BaseFragment
+import com.devfalah.quiz.utilities.goToFragment
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -15,24 +16,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         DataBindingUtil::inflate
 
     override fun setup() {
-
         addCallbacks()
     }
 
 
     private fun addCallbacks() {
         binding?.let {
-            it.playButton.setOnClickListener { v ->
-                val action = HomeFragmentDirections.actionHomeFragmentToMcqFragment()
-                Navigation.findNavController(v).navigate(action)
+            it.playButton.setOnClickListener { view ->
+                view.goToFragment(HomeFragmentDirections.actionHomeFragmentToMcqFragment())
             }
-            it.howToPlayButton.setOnClickListener { v ->
-                val action = HomeFragmentDirections.actionHomeFragmentToHowToPlayDialog()
-                Navigation.findNavController(v)
-                    .navigate(action)
+            it.howToPlayButton.setOnClickListener { view ->
+                view.goToFragment(HomeFragmentDirections.actionHomeFragmentToHowToPlayDialog())
             }
         }
-
     }
 
 }

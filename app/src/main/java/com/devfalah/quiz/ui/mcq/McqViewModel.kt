@@ -10,6 +10,8 @@ import com.devfalah.quiz.data.model.QuizResponse
 import com.devfalah.quiz.data.repository.QuizRepositoryImp
 import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.utilities.*
+import com.devfalah.quiz.utilities.enums.AnswerState
+import com.devfalah.quiz.utilities.enums.McqDifficulty
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.delay

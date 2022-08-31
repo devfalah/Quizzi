@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentMcqBinding
 import com.devfalah.quiz.ui.base.BaseFragment
+import com.devfalah.quiz.utilities.goToFragment
 
 class McqFragment : BaseFragment<FragmentMcqBinding>() {
     override val layoutId = R.layout.fragment_mcq
@@ -20,28 +21,28 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@McqFragment.viewModel
         }
+        addCallbacks()
+        goToResultFragmentWhenGameOver()
 
-        binding?.exitIcon?.setOnClickListener { view ->
-            view.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
+    }
+
+
+    private fun addCallbacks(){
+        binding!!.exitIcon.setOnClickListener{ view ->
+            view.goToFragment(McqFragmentDirections.actionMcqFragmentToExitDialog())
         }
+    }
 
 
-
-        binding?.exitIcon?.setOnClickListener{ view ->
-            val action = McqFragmentDirections.actionMcqFragmentToExitDialog()
-            view.findNavController().navigate(action)
-        }    
-
+    private fun goToResultFragmentWhenGameOver(){
         viewModel.isGameOver.observe(this) { isGameOver ->
             if (isGameOver) {
                 val action = McqFragmentDirections.actionMcqFragmentToResultFragment(
                     this.viewModel.correctAnswersCount.value!!,
                     this.viewModel.score.value!!
                 )
-                requireView().findNavController().navigate(action)
+                requireView().goToFragment(action)
             }
         }
-
-
     }
 }
