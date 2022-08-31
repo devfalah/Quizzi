@@ -16,7 +16,7 @@ abstract class CountdownTimer(private val endValue: Long, private val timeUnit: 
 
     fun start() {
         compositeDisposable = CompositeDisposable()
-        val rangeObservable = Observable.range(0, endValue.toInt())
+        val rangeObservable = Observable.range(1, endValue.toInt())
         val intervalObservable = Observable.interval(1, timeUnit)
 
         Observable.zip(

@@ -3,6 +3,7 @@ package com.devfalah.quiz.ui.mcq
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.devfalah.quiz.data.model.Answer
 import com.devfalah.quiz.data.model.Quiz
 import com.devfalah.quiz.data.model.QuizResponse
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeUnit
 class McqViewModel : ViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
 
-    private var _requestState = MutableLiveData<State<QuizResponse>>(State.Loading)
+    private val _requestState = MutableLiveData<State<QuizResponse>>(State.Loading)
     val requestState: LiveData<State<QuizResponse>> get() = _requestState
 
     private val _currentMCQ = MutableLiveData<Quiz>()
@@ -28,34 +29,36 @@ class McqViewModel : ViewModel() {
     private val _currentDecodedMCQ = MutableLiveData<String>()
     val currentDecodedMCQ: LiveData<String> get() = _currentDecodedMCQ
 
-    private val _currentMCQAnswers = MutableLiveData<List<Answer>>()
-    val currentMCQAnswers: LiveData<List<Answer>> get() = _currentMCQAnswers
-
-    private val _score = MutableLiveData(0)
-    val score: LiveData<Int> get() = _score
-    private val _correctAnswersCountLive = MutableLiveData<Int>()
-    val correctAnswersCount: LiveData<Int> get() = _correctAnswersCountLive
-    private var _correctAnswersCount = 0
-
     private val _currentMCQIndex = MutableLiveData(0)
     val currentMCQIndex: LiveData<Int> get() = _currentMCQIndex
 
+    private val _currentMCQAnswers = MutableLiveData<List<Answer>>()
+    val currentMCQAnswers: LiveData<List<Answer>> get() = _currentMCQAnswers
+
+    private var _correctAnswersCount = MutableLiveData(0)
+    val correctAnswersCount: LiveData<Int> get() = _correctAnswersCount
+
+    private val _score = MutableLiveData(0)
+    val score: LiveData<Int> get() = _score
+
+    private val _isGameOver = MutableLiveData(false)
+    val isGameOver: LiveData<Boolean> get() = _isGameOver
+
     private val _isReplaceMCQUsed = MutableLiveData(false)
     val isReplaceMCQUsed: LiveData<Boolean> get() = _isReplaceMCQUsed
-    private val _isDelete2AnswerUsed = MutableLiveData(false)
-    val isDelete2AnswerUsed: LiveData<Boolean> get() = _isDelete2AnswerUsed
 
-    private val _time = MutableLiveData<Int>(Constants.MCQ_TIMER)
+    private val _isDelete2AnswersUsed = MutableLiveData(false)
+    val isDelete2AnswersUsed: LiveData<Boolean> get() = _isDelete2AnswersUsed
+
+    private val _time = MutableLiveData(Constants.MCQ_TIMER)
     val time: LiveData<Int> get() = _time
-    lateinit var timer :CountdownTimer
-
+    lateinit var timer: CountdownTimer
 
 
     init {
         getAllMCQs()
         prepareTimer()
     }
-
 
     private fun getAllMCQs() {
         Observable.concat(
@@ -100,7 +103,6 @@ class McqViewModel : ViewModel() {
         _currentMCQ.postValue(quiz)
         _currentDecodedMCQ.postValue(quiz.question!!.decodeHtml())
         setCurrentMCQAnswers(quiz)
-
     }
 
     private fun setCurrentMCQAnswers(quiz: Quiz) {
@@ -109,16 +111,15 @@ class McqViewModel : ViewModel() {
     }
 
     fun onClickAnswer(answer: Answer) {
-        changeAnswerState(answer)
+        changeAnswersState(answer)
         if (answer.isCorrect){
             _score.postValue(_score.value?.plus(Constants.SCORE))
-            _correctAnswersCount ++
+            _correctAnswersCount.value = _correctAnswersCount.value!! + 1
         }
         goToNextMCQ()
-
     }
 
-    private fun changeAnswerState(answer: Answer) {
+    private fun changeAnswersState(answer: Answer) {
         _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
             if (answer.isCorrect) {
                 answer.state = AnswerState.SELECTED_CORRECT
@@ -128,27 +129,21 @@ class McqViewModel : ViewModel() {
             }
         })
     }
-    private fun changeAnswerState(){
-        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.onEach {
-            if (it.isCorrect) it.state = AnswerState.TIMEOUT_CORRECT
-            else it.state = AnswerState.TIMEOUT_INCORRECT
-        })
-    }
+
     private fun goToNextMCQ() {
         timer.dispose()
-
         if (currentMCQIndex.value!! < allMCQsList.lastIndex) {
-            CoroutineScope(Dispatchers.Main).launch {
+            viewModelScope.launch {
                 timer.start()
-                delay(1000)
                 _currentMCQIndex.value = _currentMCQIndex.value!! + 1
+                delay(1000)
                 setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
             }
         } else endGame()
     }
 
     private fun endGame() {
-        _correctAnswersCountLive.postValue(_correctAnswersCount)
+        _isGameOver.postValue(true)
     }
 
     fun onReplaceMCQClickListener() {
@@ -164,23 +159,30 @@ class McqViewModel : ViewModel() {
         setCurrentMCQ(allMCQsList[currentMCQIndex.value!!])
         _isReplaceMCQUsed.postValue(true)
     }
-     fun onDelete2AnswerClickListener() {
-         val correctAnswer= _currentMCQAnswers.value!!.first { it.isCorrect}
-         val  incorrectAnswer= _currentMCQAnswers.value!!.first { !it.isCorrect }
-        _currentMCQAnswers.postValue(listOf(correctAnswer,incorrectAnswer))
-        _isDelete2AnswerUsed.postValue(true)
+
+    fun onDelete2AnswersClickListener() {
+         val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect}
+         val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
+        _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer))
+        _isDelete2AnswersUsed.postValue(true)
     }
 
-    private fun prepareTimer(){
-        timer = object: CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
+    private fun prepareTimer() {
+        timer = object : CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
             override fun onTick(tickValue: Long) {
                 _time.postValue(tickValue.toInt())
             }
             override fun onFinish() {
-                changeAnswerState()
+                changeAnswersStateOnTimeOut()
                 goToNextMCQ()
             }
         }
     }
 
+    private fun changeAnswersStateOnTimeOut() {
+        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.onEach {
+            if (it.isCorrect) it.state = AnswerState.TIMEOUT_CORRECT
+            else it.state = AnswerState.TIMEOUT_INCORRECT
+        })
+    }
 }

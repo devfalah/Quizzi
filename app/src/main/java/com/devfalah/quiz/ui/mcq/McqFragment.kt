@@ -1,5 +1,6 @@
 package com.devfalah.quiz.ui.mcq
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -17,7 +18,6 @@ class McqFragment:BaseFragment<FragmentMcqBinding>(){
     private val viewModel : McqViewModel by viewModels()
 
     override fun setup() {
-
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@McqFragment.viewModel
@@ -28,9 +28,9 @@ class McqFragment:BaseFragment<FragmentMcqBinding>(){
             v.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
         }
 
-        viewModel.correctAnswersCount.observe(this){
-            requireView().findNavController().navigate(R.id.action_mcqFragment_to_resultFragment)
+        viewModel.isGameOver.observe(this) {
+            Log.d("MALT", "Correct Answers Count: ${viewModel.correctAnswersCount.value}")
+            if (it) requireView().findNavController().navigate(R.id.action_mcqFragment_to_resultFragment)
         }
-
     }
 }

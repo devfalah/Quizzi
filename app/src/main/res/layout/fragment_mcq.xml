@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.devfalah.quiz.ui.mcq.McqViewModel" />
@@ -266,8 +265,8 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginHorizontal="@dimen/Space10x"
                 android:layout_marginTop="@dimen/Space20x"
-                android:enabled="@{!viewModel.isDelete2AnswerUsed}"
-                android:onClick="@{()->viewModel.onDelete2AnswerClickListener()}"
+                android:enabled="@{!viewModel.isDelete2AnswersUsed}"
+                android:onClick="@{()->viewModel.onDelete2AnswersClickListener()}"
                 android:background="@drawable/white_button_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/replace_question_button"
@@ -279,7 +278,7 @@
                 android:layout_height="1dp"
                 android:elevation="2dp"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.isDelete2AnswerUsed}"
+                app:isVisible="@{viewModel.isDelete2AnswersUsed}"
                 app:layout_constraintBottom_toBottomOf="@id/delete_two_answer_button"
                 app:layout_constraintEnd_toEndOf="@id/delete_two_answer_button"
                 app:layout_constraintStart_toStartOf="@id/delete_two_answer_button"
