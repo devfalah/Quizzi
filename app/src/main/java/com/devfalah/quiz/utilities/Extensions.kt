@@ -1,5 +1,6 @@
 package com.devfalah.quiz.utilities
 
+import android.text.Html
 import com.devfalah.quiz.data.model.Answer
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -25,4 +26,8 @@ fun String.toMCQAnswer(isCorrect: Boolean) = Answer(this, isCorrect)
 fun <E> MutableList<E>.replaceAtIndex(index: Int, newValue: E) {
     this.removeAt(index)
     this.add(index, newValue)
+
 }
+
+fun String.decodeHtml(): String = Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT).toString()
+

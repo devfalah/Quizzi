@@ -29,6 +29,7 @@ fun <T> showWhenLoading(view: View, state: State<T>?) {
 @BindingAdapter(value = ["isVisible"])
 fun showIfTrue(view: View, status: Boolean) {
     view.isVisible = status
+
 }
 
 @BindingAdapter(value = ["app:setAnswerBackgroundColor"])
@@ -90,4 +91,5 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
         }
         else -> {}
     }
+
 }
