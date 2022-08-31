@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentMcqBinding
 import com.devfalah.quiz.ui.base.BaseFragment
+import com.devfalah.quiz.ui.home.HomeFragmentDirections
 
 class McqFragment:BaseFragment<FragmentMcqBinding>(){
     override val layoutId = R.layout.fragment_mcq
@@ -25,11 +26,13 @@ class McqFragment:BaseFragment<FragmentMcqBinding>(){
         viewModel.timer.start()
 
         binding?.exitIcon?.setOnClickListener{ v->
-            v.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
+            val action = McqFragmentDirections.actionMcqFragmentToExitDialog()
+            v.findNavController().navigate(action)
         }
 
         viewModel.correctAnswersCount.observe(this){
-            requireView().findNavController().navigate(R.id.action_mcqFragment_to_resultFragment)
+            val action  = McqFragmentDirections.actionMcqFragmentToResultFragment(this.viewModel.correctAnswersCount.value!! , this.viewModel.score.value!!)
+            requireView().findNavController().navigate(action)
         }
 
     }
