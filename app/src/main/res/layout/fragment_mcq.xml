@@ -104,20 +104,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/progress_bar"
-                app:showWhenSuccess="@{viewModel.requestState}" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_answer_a"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="@dimen/Space8x"
-                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[0])}"
-                android:clickable="@{viewModel.isMCQsClickable()}"
-                app:cardCornerRadius="@dimen/Radius4X"
-                app:layout_constraintEnd_toEndOf="@+id/label_question"
-                app:layout_constraintStart_toStartOf="@+id/label_question"
-                app:layout_constraintTop_toBottomOf="@+id/label_question"
-                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[0].state}" />
+                app:showWhenSuccess="@{viewModel.requestState}"
+                tools:text="question"/>
 
             <TextView
                 android:id="@+id/label_answer_a"
@@ -137,26 +125,30 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/dim2"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
                 android:text="@{viewModel.currentMCQAnswers[0].answer}"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_a"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_a"
-                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[0].state}" />
+                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[0].state}"
+                tools:text="answer a"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_answer_b"
+                android:id="@+id/card_answer_a"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
-                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[1])}"
+                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[0])}"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 app:cardCornerRadius="@dimen/Radius4X"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
-                app:layout_constraintStart_toStartOf="@+id/card_answer_a"
-                app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
-                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[1].state}" />
+                app:layout_constraintEnd_toEndOf="@+id/label_question"
+                app:layout_constraintStart_toStartOf="@+id/label_question"
+                app:layout_constraintTop_toBottomOf="@+id/label_question"
+                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[0].state}" />
+
 
             <TextView
                 android:id="@+id/label_answer_b"
@@ -177,8 +169,10 @@
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/dim2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:text="@{viewModel.currentMCQAnswers[1].answer}"
-                android:textColor="@color/black"
+                android:ellipsize="end"
+                android:maxLines="2"
+                tools:text="answer b"
+                android:text="@{viewModel.currentMCQAnswers[1].answer}"                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_b"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_b"
@@ -186,17 +180,17 @@
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[1].state}" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_answer_c"
+                android:id="@+id/card_answer_b"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
-                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[2])}"
+                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[1])}"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 app:cardCornerRadius="@dimen/Radius4X"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
-                app:layout_constraintStart_toStartOf="@+id/card_answer_b"
-                app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
-                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[2].state}" />
+                app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
+                app:layout_constraintStart_toStartOf="@+id/card_answer_a"
+                app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
+                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[1].state}" />
 
             <TextView
                 android:id="@+id/label_answer_c"
@@ -216,26 +210,29 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/dim2"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
                 android:text="@{viewModel.currentMCQAnswers[2].answer}"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_c"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_c"
-                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[2].state}" />
+                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[2].state}"
+                tools:text="answer c"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_answer_d"
+                android:id="@+id/card_answer_c"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/Space8x"
-                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[3])}"
+                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[2])}"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 app:cardCornerRadius="@dimen/Radius4X"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
-                app:layout_constraintStart_toStartOf="@+id/card_answer_c"
-                app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
-                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[3].state}" />
+                app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
+                app:layout_constraintStart_toStartOf="@+id/card_answer_b"
+                app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
+                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[2].state}" />
 
             <TextView
                 android:id="@+id/label_answer_d"
@@ -255,20 +252,37 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/dim2"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
                 android:text="@{viewModel.currentMCQAnswers[3].answer}"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_d"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_d"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_d"
-                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[3].state}" />
+                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[3].state}"
+                tools:text="answer d"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_answer_d"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/Space8x"
+                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[3])}"
+                android:clickable="@{viewModel.isMCQsClickable()}"
+                app:cardCornerRadius="@dimen/Radius4X"
+                app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
+                app:layout_constraintStart_toStartOf="@+id/card_answer_c"
+                app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
+                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[3].state}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/delete_two_answer_button"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height"
                 android:layout_marginHorizontal="@dimen/Space10x"
-                android:layout_marginTop="@dimen/Space20x"
+                android:layout_marginTop="@dimen/Space8x"
+                android:layout_marginBottom="@dimen/Space16x"
                 android:background="@drawable/white_button_background"
                 android:enabled="@{!viewModel.isDelete2AnswersUsed}"
                 android:onClick="@{()->viewModel.onDelete2AnswersClickListener()}"
@@ -281,7 +295,7 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="50dp"
                 android:layout_height="1dp"
-                android:elevation="2dp"
+                android:elevation="@dimen/dim2"
                 app:dividerColor="@color/red"
                 app:isVisible="@{viewModel.isDelete2AnswersUsed}"
                 app:layout_constraintBottom_toBottomOf="@id/delete_two_answer_button"
@@ -293,19 +307,18 @@
                 android:id="@+id/replace_question_button"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height"
-                android:layout_marginEnd="@dimen/Space10x"
                 android:background="@drawable/white_button_background"
                 android:enabled="@{!viewModel.isReplaceMCQUsed}"
                 android:onClick="@{()->viewModel.onReplaceMCQClickListener()}"
                 app:layout_constraintBottom_toBottomOf="@+id/delete_two_answer_button"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/text_answer_d"
                 app:layout_constraintStart_toEndOf="@+id/delete_two_answer_button"
                 app:layout_constraintTop_toTopOf="@+id/delete_two_answer_button" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="50dp"
                 android:layout_height="1dp"
-                android:elevation="2dp"
+                android:elevation="@dimen/dim2"
                 app:dividerColor="@color/red"
                 app:isVisible="@{viewModel.isReplaceMCQUsed()}"
                 app:layout_constraintBottom_toBottomOf="@id/replace_question_button"
