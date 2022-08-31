@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentMcqBinding
@@ -18,22 +16,25 @@ class McqFragment:BaseFragment<FragmentMcqBinding>(){
     private val viewModel : McqViewModel by viewModels()
 
     override fun setup() {
-
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@McqFragment.viewModel
         }
         viewModel.timer.start()
 
+
+        binding?.exitIcon?.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
+        }
+
+        viewModel.isGameOver.observe(this) { isGameOver ->
+            val action  = McqFragmentDirections.actionMcqFragmentToResultFragment(this.viewModel.correctAnswersCount.value!! , this.viewModel.score.value!!)
+            requireView().findNavController().navigate(action)
+            }
+
         binding?.exitIcon?.setOnClickListener{ v->
             val action = McqFragmentDirections.actionMcqFragmentToExitDialog()
             v.findNavController().navigate(action)
-        }
-
-        viewModel.correctAnswersCount.observe(this){
-            val action  = McqFragmentDirections.actionMcqFragmentToResultFragment(this.viewModel.correctAnswersCount.value!! , this.viewModel.score.value!!)
-            requireView().findNavController().navigate(action)
-        }
-
+        }    
     }
 }
