@@ -1,12 +1,9 @@
 package com.devfalah.quiz.ui.mcq
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentMcqBinding
@@ -24,13 +21,12 @@ class McqFragment:BaseFragment<FragmentMcqBinding>(){
         }
         viewModel.timer.start()
 
-        binding?.exitIcon?.setOnClickListener{ v->
-            v.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
+        binding?.exitIcon?.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_mcqFragment_to_exit_dialog)
         }
 
-        viewModel.isGameOver.observe(this) {
-            Log.d("MALT", "Correct Answers Count: ${viewModel.correctAnswersCount.value}")
-            if (it) requireView().findNavController().navigate(R.id.action_mcqFragment_to_resultFragment)
+        viewModel.isGameOver.observe(this) { isGameOver ->
+            if (isGameOver) requireView().findNavController().navigate(R.id.action_mcqFragment_to_resultFragment)
         }
     }
 }
