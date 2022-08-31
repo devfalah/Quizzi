@@ -43,12 +43,10 @@
     <style name="ChoiceTextStyle.NotSelectedAlphabet">
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/dark_text</item>
-        <item name="android:background">@drawable/circle</item>
     </style>
 
     <style name="ChoiceTextStyle.SelectedAlphabet">
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/circle_white</item>
     </style>
 
     <style name="ChoiceTextStyle.SelectedAlphabet.Correct">

@@ -11,6 +11,11 @@ import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.utilities.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 
 class McqViewModel : ViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
@@ -18,10 +23,12 @@ class McqViewModel : ViewModel() {
     private var _requestState = MutableLiveData<State<QuizResponse>>(State.Loading)
     val requestState: LiveData<State<QuizResponse>> get() = _requestState
 
+
     private val _currentMCQ = MutableLiveData<Quiz>()
 
     private val _currentDecodedMCQ = MutableLiveData<String>()
     val currentDecodedMCQ: LiveData<String> get() = _currentDecodedMCQ
+
 
     private val _currentMCQAnswers = MutableLiveData<List<Answer>>()
     val currentMCQAnswers: LiveData<List<Answer>> get() = _currentMCQAnswers
@@ -50,12 +57,22 @@ class McqViewModel : ViewModel() {
         }
     }
 
+    private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> =
+        repository.getQuizQuestions(difficulty)
+
+    private fun onGetMCQsSuccess(state: State<QuizResponse>) =
+        if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(
+            state
+        )
+
+    private fun onGetMCQsError(throwable: Throwable) =
+        _requestState.postValue(State.Error(requireNotNull(throwable.message)))
+
     private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> = repository.getQuizQuestions(difficulty)
 
     private fun onGetMCQsSuccess(state: State<QuizResponse>) = if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(state)
 
-    private fun onGetMCQsError(throwable: Throwable) = _requestState.postValue(State.Error(requireNotNull(throwable.message)))
-
+  
     private val allMCQsList = mutableListOf<Quiz>()
     private val forReplaceMCQsList = mutableListOf<Quiz>()
 
@@ -71,11 +88,77 @@ class McqViewModel : ViewModel() {
         }
     }
 
+
+    private fun sortMCQsAccordingToPriority(mcqList: List<Quiz?>) =
+        mcqList.subList(0, 5).forEach { allMCQsList.add(it!!) }
+            .also { forReplaceMCQsList.add(mcqList.last()!!) }
+
     private fun sortMCQsAccordingToPriority(mcqList: List<Quiz?>) = mcqList.subList(0, 5).forEach { allMCQsList.add(it!!) }.also { forReplaceMCQsList.add(mcqList.last()!!) }
+
 
     private fun onAllMCQsSortedSuccessfully(state: State<QuizResponse>) {
         _requestState.postValue(state)
         setCurrentMCQ(allMCQsList.first())
+
+    }
+
+    private fun setCurrentMCQ(quiz: Quiz) {
+        _currentMCQ.postValue(quiz)
+        setCurrentMCQAnswers(quiz)
+    }
+
+    private fun setCurrentMCQAnswers(quiz: Quiz) {
+        val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }
+            .plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled()
+        _currentMCQAnswers.postValue(listOfAnswers)
+    }
+
+    fun onClickAnswer(answer: Answer) {
+        changeAnswerState(answer)
+        if (answer.isCorrect) _score.postValue(_score.value?.plus(Constants.SCORE))
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(1000)
+            goToNextMCQ()
+        }
+    }
+
+    private fun goToNextMCQ() {
+        if (currentMCQIndex.value!! < allMCQsList.lastIndex) {
+            _currentMCQIndex.value = _currentMCQIndex.value!! + 1
+            setCurrentMCQ(allMCQsList[_currentMCQIndex.value!!])
+        } else endGame()
+    }
+
+    private fun endGame() {
+        // Do something here
+    }
+
+    fun onReplaceMCQClickListener() {
+        when (currentMCQ.value!!.difficulty) {
+            McqDifficulty.EASY.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_EASY_MCQ_INDEX])
+            McqDifficulty.MEDIUM.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_MEDIUM_MCQ_INDEX])
+            McqDifficulty.HARD.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_HARD_MCQ_INDEX])
+        }
+    }
+
+    private fun replaceMCQ(newMCQ: Quiz) {
+        allMCQsList.replaceAtIndex(currentMCQIndex.value!!, newMCQ)
+        setCurrentMCQ(allMCQsList[currentMCQIndex.value!!])
+        _isReplaceMCQUsed.postValue(true)
+    }
+
+    private fun changeAnswerState(answer: Answer) {
+        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
+            if (answer.isCorrect) {
+                answer.state = AnswerState.CORRECT
+            } else {
+                answer.state = AnswerState.INCORRECT
+                this.filter { it.isCorrect }.forEach { it.state = AnswerState.CORRECT }
+            }
+        })
+    }
+}
+
     }
 
     private fun setCurrentMCQ(quiz: Quiz) {
@@ -120,3 +203,4 @@ class McqViewModel : ViewModel() {
     }
 
 }
+

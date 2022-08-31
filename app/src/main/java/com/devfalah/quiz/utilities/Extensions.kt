@@ -26,6 +26,8 @@ fun String.toMCQAnswer(isCorrect: Boolean) = Answer(this, isCorrect)
 fun <E> MutableList<E>.replaceAtIndex(index: Int, newValue: E) {
     this.removeAt(index)
     this.add(index, newValue)
+
 }
 
 fun String.decodeHtml(): String = Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT).toString()
+
