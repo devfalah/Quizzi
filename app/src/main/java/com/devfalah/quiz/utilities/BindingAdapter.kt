@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
+import com.airbnb.lottie.LottieAnimationView
 import com.devfalah.quiz.R
+import com.devfalah.quiz.data.model.Answer
 import com.google.android.material.card.MaterialCardView
 
 
@@ -35,18 +37,20 @@ fun showIfTrue(view: View, status: Boolean) {
 }
 
 @BindingAdapter(value = ["app:progressBarValue"])
-fun  setProgressBarValue(view: ProgressBar, value:Int?) {
+fun setProgressBarValue(view: ProgressBar, value: Int?) {
     view.progress = value!!
 }
+
 @BindingAdapter(value = ["app:progressBarDrawable"])
-fun  setProgressBarDrawable(view: ProgressBar, value:Int?) {
-    view.progressDrawable = if(value!!.toInt() > 10){
-          ContextCompat.getDrawable(view.context , R.drawable.circle_progress_bar)
-    }else{
-        ContextCompat.getDrawable(view.context , R.drawable.red_progressbar)
+fun setProgressBarDrawable(view: ProgressBar, value: Int?) {
+    view.progressDrawable = if (value!!.toInt() > 10) {
+        ContextCompat.getDrawable(view.context, R.drawable.circle_progress_bar)
+    } else {
+        ContextCompat.getDrawable(view.context, R.drawable.red_progressbar)
 
     }
 }
+
 @BindingAdapter(value = ["app:setAnswerBackgroundColor"])
 fun setAnswerBackgroundColor(view: MaterialCardView, state: AnswerState?) {
     when (state) {
@@ -83,9 +87,7 @@ fun setAnswerBodyTextStyle(view: TextView, state: AnswerState?) {
         AnswerState.SELECTED_CORRECT -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_SelectedBody)
         }
-        AnswerState.TIMEOUT_CORRECT ,
-        AnswerState.TIMEOUT_CORRECT ->
-        {
+        AnswerState.TIMEOUT_CORRECT -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedBody)
         }
         AnswerState.SELECTED_INCORRECT -> {
@@ -106,8 +108,8 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_SelectedAlphabet_Correct)
             view.setBackgroundResource(R.drawable.circle_white)
         }
-            AnswerState.TIMEOUT_INCORRECT ,
-            AnswerState.TIMEOUT_CORRECT -> {
+        AnswerState.TIMEOUT_INCORRECT,
+        AnswerState.TIMEOUT_CORRECT -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedAlphabet)
             view.setBackgroundResource(R.drawable.circle)
         }
@@ -120,3 +122,11 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
 
 }
 
+@BindingAdapter(value = ["setResultLottieAnimation"])
+fun setResultLottieAnimation(view: LottieAnimationView, correctAnswerCount: Int) {
+    if (correctAnswerCount >= 7) {
+        view.setAnimation(R.raw.congrats)
+    } else {
+        view.setAnimation(R.raw.failed)
+    }
+}
