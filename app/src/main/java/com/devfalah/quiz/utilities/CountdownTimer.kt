@@ -23,8 +23,7 @@ abstract class CountdownTimer(private val endValue: Long, private val timeUnit: 
             rangeObservable, intervalObservable
         ) { i: Int, l: Long ->
             endValue - i
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(::onNext, ::onError, ::onComplete)
+        }.observeOnMainThread().subscribe(::onNext, ::onError, ::onComplete)
             .add(compositeDisposable)
     }
 
