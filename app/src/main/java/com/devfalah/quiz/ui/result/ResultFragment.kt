@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentResultBinding
 import com.devfalah.quiz.ui.base.BaseFragment
+import com.devfalah.quiz.utilities.goToFragment
 
 
 class ResultFragment : BaseFragment<FragmentResultBinding>() {
@@ -26,10 +25,14 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             viewModel = this@ResultFragment.viewModel
         }
         viewModel.setResult(args.score, args.correctAnswersCount)
+        addCallbacks()
 
-        binding?.homeButton?.setOnClickListener { view ->
-            val action = ResultFragmentDirections.actionResultFragmentToHomeFragment()
-            view.findNavController().navigate(action)
+    }
+
+
+    private fun addCallbacks() {
+        binding!!.homeButton.setOnClickListener { view ->
+            view.goToFragment(ResultFragmentDirections.actionResultFragmentToHomeFragment())
         }
     }
 }
