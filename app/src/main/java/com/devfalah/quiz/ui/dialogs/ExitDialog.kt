@@ -9,9 +9,17 @@ class ExitDialogFragment :BaseDialogFragment<FragmentDialogExitBinding>(){
     override val layoutId = R.layout.fragment_dialog_exit
     override fun bindingInflater() =FragmentDialogExitBinding.inflate(layoutInflater)
     override fun setup() {
+        setOnExitButtonClickListener()
+        setOnCloseIconClickListener()
+
+    }
+
+    private fun setOnCloseIconClickListener(){
         binding.closeIcon.setOnClickListener {
             this.findNavController().popBackStack()
         }
+    }
+    private fun setOnExitButtonClickListener(){
         binding.exitButton.setOnClickListener {
             this.findNavController().navigate(ExitDialogFragmentDirections.actionExitDialogToHomeFragment())
         }

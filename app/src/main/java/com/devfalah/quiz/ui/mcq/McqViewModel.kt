@@ -176,8 +176,8 @@ class McqViewModel : ViewModel() {
     fun onDelete2AnswersClickListener() {
          val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect }
          val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
-        _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer))
-        _isDelete2AnswersUsed.postValue(true)
+        _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer).shuffled())
+//        _isDelete2AnswersUsed.postValue(true)
     }
 
     private fun prepareTimer() {
