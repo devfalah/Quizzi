@@ -28,7 +28,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/play_button"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
+            android:layout_height="wrap_content"
             style="@style/ButtonTextStyle.Main"
             android:text="@string/play"
             android:layout_marginHorizontal="@dimen/Space8x"
@@ -41,7 +41,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/how_to_play_button"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
+            android:layout_height="wrap_content"
             style="@style/ButtonTextStyle.Second"
             android:text="@string/how_to_play"
             android:layout_marginHorizontal="@dimen/Space8x"
