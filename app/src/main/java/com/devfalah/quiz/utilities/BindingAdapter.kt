@@ -12,7 +12,6 @@ import com.devfalah.quiz.R
 import com.devfalah.quiz.utilities.enums.AnswerState
 import com.google.android.material.card.MaterialCardView
 
-
 @BindingAdapter(value = ["app:showWhenSuccess"])
 fun <T> showWhenSuccess(view: View, state: State<T>?) {
     view.isVisible = (state is State.Success)
@@ -115,4 +114,4 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
 }
 
 @BindingAdapter(value = ["setResultLottieAnimation"])
-fun setResultLottieAnimation(view: LottieAnimationView, correctAnswerCount: Int) = if (correctAnswerCount >= Constants.MINIMUM_REQUIRED_ANSWER_TO_PASS) view.setAnimation(R.raw.congrats) else view.setAnimation(R.raw.failed)
+fun setResultLottieAnimation(view: LottieAnimationView, correctAnswersCount: Int) = if (correctAnswersCount >= Constants.MINIMUM_REQUIRED_CORRECT_ANSWERS_TO_PASS) view.setAnimation(R.raw.congrats) else view.setAnimation(R.raw.failed)

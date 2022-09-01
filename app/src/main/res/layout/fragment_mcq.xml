@@ -176,7 +176,6 @@
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
                 android:text="@{viewModel.currentMCQAnswers[1].answer}"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_b"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_b"
@@ -338,8 +337,8 @@
 
             <View
                 android:id="@+id/delete_two_answer_icon"
-                android:layout_width="29dp"
-                android:layout_height="29dp"
+                android:layout_width="28dp"
+                android:layout_height="20dp"
                 android:background="@drawable/ic_delete_two_answer_icon"
                 android:elevation="@dimen/Space1x"
                 app:layout_constraintBottom_toBottomOf="@+id/delete_two_answer_button"

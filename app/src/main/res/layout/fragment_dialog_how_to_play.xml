@@ -7,8 +7,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="335dp"
-        android:layout_height="320dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/dialog_background"
         android:padding="16dp">
@@ -31,7 +31,8 @@
             android:padding="@dimen/Space4x"
             android:src="@drawable/ic_dialog_close_vector"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/red"/>
 
         <ImageView
             android:id="@+id/dialog_image_1"
@@ -49,7 +50,7 @@
             android:id="@+id/dialog_image_2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="@dimen/Space6x"
+            android:layout_marginTop="@dimen/Space8x"
             android:background="@drawable/main_icon_background"
             android:padding="@dimen/Space4x"
             android:src="@drawable/ic_dialog_vector2"
@@ -60,7 +61,7 @@
             android:id="@+id/dialog_image_3"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="@dimen/Space6x"
+            android:layout_marginTop="@dimen/Space8x"
             android:background="@drawable/main_icon_background"
             android:padding="@dimen/Space4x"
             android:src="@drawable/ic_dialog_vector3"
@@ -71,7 +72,7 @@
             android:id="@+id/dialog_image_4"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="@dimen/Space6x"
+            android:layout_marginTop="@dimen/Space8x"
             android:background="@drawable/main_icon_background"
             android:padding="@dimen/Space4x"
             android:src="@drawable/ic_dialog_vector4"
