@@ -8,7 +8,6 @@
 
 
 
-
     <!--    Spaces-->
     <dimen name="Space0x">0dp</dimen>
     <dimen name="Space1x">2dp</dimen>
@@ -30,17 +29,12 @@
     <dimen name="FontSize8x">16sp</dimen>
     <dimen name="FontSize9x">18sp</dimen>
     <dimen name="FontSize10x">20sp</dimen>
+    <dimen name="FontSize11x">26sp</dimen>
 
     <!--    Radius Sizes-->
     <dimen name="Radius2X">4dp</dimen>
     <dimen name="Radius4X">8dp</dimen>
 
-
-
-    <dimen name="larg_text_size">20sp</dimen>
-    <dimen name="big_text_size">26sp</dimen>
-    <dimen name="medum_text_size">16sp</dimen>
-    <dimen name="small_text_size">14sp</dimen>
 
 
     <dimen name="animation_size">255dp</dimen>
