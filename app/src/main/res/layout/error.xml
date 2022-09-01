@@ -13,7 +13,7 @@
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_error"
             android:layout_width="0dp"
-            android:layout_height="@dimen/animation_size"
+            android:layout_height="@dimen/Space128x"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/error"
