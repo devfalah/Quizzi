@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/Space8x"
+        android:layout_gravity="center"
+        android:background="@drawable/dialog_background"
+        android:padding="@dimen/Space8x">
+
+        <ImageButton
+            android:id="@+id/close_icon"
+            android:layout_width="@dimen/Space15x"
+            android:layout_height="@dimen/Space15x"
+            android:background="@drawable/main_icon_background"
+            android:backgroundTint="@color/background_color"
+            android:padding="@dimen/Space4x"
+            android:src="@drawable/ic_dialog_close_vector"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/red"
+            android:contentDescription="@string/close_dialog" />
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exit_dialog_title"
+            style="@style/DialogTextStyle.Head"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/warning_animation"
+            android:layout_width="@dimen/Space62x"
+            android:layout_height="@dimen/Space62x"
+            android:layout_marginTop="@dimen/Space4x"
+            app:lottie_rawRes="@raw/warning"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/Space8x"
+            android:text="@string/exit_subtitle"
+            android:textAlignment="center"
+            style="@style/DialogTextStyle.SubTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/warning_animation"
+            android:layout_marginTop="@dimen/Space4x"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/exit_button"
+
+            android:layout_width="@dimen/Space0x"
+            android:layout_height="wrap_content"
+            android:text="@string/exit"
+            style="@style/ButtonTextStyle.Main"
+            app:layout_constraintTop_toBottomOf="@id/subtitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/close_icon"
+            app:layout_constraintStart_toStartOf="@id/dialog_title"
+            android:layout_marginTop="@dimen/Space8x"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,3 +1,34 @@
 <resources>
-    <string name="app_name">Quiz</string>
+    <string name="app_name">Quizzi</string>
+    <string name="play">Play</string>
+    <string name="how_to_play">How to play?</string>
+    <string name="dialog_title">How to play</string>
+    <string name="instructions_1">15 Question</string>
+    <string name="instructions_2">30 sec</string>
+    <string name="instructions_3">Get 700 score</string>
+    <string name="instructions_4">Use helpers</string>
+    <string name="instructions_1_sub_title">$100 for each correct answer</string>
+    <string name="instructions_2_sub_title">Duration for each question</string>
+    <string name="instructions_3_sub_title">Minimum passing score</string>
+    <string name="instructions_4_sub_title">Delete two wrong answers (50:50) \nor replace the question.</string>
+    <string name="exit_dialog_title">Are you sure?</string>
+    <string name="exit">Exit</string>
+    <string name="exit_subtitle">If you exit now, you will lose all your points.</string>
+    <string name="score_gained">Score Gained</string>
+    <string name="_120">120</string>
+    <string name="answered_questions">Answered Questions</string>
+    <string name="_8">8</string>
+    <string name="home">Home</string>
+    <string name="a">A</string>
+    <string name="the_question">In any programming language, what is the most common way to iterate through an array?</string>
+    <string name="time">0:30</string>
+    <string name="b">B</string>
+    <string name="c">C</string>
+    <string name="d">D</string>
+    <string name="error_hint">Ooops!</string>
+    <string name="error_description">It seems there is something wrong with your Internet connection. Please connect to the Internet and try again.</string>
+    <string name="try_again">Try again</string>
+    <string name="loading">Loading…</string>
+    <string name="close_dialog">Close Dialog</string>
+
 </resources>

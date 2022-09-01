@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.devfalah.quiz.ui.result.ResultViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screen_bg"
+        android:paddingHorizontal="@dimen/Space8x"
+        android:paddingTop="@dimen/Space16x"
+        tools:context=".ui.result.ResultFragment">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/Space150x"
+            android:layout_marginHorizontal="@dimen/Space8x"
+            app:layout_constraintBottom_toBottomOf="@+id/card_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.071"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:setResultLottieAnimation="@{viewModel.correctAnswersCount}" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="117dp"
+            app:cardBackgroundColor="@color/card_bg"
+            app:cardCornerRadius="@dimen/Space4x"
+            app:cardElevation="@dimen/Space0x"
+            app:layout_constraintBottom_toTopOf="@+id/home_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.156"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/Space8x"
+                android:layout_marginVertical="@dimen/Space9x">
+
+                <ImageView
+                    android:id="@+id/ic_scores"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/layer_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/score_gained" />
+
+                <TextView
+                    android:id="@+id/score_gained"
+                    style="@style/DialogTextStyle.Title"
+                    android:layout_width="@dimen/Space0x"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/Space8x"
+                    android:layout_marginBottom="@dimen/Space9x"
+                    android:layout_weight="1"
+                    android:text="@string/score_gained"
+                    app:layout_constraintBottom_toTopOf="@+id/divider"
+                    app:layout_constraintStart_toEndOf="@+id/ic_scores"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_gained"
+                    style="@style/DialogTextStyle.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/Space9x"
+
+                    android:text="@{viewModel.score.toString()}"
+                    app:layout_constraintBottom_toTopOf="@+id/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/Space1x"
+                    android:layout_marginTop="@dimen/Space9x"
+                    android:layout_marginBottom="@dimen/Space9x"
+                    app:dividerColor="@color/screen_bg"
+                    app:layout_constraintBottom_toTopOf="@+id/ic_answered_questions"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_scores"
+                    tools:layout_editor_absoluteX="@dimen/Space0x" />
+
+                <ImageView
+                    android:id="@+id/ic_answered_questions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/Space9x"
+                    android:src="@drawable/layer_check"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider"
+                    android:contentDescription="@string/answered_questions" />
+
+                <TextView
+                    android:id="@+id/answered_questions"
+                    style="@style/DialogTextStyle.Title"
+                    android:layout_width="@dimen/Space0x"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/Space8x"
+                    android:layout_marginTop="@dimen/Space9x"
+                    android:layout_weight="1"
+                    android:text="@string/answered_questions"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ic_answered_questions"
+                    app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+                <TextView
+                    android:id="@+id/tv_answered_questions"
+                    style="@style/DialogTextStyle.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/Space9x"
+                    android:text="@{viewModel.correctAnswersCount.toString()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/home_button"
+            style="@style/ButtonTextStyle.Main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Space8x"
+            android:text="@string/home"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
