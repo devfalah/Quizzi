@@ -26,8 +26,4 @@ abstract class BaseDialogFragment<VB : ViewDataBinding> : DialogFragment() {
         setup()
         return _binding.root
     }
-
-
-
-
 }

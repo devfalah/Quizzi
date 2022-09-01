@@ -8,11 +8,9 @@ import com.devfalah.quiz.data.model.Answer
 import com.devfalah.quiz.utilities.enums.AnswerState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-
 
 fun <T> Observable<T>.observeOnMainThread() :Observable<T>{
    return subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
