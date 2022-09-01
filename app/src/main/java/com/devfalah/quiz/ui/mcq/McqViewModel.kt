@@ -55,8 +55,7 @@ class McqViewModel : ViewModel() {
 
     private lateinit var timer: CountdownTimer
 
-
-    private val _isMCQsClickable = MutableLiveData<Boolean>(true)
+    private val _isMCQsClickable = MutableLiveData(true)
     val isMCQsClickable: LiveData<Boolean> get() = _isMCQsClickable
 
 
@@ -124,16 +123,12 @@ class McqViewModel : ViewModel() {
         _currentMCQAnswers.postValue(listOfAnswers)
     }
 
-
     fun onAnswerClick(answer: Answer) {
         timer.dispose()
          _isMCQsClickable.postValue(false)
         if (answer.isCorrect) onAnswerCorrectly(answer) else onAnswerWrongly(answer)
         if (isNotLastQuestion()) goToNextMCQ() else endGame()
-
-  
-       }
-
+    }
 
     private fun onAnswerCorrectly(answer: Answer) {
         _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
@@ -181,16 +176,13 @@ class McqViewModel : ViewModel() {
     fun onDelete2AnswersClickListener() {
          val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect }
          val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
-        _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer))
-        _isDelete2AnswersUsed.postValue(true)
+        _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer).shuffled())
+//        _isDelete2AnswersUsed.postValue(true)
     }
 
     private fun prepareTimer() {
         timer = object : CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
-
             override fun onTick(tickValue: Long) = _time.postValue(tickValue.toInt())
-
-
 
             override fun onFinish() {
                 changeAnswersStateOnTimeOut()
@@ -204,5 +196,10 @@ class McqViewModel : ViewModel() {
             if (it.isCorrect) it.state = AnswerState.TIMEOUT_CORRECT
             else it.state = AnswerState.TIMEOUT_INCORRECT
         })
+    }
+
+    fun tryPlayingAgain() {
+        _requestState.postValue(State.Loading)
+        getAllMCQs()
     }
 }

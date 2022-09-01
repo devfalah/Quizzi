@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="button_width">343dp</dimen>
-
-    <dimen name="button_height">40dp</dimen>
-
-
-
-
     <!--    Spaces-->
     <dimen name="Space0x">0dp</dimen>
     <dimen name="Space1x">2dp</dimen>
@@ -19,8 +12,16 @@
     <dimen name="Space9x">18dp</dimen>
     <dimen name="Space10x">18dp</dimen>
     <dimen name="Space12x">24dp</dimen>
+    <dimen name="Space14x">28dp</dimen>
+    <dimen name="Space15x">30dp</dimen>
     <dimen name="Space16x">32dp</dimen>
+    <dimen name="Space17x">34dp</dimen>
     <dimen name="Space20x">40dp</dimen>
+    <dimen name="Space25x">50dp</dimen>
+    <dimen name="Space30x">60dp</dimen>
+    <dimen name="Space62x">125dp</dimen>
+    <dimen name="Space100x">200dp</dimen>
+    <dimen name="Space128x">256dp</dimen>
     <dimen name="Space150x">300dp</dimen>
 
     <!--    Font Sizes-->
@@ -30,17 +31,5 @@
     <dimen name="FontSize9x">18sp</dimen>
     <dimen name="FontSize10x">20sp</dimen>
     <dimen name="FontSize11x">26sp</dimen>
-
-    <!--    Radius Sizes-->
-    <dimen name="Radius2X">4dp</dimen>
-    <dimen name="Radius4X">8dp</dimen>
-
-
-
-    <dimen name="animation_size">255dp</dimen>
-
-    <dimen name="dim2">2dp</dimen>
-    <dimen name="dim40">40dp</dimen>
-    <dimen name="dim32">38dp</dimen>
 
 </resources>

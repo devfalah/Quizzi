@@ -1,11 +1,8 @@
 package com.devfalah.quiz.utilities
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
-
 
 abstract class CountdownTimer(private val endValue: Long, private val timeUnit: TimeUnit) {
     private lateinit var compositeDisposable: CompositeDisposable
@@ -21,10 +18,9 @@ abstract class CountdownTimer(private val endValue: Long, private val timeUnit: 
 
         Observable.zip(
             rangeObservable, intervalObservable
-        ) { i: Int, l: Long ->
+        ) { i: Int, _: Long ->
             endValue - i
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(::onNext, ::onError, ::onComplete)
+        }.observeOnMainThread().subscribe(::onNext, ::onError, ::onComplete)
             .add(compositeDisposable)
     }
 

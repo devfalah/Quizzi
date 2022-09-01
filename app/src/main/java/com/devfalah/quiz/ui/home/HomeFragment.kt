@@ -2,13 +2,12 @@ package com.devfalah.quiz.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentHomeBinding
 import com.devfalah.quiz.ui.base.BaseFragment
 import com.devfalah.quiz.utilities.goToFragment
-
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val layoutId = R.layout.fragment_home
@@ -19,7 +18,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         addCallbacks()
     }
 
-
     private fun addCallbacks() {
         binding?.let {
             it.playButton.setOnClickListener { view ->
@@ -28,7 +26,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             it.howToPlayButton.setOnClickListener { view ->
                 view.goToFragment(HomeFragmentDirections.actionHomeFragmentToHowToPlayDialog())
             }
+            setOnBackButtonClickListener()
         }
     }
 
+    private fun setOnBackButtonClickListener() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
 }
