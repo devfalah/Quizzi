@@ -60,7 +60,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/exit_button"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
+            android:layout_height="wrap_content"
             android:text="@string/exit"
             style="@style/ButtonTextStyle.Main"
             app:layout_constraintBottom_toBottomOf="parent"
