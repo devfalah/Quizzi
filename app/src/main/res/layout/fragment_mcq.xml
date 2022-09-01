@@ -70,8 +70,8 @@
 
             <View
                 android:id="@+id/exit_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/Space12x"
+                android:layout_height="@dimen/Space12x"
                 android:layout_marginEnd="@dimen/Space10x"
                 android:background="@drawable/ic_sign_in_score"
                 app:layout_constraintBottom_toBottomOf="@+id/label_score"
@@ -81,8 +81,8 @@
 
             <ProgressBar
                 android:id="@+id/progress_bar"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="@dimen/Space100x"
+                android:layout_height="@dimen/Space100x"
                 android:layout_marginTop="@dimen/Space16x"
                 android:indeterminateOnly="false"
                 android:max="@{constant.MCQ_TIMER}"
@@ -97,7 +97,7 @@
             <TextView
                 android:id="@+id/label_question"
                 style="@style/QuestionTextStyle"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/Space10x"
                 android:gravity="center"
@@ -110,10 +110,10 @@
 
             <TextView
                 android:id="@+id/label_answer_a"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="@dimen/Space17x"
+                android:layout_height="@dimen/Space17x"
                 android:layout_marginStart="@dimen/Space8x"
-                android:elevation="@dimen/dim2"
+                android:elevation="@dimen/Space1x"
                 android:gravity="center"
                 android:text="@string/a"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_a"
@@ -124,9 +124,9 @@
 
             <TextView
                 android:id="@+id/text_answer_a"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/dim2"
+                android:elevation="@dimen/Space1x"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
@@ -140,12 +140,12 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_answer_a"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/Space0x"
+                android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[0])}"
-                app:cardCornerRadius="@dimen/Radius4X"
+                app:cardCornerRadius="@dimen/Space4x"
                 app:layout_constraintEnd_toEndOf="@+id/label_question"
                 app:layout_constraintStart_toStartOf="@+id/label_question"
                 app:layout_constraintTop_toBottomOf="@+id/label_question"
@@ -155,10 +155,10 @@
 
             <TextView
                 android:id="@+id/label_answer_b"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="@dimen/Space17x"
+                android:layout_height="@dimen/Space17x"
                 android:layout_marginStart="@dimen/Space8x"
-                android:elevation="@dimen/dim2"
+                android:elevation="@dimen/Space1x"
                 android:gravity="center"
                 android:text="@string/b"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_b"
@@ -169,9 +169,9 @@
 
             <TextView
                 android:id="@+id/text_answer_b"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/dim2"
+                android:elevation="@dimen/Space1x"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
@@ -185,12 +185,12 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_answer_b"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/Space0x"
+                android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[1])}"
-                app:cardCornerRadius="@dimen/Radius4X"
+                app:cardCornerRadius="@dimen/Space4x"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
@@ -199,10 +199,10 @@
 
             <TextView
                 android:id="@+id/label_answer_c"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="@dimen/Space17x"
+                android:layout_height="@dimen/Space17x"
                 android:layout_marginStart="@dimen/Space8x"
-                android:elevation="@dimen/dim2"
+                android:elevation="@dimen/Space1x"
                 android:gravity="center"
                 android:text="@string/c"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_c"
@@ -213,9 +213,9 @@
 
             <TextView
                 android:id="@+id/text_answer_c"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/dim2"
+                android:elevation="@dimen/Space1x"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
@@ -229,12 +229,12 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_answer_c"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/Space0x"
+                android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[2])}"
-                app:cardCornerRadius="@dimen/Radius4X"
+                app:cardCornerRadius="@dimen/Space4x"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
@@ -243,10 +243,10 @@
 
             <TextView
                 android:id="@+id/label_answer_d"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="@dimen/Space17x"
+                android:layout_height="@dimen/Space17x"
                 android:layout_marginStart="@dimen/Space8x"
-                android:elevation="@dimen/dim2"
+                android:elevation="@dimen/Space1x"
                 android:gravity="center"
                 android:text="@string/d"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_d"
@@ -257,9 +257,9 @@
 
             <TextView
                 android:id="@+id/text_answer_d"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/dim2"
+                android:elevation="@dimen/Space1x"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
@@ -273,12 +273,12 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_answer_d"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/Space0x"
+                android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[3])}"
-                app:cardCornerRadius="@dimen/Radius4X"
+                app:cardCornerRadius="@dimen/Space4x"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
@@ -287,7 +287,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/delete_two_answer_button"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/Space4x"
                 android:layout_marginBottom="@dimen/Space16x"
@@ -300,9 +300,9 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:layout_width="50dp"
-                android:layout_height="1dp"
-                android:elevation="@dimen/dim2"
+                android:layout_width="@dimen/Space25x"
+                android:layout_height="@dimen/Space1x"
+                android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
                 app:isVisible="@{viewModel.isDelete2AnswersUsed}"
                 app:layout_constraintBottom_toBottomOf="@id/delete_two_answer_button"
@@ -312,22 +312,21 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/replace_question_button"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/Space4x"
                 android:background="@drawable/white_button_background"
                 android:enabled="@{!viewModel.isReplaceMCQUsed}"
                 android:onClick="@{()->viewModel.onReplaceMCQClickListener()}"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintStart_toEndOf="@+id/delete_two_answer_button"
                 app:layout_constraintTop_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/delete_two_answer_button" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:layout_width="50dp"
-                android:layout_height="1dp"
-                android:elevation="@dimen/dim2"
+                android:layout_width="@dimen/Space25x"
+                android:layout_height="@dimen/Space1x"
+                android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
                 app:isVisible="@{viewModel.isReplaceMCQUsed()}"
                 app:layout_constraintBottom_toBottomOf="@id/replace_question_button"
@@ -337,8 +336,8 @@
 
             <View
                 android:id="@+id/delete_two_answer_icon"
-                android:layout_width="28dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/Space14x"
+                android:layout_height="@dimen/Space10x"
                 android:background="@drawable/ic_delete_two_answer_icon"
                 android:elevation="@dimen/Space1x"
                 app:layout_constraintBottom_toBottomOf="@+id/delete_two_answer_button"
@@ -348,8 +347,8 @@
 
             <View
                 android:id="@+id/replace_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/Space15x"
+                android:layout_height="@dimen/Space15x"
                 android:background="@drawable/ic_replace_question_icon"
                 android:elevation="@dimen/Space1x"
                 app:layout_constraintBottom_toBottomOf="@+id/replace_question_button"
