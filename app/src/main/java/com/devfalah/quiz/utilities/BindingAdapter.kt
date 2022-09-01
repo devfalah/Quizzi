@@ -9,6 +9,7 @@ import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.devfalah.quiz.R
+import com.devfalah.quiz.utilities.enums.AnswerState
 import com.google.android.material.card.MaterialCardView
 
 @BindingAdapter(value = ["app:showWhenSuccess"])
@@ -26,7 +27,10 @@ fun <T> showWhenError(view: View, state: State<T>?) {
 fun <T> showWhenLoading(view: View, state: State<T>?) {
     view.isVisible = (state is State.Loading)
 }
-
+@BindingAdapter(value = ["app:showWhenIsNotEmpty"])
+fun <T> showWhenIsNotEmpty(view: View, value: String?) {
+    view.isVisible = (value != null)
+}
 @BindingAdapter(value = ["isVisible"])
 fun showIfTrue(view: View, status: Boolean) {
     view.isVisible = status
