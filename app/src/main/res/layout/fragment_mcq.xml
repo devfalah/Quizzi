@@ -13,10 +13,12 @@
             type="com.devfalah.quiz.utilities.Constants" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_color">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout"
@@ -28,8 +30,8 @@
                 android:id="@+id/label_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/Space5x"
-                android:layout_marginTop="@dimen/Space20x"
+                android:layout_marginStart="@dimen/Space8x"
+                android:layout_marginTop="@dimen/Space8x"
                 android:background="@drawable/score_background"
                 android:drawablePadding="@dimen/Space2x"
                 android:padding="@dimen/Space2x"
@@ -70,9 +72,9 @@
 
             <View
                 android:id="@+id/exit_icon"
+                android:layout_marginEnd="@dimen/Space8x"
                 android:layout_width="@dimen/Space12x"
                 android:layout_height="@dimen/Space12x"
-                android:layout_marginEnd="@dimen/Space10x"
                 android:background="@drawable/ic_sign_in_score"
                 app:layout_constraintBottom_toBottomOf="@+id/label_score"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,9 +83,9 @@
 
             <ProgressBar
                 android:id="@+id/progress_bar"
-                android:layout_width="@dimen/Space100x"
-                android:layout_height="@dimen/Space100x"
-                android:layout_marginTop="@dimen/Space16x"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="@dimen/Space12x"
                 android:indeterminateOnly="false"
                 android:max="@{constant.MCQ_TIMER}"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -97,16 +99,21 @@
             <TextView
                 android:id="@+id/label_question"
                 style="@style/QuestionTextStyle"
+                android:layout_marginHorizontal="@dimen/Space8x"
+                android:layout_marginTop="@dimen/Space4x"
+                android:ellipsize="end"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/Space10x"
                 android:gravity="center"
+                android:maxLines="4"
                 android:text="@{viewModel.currentDecodedMCQ}"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/progress_bar"
+                app:layout_constraintVertical_chainStyle="packed"
                 app:showWhenSuccess="@{viewModel.requestState}"
-                tools:text="question" />
+                tools:text="question " />
 
             <TextView
                 android:id="@+id/label_answer_a"
@@ -145,8 +152,9 @@
                 android:layout_marginTop="@dimen/Space8x"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[0])}"
-                app:cardCornerRadius="@dimen/Space4x"
+                app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/label_question"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/label_question"
                 app:layout_constraintTop_toBottomOf="@+id/label_question"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[0].state}"
@@ -171,11 +179,12 @@
                 android:id="@+id/text_answer_b"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/Space1x"
+                android:elevation="@dimen/dim2"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
                 android:text="@{viewModel.currentMCQAnswers[1].answer}"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_b"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_b"
@@ -190,8 +199,9 @@
                 android:layout_marginTop="@dimen/Space8x"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[1])}"
-                app:cardCornerRadius="@dimen/Space4x"
+                app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[1].state}"
@@ -234,8 +244,9 @@
                 android:layout_marginTop="@dimen/Space8x"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[2])}"
-                app:cardCornerRadius="@dimen/Space4x"
+                app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[2].state}"
@@ -278,8 +289,9 @@
                 android:layout_marginTop="@dimen/Space8x"
                 android:clickable="@{viewModel.isMCQsClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[3])}"
-                app:cardCornerRadius="@dimen/Space4x"
+                app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[3].state}"
@@ -287,10 +299,11 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/delete_two_answer_button"
-                android:layout_width="@dimen/Space0x"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/Space4x"
-                android:layout_marginBottom="@dimen/Space16x"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginHorizontal="@dimen/Space10x"
+                android:layout_marginTop="@dimen/Space20x"
+                android:layout_marginBottom="@dimen/Space12x"
                 android:background="@drawable/white_button_background"
                 android:enabled="@{!viewModel.isDelete2AnswersUsed}"
                 android:onClick="@{()->viewModel.onDelete2AnswersClickListener()}"
@@ -358,6 +371,8 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
         <include
             android:id="@+id/loading"
             layout="@layout/loading"
@@ -371,4 +386,7 @@
             app:showWhenError="@{viewModel.requestState}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </layout>

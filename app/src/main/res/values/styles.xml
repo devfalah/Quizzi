@@ -19,7 +19,7 @@
     <!--    Question Text Styles-->
     <style name="QuestionTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/blue</item>
-        <item name="android:textSize">@dimen/FontSize10x</item>
+        <item name="android:textSize">@dimen/FontSize8x</item>
         <item name="textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
 
