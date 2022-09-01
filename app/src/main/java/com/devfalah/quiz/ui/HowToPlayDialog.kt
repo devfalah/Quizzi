@@ -9,6 +9,4 @@ class HowToPlayDialogFragment : BaseDialogFragment<FragmentDialogHowToPlayBindin
     override val layoutId: Int = R.layout.fragment_dialog_how_to_play
     override fun bindingInflater(): FragmentDialogHowToPlayBinding = FragmentDialogHowToPlayBinding.inflate(layoutInflater)
     override fun setCloseButton() = binding.closeIcon
-
-
 }

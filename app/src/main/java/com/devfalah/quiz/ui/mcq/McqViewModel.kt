@@ -175,4 +175,9 @@ class McqViewModel : ViewModel() {
             else it.state = AnswerState.TIMEOUT_INCORRECT
         })
     }
+
+    fun tryPlayingAgain() {
+        _requestState.postValue(State.Loading)
+        getAllMCQs()
+    }
 }

@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
-import androidx.viewbinding.ViewBinding
 
-
-abstract class BaseDialogFragment<VB : ViewDataBinding> : DialogFragment() {
+abstract class BaseDialogFragment<VB: ViewDataBinding> : DialogFragment() {
     abstract val layoutId: Int
 
     abstract fun setCloseButton(): View
@@ -18,8 +16,8 @@ abstract class BaseDialogFragment<VB : ViewDataBinding> : DialogFragment() {
 
     abstract fun bindingInflater(): VB
     private lateinit var _binding: VB
-    val binding: VB
-        get() = _binding
+    val binding: VB get() = _binding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,18 +26,17 @@ abstract class BaseDialogFragment<VB : ViewDataBinding> : DialogFragment() {
         _binding = bindingInflater()
         closeButton = setCloseButton()
         addCallbacks()
+        dialog?.setCancelable(false)
         return _binding.root
     }
 
-
-    fun addCallbacks(){
+    fun addCallbacks() {
         hideDialog()
     }
+
     private fun hideDialog() {
-        closeButton.setOnClickListener{
+        closeButton.setOnClickListener {
             this.findNavController().popBackStack()
         }
     }
-
-
 }

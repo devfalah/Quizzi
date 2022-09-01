@@ -3,16 +3,13 @@ package com.devfalah.quiz.utilities
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.devfalah.quiz.R
-import com.devfalah.quiz.data.model.Answer
 import com.google.android.material.card.MaterialCardView
-
 
 @BindingAdapter(value = ["app:showWhenSuccess"])
 fun <T> showWhenSuccess(view: View, state: State<T>?) {
@@ -113,4 +110,4 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
 }
 
 @BindingAdapter(value = ["setResultLottieAnimation"])
-fun setResultLottieAnimation(view: LottieAnimationView, correctAnswerCount: Int) = if (correctAnswerCount >= Constants.MINIMUM_REQUIRED_ANSWER_TO_PASS) view.setAnimation(R.raw.congrats) else view.setAnimation(R.raw.failed)
+fun setResultLottieAnimation(view: LottieAnimationView, correctAnswersCount: Int) = if (correctAnswersCount >= Constants.MINIMUM_REQUIRED_CORRECT_ANSWERS_TO_PASS) view.setAnimation(R.raw.congrats) else view.setAnimation(R.raw.failed)
