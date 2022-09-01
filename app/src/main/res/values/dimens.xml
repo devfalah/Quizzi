@@ -35,8 +35,6 @@
     <dimen name="Radius2X">4dp</dimen>
     <dimen name="Radius4X">8dp</dimen>
 
-
-
     <dimen name="animation_size">255dp</dimen>
 
     <dimen name="dim2">2dp</dimen>

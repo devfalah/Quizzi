@@ -48,8 +48,7 @@
         android:id="@+id/how_to_play_dialog"
         android:name="com.devfalah.quiz.ui.dialogs.HowToPlayDialogFragment"
         android:label="How to play"
-        tools:layout="@layout/fragment_dialog_how_to_play"
-        >
+        tools:layout="@layout/fragment_dialog_how_to_play">
         <action
             android:id="@+id/action_how_to_play_dialog_pop_including_homeFragment2"
             app:popUpTo="@id/homeFragment"
@@ -63,8 +62,7 @@
         android:id="@+id/exit_dialog"
         android:name="com.devfalah.quiz.ui.dialogs.ExitDialogFragment"
         android:label="Exit"
-        tools:layout="@layout/fragment_dialog_exit"
-        >
+        tools:layout="@layout/fragment_dialog_exit">
 
         <action
             android:id="@+id/action_exit_dialog_to_mcqFragment"
@@ -73,5 +71,10 @@
             app:popUpTo="@id/mcqFragment"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_exit_dialog_to_home_fragment"
+            app:destination="@id/homeFragment"
+            app:popUpToSaveState="false"/>
     </dialog>
 </navigation>
