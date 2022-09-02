@@ -179,7 +179,7 @@
                 android:id="@+id/text_answer_b"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/dim2"
+                android:elevation="@dimen/Space1x"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
@@ -300,7 +300,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/delete_two_answer_button"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/button_height"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/Space10x"
                 android:layout_marginTop="@dimen/Space20x"
                 android:layout_marginBottom="@dimen/Space12x"

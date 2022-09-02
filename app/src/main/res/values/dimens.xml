@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="button_height">40dp</dimen>
     <!--    Spaces-->
     <dimen name="Space0x">0dp</dimen>
     <dimen name="Space1x">2dp</dimen>
@@ -31,5 +31,9 @@
     <dimen name="FontSize9x">18sp</dimen>
     <dimen name="FontSize10x">20sp</dimen>
     <dimen name="FontSize11x">26sp</dimen>
+
+
+    <dimen name="Radius4X">8dp</dimen>
+
 
 </resources>

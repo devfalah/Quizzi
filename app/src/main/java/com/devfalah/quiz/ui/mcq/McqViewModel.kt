@@ -160,6 +160,7 @@ class McqViewModel : ViewModel() {
     private fun endGame() = _isGameOver.postValue(true)
 
     fun onReplaceMCQClickListener() {
+        timer.dispose()
         when (_currentMCQ.value!!.difficulty) {
             McqDifficulty.EASY.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_EASY_MCQ_INDEX])
             McqDifficulty.MEDIUM.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_MEDIUM_MCQ_INDEX])
@@ -168,22 +169,28 @@ class McqViewModel : ViewModel() {
     }
 
     private fun replaceMCQ(newMCQ: Quiz) {
-        allMCQsList.replaceAtIndex(currentMCQIndex.value!!, newMCQ)
-        setCurrentMCQ(allMCQsList[currentMCQIndex.value!!])
-        _isReplaceMCQUsed.postValue(true)
+        viewModelScope.launch {
+            timer.start()
+            changeAnswersStateOnTimeOut()
+            delay(1000)
+            allMCQsList.replaceAtIndex(currentMCQIndex.value!!, newMCQ)
+            setCurrentMCQ(allMCQsList[currentMCQIndex.value!!])
+            _isReplaceMCQUsed.postValue(true)
+        }
+
+
     }
 
     fun onDelete2AnswersClickListener() {
          val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect }
          val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
         _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer).shuffled())
-//        _isDelete2AnswersUsed.postValue(true)
+        _isDelete2AnswersUsed.postValue(true)
     }
 
     private fun prepareTimer() {
         timer = object : CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
             override fun onTick(tickValue: Long) = _time.postValue(tickValue.toInt())
-
             override fun onFinish() {
                 changeAnswersStateOnTimeOut()
                 goToNextMCQ()

@@ -15,22 +15,26 @@
             android:layout_height="@dimen/Space128x"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.169"
+            app:layout_constraintVertical_bias="0.258"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/error" />
+
 
         <TextView
             android:id="@+id/error_title"
             style="@style/CustomTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="92dp"
             android:text="@string/error_hint"
             android:textSize="@dimen/FontSize10x"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/animation_error" />
 
@@ -45,9 +49,9 @@
             android:textColor="@color/text_hint"
             android:textSize="@dimen/FontSize7x"
             app:layout_constraintEnd_toEndOf="@id/try_again"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/try_again"
             app:layout_constraintTop_toBottomOf="@id/error_title" />
-
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/try_again"
