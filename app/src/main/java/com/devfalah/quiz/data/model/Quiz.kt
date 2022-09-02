@@ -15,5 +15,5 @@ data class Quiz(
     @SerializedName("question")
     val question: String?,
     @SerializedName("type")
-    val type: String?
+    val type: String?,
 )

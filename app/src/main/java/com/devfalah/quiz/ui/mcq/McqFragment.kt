@@ -48,7 +48,7 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
         }
     }
     private fun setOnExitIconClickListener() {
-        binding!!.exitIcon.setOnClickListener { view ->
+        binding!!.exitIcon.setOnClickListener {
             showExitDialog()
         }
     }

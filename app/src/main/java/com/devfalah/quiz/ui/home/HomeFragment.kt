@@ -19,14 +19,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun addCallbacks() {
-        binding?.let {
-            it.playButton.setOnClickListener { view ->
+            setOnHowToPlayButtonClickListener()
+            setOnPlayButtonClickListener()
+            setOnBackButtonClickListener()
+    }
+
+    private fun setOnPlayButtonClickListener() {
+        binding!!.playButton.setOnClickListener { view ->
                 view.goToFragment(HomeFragmentDirections.actionHomeFragmentToMcqFragment())
             }
-            it.howToPlayButton.setOnClickListener { view ->
-                view.goToFragment(HomeFragmentDirections.actionHomeFragmentToHowToPlayDialog())
-            }
-            setOnBackButtonClickListener()
+    }
+    private fun setOnHowToPlayButtonClickListener() {
+        binding!!.howToPlayButton.setOnClickListener { view ->
+            view.goToFragment(HomeFragmentDirections.actionHomeFragmentToHowToPlayDialog())
         }
     }
 
