@@ -11,9 +11,9 @@ class HowToPlayDialogFragment : BaseDialogFragment<FragmentDialogHowToPlayBindin
     override fun bindingInflater(): FragmentDialogHowToPlayBinding = FragmentDialogHowToPlayBinding.inflate(layoutInflater)
 
     override fun setup() {
-        setOnCloseIconPressedListener()
+        setOnCloseIconClickListener()
     }
-    private fun setOnCloseIconPressedListener(){
+    private fun setOnCloseIconClickListener(){
         binding.closeIcon.setOnClickListener {
             this.findNavController().popBackStack()
         }

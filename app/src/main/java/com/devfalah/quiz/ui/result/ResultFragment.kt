@@ -26,14 +26,14 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             viewModel = this@ResultFragment.viewModel
         }
         viewModel.setResult(args.score, args.correctAnswersCount)
-        setOnHomeButtonPressedListener()
+        setOnHomeButtonClickListener()
 
     }
 
 
 
 
-    private fun setOnHomeButtonPressedListener(){
+    private fun setOnHomeButtonClickListener(){
         binding!!.homeButton.setOnClickListener { view ->
             view.goToFragment(ResultFragmentDirections.actionResultFragmentToHomeFragment())
         }

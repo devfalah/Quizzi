@@ -26,11 +26,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             it.howToPlayButton.setOnClickListener { view ->
                 view.goToFragment(HomeFragmentDirections.actionHomeFragmentToHowToPlayDialog())
             }
-            setOnBackButtonPressedListener()
+            setOnBackButtonClickListener()
         }
     }
 
-    private fun setOnBackButtonPressedListener() {
+    private fun setOnBackButtonClickListener() {
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 requireActivity().finish()

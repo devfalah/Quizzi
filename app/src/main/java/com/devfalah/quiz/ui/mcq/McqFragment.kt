@@ -27,12 +27,12 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
     }
 
     private fun addCallbacks() {
-        setOnBackButtonPressedListener()
+        setOnBackButtonClickListener()
         setOnTryAgainButtonClickListener()
         setOnExitIconClickListener()
     }
 
-    private fun setOnBackButtonPressedListener() {
+    private fun setOnBackButtonClickListener() {
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (viewModel.requestState.value is State.Success) showExitDialog()
@@ -43,7 +43,7 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
     }
 
     private fun setOnTryAgainButtonClickListener() {
-        binding?.error?.tryAgain?.setOnClickListener {
+        binding!!.error.tryAgain.setOnClickListener {
             viewModel.tryPlayingAgain()
         }
     }
