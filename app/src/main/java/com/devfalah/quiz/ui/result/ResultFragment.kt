@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentResultBinding
@@ -25,12 +26,14 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             viewModel = this@ResultFragment.viewModel
         }
         viewModel.setResult(args.score, args.correctAnswersCount)
-        addCallbacks()
+        setOnHomeButtonPressedListener()
 
     }
 
 
-    private fun addCallbacks() {
+
+
+    private fun setOnHomeButtonPressedListener(){
         binding!!.homeButton.setOnClickListener { view ->
             view.goToFragment(ResultFragmentDirections.actionResultFragmentToHomeFragment())
         }

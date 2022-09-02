@@ -23,24 +23,19 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
             viewModel = this@McqFragment.viewModel
         }
         addCallbacks()
+        setGameOverObserver()
     }
 
     private fun addCallbacks() {
-        binding!!.exitIcon.setOnClickListener { view ->
-            view.goToFragment(McqFragmentDirections.actionMcqFragmentToExitDialog())
-        }
-        binding?.exitIcon?.setOnClickListener { view ->
-            view.goToFragment(McqFragmentDirections.actionMcqFragmentToExitDialog())
-        }
         setOnBackButtonPressedListener()
         setOnTryAgainButtonClickListener()
-        setGameOverObserver()
+        setOnExitIconClickListener()
     }
 
     private fun setOnBackButtonPressedListener() {
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (viewModel.requestState.value is State.Success) requireView().goToFragment(McqFragmentDirections.actionMcqFragmentToExitDialog())
+                if (viewModel.requestState.value is State.Success) showExitDialog()
                 else findNavController().popBackStack()
             }
         }
@@ -51,6 +46,14 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
         binding?.error?.tryAgain?.setOnClickListener {
             viewModel.tryPlayingAgain()
         }
+    }
+    private fun setOnExitIconClickListener() {
+        binding!!.exitIcon.setOnClickListener { view ->
+            showExitDialog()
+        }
+    }
+    private fun showExitDialog(){
+        requireView().goToFragment(McqFragmentDirections.actionMcqFragmentToExitDialog())
     }
 
     private fun setGameOverObserver() {

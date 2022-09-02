@@ -23,6 +23,7 @@ abstract class BaseDialogFragment<VB : ViewDataBinding> : DialogFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         _binding = bindingInflater()
+        dialog?.setCancelable(false)
         setup()
         return _binding.root
     }
