@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentResultBinding
 import com.devfalah.quiz.ui.base.BaseFragment
+import com.devfalah.quiz.utilities.Constants
 import com.devfalah.quiz.utilities.goToFragment
 
 
@@ -25,13 +26,19 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@ResultFragment.viewModel
         }
-        viewModel.setResult(args.score, args.correctAnswersCount)
+        viewModel.setResult(setFinalScore( args.correctAnswersCount), args.correctAnswersCount)
         setOnHomeButtonClickListener()
 
     }
 
-
-
+    private fun setFinalScore(correctAnswers: Int):Int {
+        return  when (correctAnswers) {
+            in 5..9 -> Constants.SCORE_LIST[4]
+            in 10..14 -> Constants.SCORE_LIST[9]
+            15 -> Constants.SCORE_LIST[14]
+            else -> 0
+        }
+    }
 
     private fun setOnHomeButtonClickListener(){
         binding!!.homeButton.setOnClickListener { view ->

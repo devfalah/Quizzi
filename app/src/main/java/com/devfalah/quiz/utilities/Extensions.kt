@@ -34,3 +34,4 @@ fun String.decodeHtml(): String = Html.fromHtml(this, Html.FROM_HTML_MODE_COMPAC
 fun View.goToFragment(navDir: NavDirections) {
     this.findNavController().navigate(navDir)
 }
+

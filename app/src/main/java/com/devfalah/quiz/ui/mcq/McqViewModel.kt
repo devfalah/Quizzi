@@ -1,9 +1,6 @@
 package com.devfalah.quiz.ui.mcq
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.devfalah.quiz.data.model.Answer
 import com.devfalah.quiz.data.model.Quiz
 import com.devfalah.quiz.data.model.QuizResponse
@@ -113,7 +110,9 @@ class McqViewModel : ViewModel() {
 
     private fun setCurrentMCQAnswers(quiz: Quiz) {
         val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }
-            .plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled().toMutableList()
+            .plus(quiz.correctAnswer!!.toMCQAnswer(true))
+            .shuffled()
+            .toMutableList()
         _currentMCQAnswers.postValue(listOfAnswers)
     }
 
@@ -126,8 +125,12 @@ class McqViewModel : ViewModel() {
 
     private fun onAnswerCorrectly(answer: Answer) {
         _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
-        _score.postValue(_score.value?.plus(Constants.SCORE))
         _correctAnswersCount.value = _correctAnswersCount.value!! + 1
+        _score.postValue(setScore(_currentMCQIndex.value!!))
+    }
+
+    private fun setScore(currentMCQIndex: Int): Int{
+        return Constants.SCORE_LIST[currentMCQIndex]
     }
 
     private fun onAnswerWrongly(answer: Answer) = _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
