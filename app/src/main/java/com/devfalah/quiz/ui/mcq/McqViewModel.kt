@@ -25,9 +25,7 @@ class McqViewModel : ViewModel() {
     val requestState: LiveData<State<QuizResponse>> get() = _requestState
 
     private val _currentMCQ = MutableLiveData<Quiz>()
-
-    private val _currentDecodedMCQ = MutableLiveData<String>()
-    val currentDecodedMCQ: LiveData<String> get() = _currentDecodedMCQ
+    val currentMCQ: LiveData<Quiz> get() = _currentMCQ
 
     private val _currentMCQIndex = MutableLiveData(0)
     val currentMCQIndex: LiveData<Int> get() = _currentMCQIndex
@@ -113,7 +111,6 @@ class McqViewModel : ViewModel() {
 
     private fun setCurrentMCQ(quiz: Quiz) {
         _currentMCQ.postValue(quiz)
-        _currentDecodedMCQ.postValue(quiz.question!!.decodeHtml())
         setCurrentMCQAnswers(quiz)
     }
 
@@ -125,21 +122,24 @@ class McqViewModel : ViewModel() {
 
     fun onAnswerClick(answer: Answer) {
         timer.dispose()
-         _isMCQsClickable.postValue(false)
+        _isMCQsClickable.postValue(false)
         if (answer.isCorrect) onAnswerCorrectly(answer) else onAnswerWrongly(answer)
         if (isNotLastQuestion()) goToNextMCQ() else endGame()
     }
 
     private fun onAnswerCorrectly(answer: Answer) {
-        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
+        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
+            answer.state = AnswerState.SELECTED_CORRECT
+        })
         _score.postValue(_score.value?.plus(Constants.SCORE))
         _correctAnswersCount.value = _correctAnswersCount.value!! + 1
     }
 
-    private fun onAnswerWrongly(answer: Answer) = _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
-        answer.state = AnswerState.SELECTED_INCORRECT
-        this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
-    })
+    private fun onAnswerWrongly(answer: Answer) =
+        _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
+            answer.state = AnswerState.SELECTED_INCORRECT
+            this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
+        })
 
     private fun isNotLastQuestion(): Boolean = currentMCQIndex.value!! < allMCQsList.lastIndex
 
@@ -182,8 +182,8 @@ class McqViewModel : ViewModel() {
     }
 
     fun onDelete2AnswersClickListener() {
-         val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect }
-         val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
+        val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect }
+        val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
         _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer).shuffled())
         _isDelete2AnswersUsed.postValue(true)
     }
