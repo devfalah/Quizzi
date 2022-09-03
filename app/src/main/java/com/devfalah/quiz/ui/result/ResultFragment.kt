@@ -31,11 +31,11 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     }
 
-    fun setFinalScore(correctAnswers: Int):Int {
+    private fun setFinalScore(correctAnswers: Int):Int {
         return  when (correctAnswers) {
-            in 5..9 -> Constants.SCORE_5000
-            in 10..14 -> Constants.SCORE_25000
-            15 -> Constants.SCORE_1000000
+            in 5..9 -> Constants.SCORE_LIST[4]
+            in 10..14 -> Constants.SCORE_LIST[9]
+            15 -> Constants.SCORE_LIST[14]
             else -> 0
         }
     }

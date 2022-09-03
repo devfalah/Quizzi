@@ -132,29 +132,13 @@ class McqViewModel : ViewModel() {
     private fun onAnswerCorrectly(answer: Answer) {
         _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
         _correctAnswersCount.value = _correctAnswersCount.value!! + 1
-        _score.postValue(setScore(_correctAnswersCount.value!!))
+        _score.postValue(setScore(_currentMCQIndex.value!!))
     }
 
-    private fun setScore(correctAnswersCount: Int): Int{
-        return when(correctAnswersCount){
-            1 -> Constants.SCORE_500
-            2 -> Constants.SCORE_1000
-            3 -> Constants.SCORE_2000
-            4 -> Constants.SCORE_3000
-            5 -> Constants.SCORE_5000
-            6 -> Constants.SCORE_7500
-            7 -> Constants.SCORE_10000
-            8 -> Constants.SCORE_12500
-            9 -> Constants.SCORE_15000
-            10 -> Constants.SCORE_25000
-            11 -> Constants.SCORE_50000
-            12 -> Constants.SCORE_100000
-            13 -> Constants.SCORE_250000
-            14 -> Constants.SCORE_500000
-            15 -> Constants.SCORE_1000000
-            else -> 0
-        }
+    private fun setScore(currentMCQIndex: Int): Int{
+        return Constants.SCORE_LIST[currentMCQIndex]
     }
+
     private fun onAnswerWrongly(answer: Answer) = _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
         answer.state = AnswerState.SELECTED_INCORRECT
         this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
