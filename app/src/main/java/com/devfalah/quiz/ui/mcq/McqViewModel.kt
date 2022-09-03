@@ -14,6 +14,7 @@ import com.devfalah.quiz.utilities.enums.AnswerState
 import com.devfalah.quiz.utilities.enums.McqDifficulty
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -53,7 +54,8 @@ class McqViewModel : ViewModel() {
     private val _time = MutableLiveData(Constants.MCQ_TIMER)
     val time: LiveData<Int> get() = _time
 
-    private lateinit var timer: CountdownTimer
+    private lateinit var timer: Observable<Long>
+    private lateinit var compositeDisposable: CompositeDisposable
 
     private val _isMCQsClickable = MutableLiveData(true)
     val isMCQsClickable: LiveData<Boolean> get() = _isMCQsClickable
@@ -106,7 +108,7 @@ class McqViewModel : ViewModel() {
             .also { forReplaceMCQsList.add(mcqList.last()!!) }
 
     private fun onAllMCQsSortedSuccessfully(state: State<QuizResponse>) {
-        timer.start()
+        startTimer()
         _requestState.postValue(state)
         setCurrentMCQ(allMCQsList.first())
     }
@@ -124,7 +126,7 @@ class McqViewModel : ViewModel() {
     }
 
     fun onAnswerClick(answer: Answer) {
-        timer.dispose()
+        disposeTimer()
          _isMCQsClickable.postValue(false)
         if (answer.isCorrect) onAnswerCorrectly(answer) else onAnswerWrongly(answer)
         if (isNotLastQuestion()) goToNextMCQ() else endGame()
@@ -144,10 +146,10 @@ class McqViewModel : ViewModel() {
     private fun isNotLastQuestion(): Boolean = currentMCQIndex.value!! < allMCQsList.lastIndex
 
     private fun goToNextMCQ() {
-        timer.dispose()
+        disposeTimer()
         if (currentMCQIndex.value!! < allMCQsList.lastIndex) {
             viewModelScope.launch {
-                timer.start()
+                startTimer()
                 _currentMCQIndex.value = _currentMCQIndex.value!! + 1
                 delay(1000)
                 _isMCQsClickable.postValue(true)
@@ -160,7 +162,7 @@ class McqViewModel : ViewModel() {
     private fun endGame() = _isGameOver.postValue(true)
 
     fun onReplaceMCQClickListener() {
-        timer.dispose()
+        disposeTimer()
         when (_currentMCQ.value!!.difficulty) {
             McqDifficulty.EASY.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_EASY_MCQ_INDEX])
             McqDifficulty.MEDIUM.name.lowercase() -> replaceMCQ(forReplaceMCQsList[Constants.FOR_REPLACE_MEDIUM_MCQ_INDEX])
@@ -170,7 +172,7 @@ class McqViewModel : ViewModel() {
 
     private fun replaceMCQ(newMCQ: Quiz) {
         viewModelScope.launch {
-            timer.start()
+            startTimer()
             changeAnswersStateOnTimeOut()
             delay(1000)
             allMCQsList.replaceAtIndex(currentMCQIndex.value!!, newMCQ)
@@ -188,14 +190,26 @@ class McqViewModel : ViewModel() {
         _isDelete2AnswersUsed.postValue(true)
     }
 
+
     private fun prepareTimer() {
-        timer = object : CountdownTimer(Constants.MCQ_TIMER.toLong(), TimeUnit.SECONDS) {
-            override fun onTick(tickValue: Long) = _time.postValue(tickValue.toInt())
-            override fun onFinish() {
-                changeAnswersStateOnTimeOut()
-                goToNextMCQ()
-            }
-        }
+        timer = Observable.intervalRange(1,Constants.MCQ_TIMER.toLong(),0,1,TimeUnit.SECONDS)
+            .observeOnMainThread()
+    }
+    private fun startTimer(){
+        compositeDisposable = CompositeDisposable()
+        timer.subscribe(::onNext, ::onError, ::onComplete).add(compositeDisposable)
+    }
+    private fun onNext(long: Long){
+        _time.postValue(long.toInt())
+    }
+    private fun onError(e: Throwable){
+        e.printStackTrace()
+    }
+    private fun onComplete(){
+        TODO()
+    }
+    private fun disposeTimer(){
+        compositeDisposable.dispose()
     }
 
     private fun changeAnswersStateOnTimeOut() {
