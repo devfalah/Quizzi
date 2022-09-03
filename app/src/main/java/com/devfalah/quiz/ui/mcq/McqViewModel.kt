@@ -67,23 +67,15 @@ class McqViewModel : ViewModel() {
     }
 
     private fun getAllMCQs() {
-        Observable.concat(
-            getMCQs(McqDifficulty.EASY).toObservable(),
-            getMCQs(McqDifficulty.MEDIUM).toObservable(),
-            getMCQs(McqDifficulty.HARD).toObservable()
-        ).run {
+        repository.getAllQuestions().run {
             observeOnMainThread()
             subscribe(::onGetMCQsSuccess, ::onGetMCQsError)
         }
     }
 
-    private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> =
-        repository.getQuizQuestions(difficulty)
 
     private fun onGetMCQsSuccess(state: State<QuizResponse>) =
-        if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(
-            state
-        )
+        if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(state)
 
     private fun onGetMCQsError(throwable: Throwable) =
         _requestState.postValue(State.Error(requireNotNull(throwable.message)))
@@ -199,8 +191,8 @@ class McqViewModel : ViewModel() {
         compositeDisposable = CompositeDisposable()
         timer.subscribe(::onNext, ::onError, ::onComplete).add(compositeDisposable)
     }
-    private fun onNext(long: Long){
-        _time.postValue(long.toInt())
+    private fun onNext(count: Long){
+        _time.postValue(count.toInt())
     }
     private fun onError(e: Throwable){
         e.printStackTrace()
