@@ -125,7 +125,7 @@ fun setResultLottieAnimation(view: LottieAnimationView, correctAnswersCount: Int
         R.raw.congrats
     ) else view.setAnimation(R.raw.failed)
 
-@BindingAdapter(value = ["setDecodeString"])
-fun setDecodeString(view: TextView, value: String?) {
+@BindingAdapter(value = ["setDecodedString"])
+fun setDecodedString(view: TextView, value: String?) {
     view.text = value?.let { it.decodeHtml() }
 }

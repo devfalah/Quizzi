@@ -111,7 +111,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/progress_bar"
                 app:layout_constraintVertical_chainStyle="packed"
-                app:setDecodeString="@{viewModel.currentMCQ.question}"
+                app:setDecodedString="@{viewModel.currentMCQ.question}"
                 app:showWhenSuccess="@{viewModel.requestState}"
                 tools:text="question " />
 
@@ -142,7 +142,7 @@
                 app:layout_constraintStart_toEndOf="@+id/label_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_a"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[0].state}"
-                app:setDecodeString="@{viewModel.currentMCQAnswers[0].answer}"
+                app:setDecodedString="@{viewModel.currentMCQAnswers[0].answer}"
                 tools:text="answer a" />
 
             <com.google.android.material.card.MaterialCardView
@@ -189,7 +189,7 @@
                 app:layout_constraintStart_toEndOf="@+id/label_answer_b"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_b"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[1].state}"
-                app:setDecodeString="@{viewModel.currentMCQAnswers[1].answer}"
+                app:setDecodedString="@{viewModel.currentMCQAnswers[1].answer}"
                 tools:text="answer b" />
 
             <com.google.android.material.card.MaterialCardView
@@ -234,7 +234,7 @@
                 app:layout_constraintStart_toEndOf="@+id/label_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_c"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[2].state}"
-                app:setDecodeString="@{viewModel.currentMCQAnswers[2].answer}"
+                app:setDecodedString="@{viewModel.currentMCQAnswers[2].answer}"
                 tools:text="answer c" />
 
             <com.google.android.material.card.MaterialCardView
@@ -279,7 +279,7 @@
                 app:layout_constraintStart_toEndOf="@+id/label_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_d"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[3].state}"
-                app:setDecodeString="@{viewModel.currentMCQAnswers[3].answer}"
+                app:setDecodedString="@{viewModel.currentMCQAnswers[3].answer}"
                 tools:text="answer d" />
 
             <com.google.android.material.card.MaterialCardView
