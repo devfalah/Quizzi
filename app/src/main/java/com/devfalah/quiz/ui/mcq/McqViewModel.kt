@@ -117,7 +117,7 @@ class McqViewModel : ViewModel() {
     private fun setCurrentMCQAnswers(quiz: Quiz) {
         val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }
             .plus(quiz.correctAnswer!!.toMCQAnswer(true))
-//            .shuffled()
+            .shuffled()
             .toMutableList()
         _currentMCQAnswers.postValue(listOfAnswers)
     }
