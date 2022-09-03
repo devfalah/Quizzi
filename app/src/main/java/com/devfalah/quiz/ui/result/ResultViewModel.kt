@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 class ResultViewModel : ViewModel() {
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
+
     private val _correctAnswersCount = MutableLiveData(0)
     val correctAnswersCount: LiveData<Int> get() = _correctAnswersCount
 

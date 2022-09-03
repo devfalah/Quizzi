@@ -1,9 +1,6 @@
 package com.devfalah.quiz.ui.mcq
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.devfalah.quiz.data.model.Answer
 import com.devfalah.quiz.data.model.Quiz
 import com.devfalah.quiz.data.model.QuizResponse
@@ -119,7 +116,9 @@ class McqViewModel : ViewModel() {
 
     private fun setCurrentMCQAnswers(quiz: Quiz) {
         val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }
-            .plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled().toMutableList()
+            .plus(quiz.correctAnswer!!.toMCQAnswer(true))
+//            .shuffled()
+            .toMutableList()
         _currentMCQAnswers.postValue(listOfAnswers)
     }
 
@@ -132,10 +131,30 @@ class McqViewModel : ViewModel() {
 
     private fun onAnswerCorrectly(answer: Answer) {
         _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
-        _score.postValue(_score.value?.plus(Constants.SCORE))
         _correctAnswersCount.value = _correctAnswersCount.value!! + 1
+        _score.postValue(setScore(_correctAnswersCount.value!!))
     }
 
+    private fun setScore(correctAnswersCount: Int): Int{
+        return when(correctAnswersCount){
+            1 -> Constants.SCORE_500
+            2 -> Constants.SCORE_1000
+            3 -> Constants.SCORE_2000
+            4 -> Constants.SCORE_3000
+            5 -> Constants.SCORE_5000
+            6 -> Constants.SCORE_7500
+            7 -> Constants.SCORE_10000
+            8 -> Constants.SCORE_12500
+            9 -> Constants.SCORE_15000
+            10 -> Constants.SCORE_25000
+            11 -> Constants.SCORE_50000
+            12 -> Constants.SCORE_100000
+            13 -> Constants.SCORE_250000
+            14 -> Constants.SCORE_500000
+            15 -> Constants.SCORE_1000000
+            else -> 0
+        }
+    }
     private fun onAnswerWrongly(answer: Answer) = _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
         answer.state = AnswerState.SELECTED_INCORRECT
         this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
