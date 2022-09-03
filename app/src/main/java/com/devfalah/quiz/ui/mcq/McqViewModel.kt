@@ -12,8 +12,6 @@ import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.utilities.*
 import com.devfalah.quiz.utilities.enums.AnswerState
 import com.devfalah.quiz.utilities.enums.McqDifficulty
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -63,23 +61,14 @@ class McqViewModel : ViewModel() {
     }
 
     private fun getAllMCQs() {
-        Observable.concat(
-            getMCQs(McqDifficulty.EASY).toObservable(),
-            getMCQs(McqDifficulty.MEDIUM).toObservable(),
-            getMCQs(McqDifficulty.HARD).toObservable()
-        ).run {
+        repository.getAllQuestions().run {
             observeOnMainThread()
             subscribe(::onGetMCQsSuccess, ::onGetMCQsError)
         }
     }
 
-    private fun getMCQs(difficulty: McqDifficulty): Single<State<QuizResponse>> =
-        repository.getQuizQuestions(difficulty)
-
     private fun onGetMCQsSuccess(state: State<QuizResponse>) =
-        if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(
-            state
-        )
+        if (state is State.Success) sortMCQsAccordingToDifficulty(state) else _requestState.postValue(state)
 
     private fun onGetMCQsError(throwable: Throwable) =
         _requestState.postValue(State.Error(requireNotNull(throwable.message)))
