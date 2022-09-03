@@ -55,6 +55,7 @@ fun setProgressBarDrawable(view: ProgressBar, value: Int?) {
 @BindingAdapter(value = ["app:setAnswerBackgroundColor"])
 fun setAnswerBackgroundColor(view: MaterialCardView, state: AnswerState?) {
     when (state) {
+        null,
         AnswerState.UNSELECTED -> {
             view.setCardBackgroundColor(ContextCompat.getColor(view.context, R.color.white))
             view.strokeWidth = 0
@@ -73,13 +74,13 @@ fun setAnswerBackgroundColor(view: MaterialCardView, state: AnswerState?) {
         AnswerState.SELECTED_INCORRECT -> {
             view.setCardBackgroundColor(ContextCompat.getColor(view.context, R.color.red))
         }
-        else -> {}
     }
 }
 
 @BindingAdapter(value = ["app:setAnswerBodyTextStyle"])
 fun setAnswerBodyTextStyle(view: TextView, state: AnswerState?) {
     when (state) {
+        null,
         AnswerState.UNSELECTED -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedBody)
         }
@@ -92,13 +93,16 @@ fun setAnswerBodyTextStyle(view: TextView, state: AnswerState?) {
         AnswerState.SELECTED_INCORRECT -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_SelectedBody)
         }
-        else -> {}
+        AnswerState.TIMEOUT_INCORRECT -> {
+            TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedBody)
+        }
     }
 }
 
 @BindingAdapter(value = ["app:setAnswerAlphabetTextStyle"])
 fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
     when (state) {
+        null,
         AnswerState.UNSELECTED -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedAlphabet)
             view.setBackgroundResource(R.drawable.circle)
@@ -115,7 +119,6 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_SelectedAlphabet_Wrong)
             view.setBackgroundResource(R.drawable.circle_white)
         }
-        else -> {}
     }
 }
 
