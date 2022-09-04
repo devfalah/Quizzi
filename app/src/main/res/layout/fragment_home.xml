@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.devfalah.quiz.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +32,7 @@
             android:layout_height="wrap_content"
             style="@style/ButtonTextStyle.Main"
             android:text="@string/play"
+            android:onClick="@{()->viewModel.onClickPlayButton()}"
             android:layout_marginHorizontal="@dimen/Space8x"
             android:layout_marginBottom="@dimen/Space8x"
             app:layout_constraintBottom_toTopOf="@+id/how_to_play_button"
@@ -43,6 +46,7 @@
             android:layout_height="wrap_content"
             style="@style/ButtonTextStyle.Second"
             android:text="@string/how_to_play"
+            android:onClick="@{()->viewModel.onClickHowPlayButton()}"
             android:layout_marginHorizontal="@dimen/Space8x"
             android:layout_marginBottom="@dimen/Space8x"
             app:layout_constraintBottom_toBottomOf="parent"

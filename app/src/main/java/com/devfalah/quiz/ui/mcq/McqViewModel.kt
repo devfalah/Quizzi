@@ -23,9 +23,8 @@ class McqViewModel : ViewModel() {
     val requestState: LiveData<State<QuizResponse>> get() = _requestState
 
     private val _currentMCQ = MutableLiveData<Quiz>()
+    val  currentMCQ : LiveData<Quiz> = _currentMCQ
 
-    private val _currentDecodedMCQ = MutableLiveData<String>()
-    val currentDecodedMCQ: LiveData<String> get() = _currentDecodedMCQ
 
     private val _currentMCQIndex = MutableLiveData(0)
     val currentMCQIndex: LiveData<Int> get() = _currentMCQIndex
@@ -104,7 +103,6 @@ class McqViewModel : ViewModel() {
 
     private fun setCurrentMCQ(quiz: Quiz) {
         _currentMCQ.postValue(quiz)
-        _currentDecodedMCQ.postValue(quiz.question!!.decodeHtml())
         setCurrentMCQAnswers(quiz)
     }
 
