@@ -113,7 +113,7 @@ class McqViewModel : ViewModel() {
     private fun setCurrentMCQAnswers(quiz: Quiz) {
         val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }
             .plus(quiz.correctAnswer!!.toMCQAnswer(true))
-            .shuffled()
+//            .shuffled()
             .toMutableList()
         _currentMCQAnswers.postValue(listOfAnswers)
     }
@@ -121,14 +121,20 @@ class McqViewModel : ViewModel() {
     fun onAnswerClick(answer: Answer) {
         disposeTimer()
          _isMCQsClickable.postValue(false)
-        if (answer.isCorrect) onAnswerCorrectly(answer) else onAnswerWrongly(answer)
-        if (isNotLastQuestion()) goToNextMCQ() else endGame()
+        if (answer.isCorrect){
+            onAnswerCorrectly(answer)
+        } else {
+            onAnswerWrongly(answer)
+            endGame()
+        }
+
     }
 
     private fun onAnswerCorrectly(answer: Answer) {
         _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
         _correctAnswersCount.value = _correctAnswersCount.value!! + 1
         _score.postValue(setScore(_currentMCQIndex.value!!))
+        if (isNotLastQuestion()) goToNextMCQ() else endGame()
     }
 
     private fun setScore(currentMCQIndex: Int): Int{
@@ -214,7 +220,7 @@ class McqViewModel : ViewModel() {
         e.printStackTrace()
     }
     private fun onComplete(){
-        TODO()
+        endGame()
     }
     private fun disposeTimer(){
         compositeDisposable.dispose()
