@@ -13,7 +13,6 @@ import com.devfalah.quiz.utilities.*
 import com.devfalah.quiz.utilities.enums.AnswerState
 import com.devfalah.quiz.utilities.enums.McqDifficulty
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
