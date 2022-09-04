@@ -140,6 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/Space8x"
             android:text="@string/home"
+            android:onClick="@{()->viewModel.onClickHomeButton()}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent" />
 
