@@ -72,9 +72,9 @@
 
             <View
                 android:id="@+id/exit_icon"
-                android:layout_marginEnd="@dimen/Space8x"
                 android:layout_width="@dimen/Space12x"
                 android:layout_height="@dimen/Space12x"
+                android:layout_marginEnd="@dimen/Space8x"
                 android:background="@drawable/ic_sign_in_score"
                 app:layout_constraintBottom_toBottomOf="@+id/label_score"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -99,19 +99,19 @@
             <TextView
                 android:id="@+id/label_question"
                 style="@style/QuestionTextStyle"
+                android:layout_width="@dimen/Space0x"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/Space8x"
                 android:layout_marginVertical="@dimen/Space8x"
                 android:ellipsize="end"
-                android:layout_width="@dimen/Space0x"
-                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:maxLines="4"
-                android:text="@{viewModel.currentDecodedMCQ}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/progress_bar"
                 app:layout_constraintVertical_chainStyle="packed"
+                app:setDecodedString="@{viewModel.currentMCQ.question}"
                 app:showWhenSuccess="@{viewModel.requestState}"
                 tools:text="question " />
 
@@ -137,12 +137,12 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:text="@{viewModel.currentMCQAnswers[0].answer}"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_a"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_a"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[0].state}"
+                app:setDecodedString="@{viewModel.currentMCQAnswers[0].answer}"
                 tools:text="answer a" />
 
             <com.google.android.material.card.MaterialCardView
@@ -183,13 +183,13 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:text="@{viewModel.currentMCQAnswers[1].answer}"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_b"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_b"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_b"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[1].state}"
+                app:setDecodedString="@{viewModel.currentMCQAnswers[1].answer}"
                 tools:text="answer b" />
 
             <com.google.android.material.card.MaterialCardView
@@ -229,12 +229,12 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:text="@{viewModel.currentMCQAnswers[2].answer}"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_c"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_c"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[2].state}"
+                app:setDecodedString="@{viewModel.currentMCQAnswers[2].answer}"
                 tools:text="answer c" />
 
             <com.google.android.material.card.MaterialCardView
@@ -274,12 +274,12 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:text="@{viewModel.currentMCQAnswers[3].answer}"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_d"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_d"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_d"
                 app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[3].state}"
+                app:setDecodedString="@{viewModel.currentMCQAnswers[3].answer}"
                 tools:text="answer d" />
 
             <com.google.android.material.card.MaterialCardView
@@ -371,7 +371,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         <include
             android:id="@+id/loading"
             layout="@layout/loading"
@@ -385,7 +384,6 @@
             app:showWhenError="@{viewModel.requestState}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </layout>

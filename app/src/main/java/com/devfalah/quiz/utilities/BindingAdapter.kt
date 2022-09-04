@@ -1,5 +1,6 @@
 package com.devfalah.quiz.utilities
 
+import android.text.Html
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -27,10 +28,12 @@ fun <T> showWhenError(view: View, state: State<T>?) {
 fun <T> showWhenLoading(view: View, state: State<T>?) {
     view.isVisible = (state is State.Loading)
 }
+
 @BindingAdapter(value = ["app:showWhenIsNotEmpty"])
 fun <T> showWhenIsNotNull(view: View, value: String?) {
     view.isVisible = (value != null)
 }
+
 @BindingAdapter(value = ["isVisible"])
 fun showIfTrue(view: View, status: Boolean) {
     view.isVisible = status
@@ -38,12 +41,15 @@ fun showIfTrue(view: View, status: Boolean) {
 
 @BindingAdapter(value = ["app:progressBarValue"])
 fun setProgressBarValue(view: ProgressBar, value: Int?) {
-    view.progress = value?:0
+    view.progress = value ?: 0
 }
 
 @BindingAdapter(value = ["app:progressBarDrawable"])
 fun setProgressBarDrawable(view: ProgressBar, value: Int?) {
-    view.progressDrawable = if (value!!.toInt() > 10) ContextCompat.getDrawable(view.context, R.drawable.circle_progress_bar) else ContextCompat.getDrawable(view.context, R.drawable.red_progressbar)
+    view.progressDrawable = if (value!!.toInt() > 10) ContextCompat.getDrawable(
+        view.context,
+        R.drawable.circle_progress_bar
+    ) else ContextCompat.getDrawable(view.context, R.drawable.red_progressbar)
 }
 
 @BindingAdapter(value = ["app:setAnswerBackgroundColor"])
@@ -68,13 +74,13 @@ fun setAnswerBackgroundColor(view: MaterialCardView, state: AnswerState?) {
         AnswerState.SELECTED_INCORRECT -> {
             view.setCardBackgroundColor(ContextCompat.getColor(view.context, R.color.red))
         }
-
     }
 }
 
 @BindingAdapter(value = ["app:setAnswerBodyTextStyle"])
 fun setAnswerBodyTextStyle(view: TextView, state: AnswerState?) {
     when (state) {
+        null,
         AnswerState.UNSELECTED -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedBody)
         }
@@ -87,13 +93,16 @@ fun setAnswerBodyTextStyle(view: TextView, state: AnswerState?) {
         AnswerState.SELECTED_INCORRECT -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_SelectedBody)
         }
-        else -> {}
+        AnswerState.TIMEOUT_INCORRECT -> {
+            TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedBody)
+        }
     }
 }
 
 @BindingAdapter(value = ["app:setAnswerAlphabetTextStyle"])
 fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
     when (state) {
+        null,
         AnswerState.UNSELECTED -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedAlphabet)
             view.setBackgroundResource(R.drawable.circle)
@@ -110,9 +119,16 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_SelectedAlphabet_Wrong)
             view.setBackgroundResource(R.drawable.circle_white)
         }
-        else -> {}
     }
 }
 
 @BindingAdapter(value = ["setResultLottieAnimation"])
-fun setResultLottieAnimation(view: LottieAnimationView, correctAnswersCount: Int) = if (correctAnswersCount >= Constants.MINIMUM_REQUIRED_CORRECT_ANSWERS_TO_PASS) view.setAnimation(R.raw.congrats) else view.setAnimation(R.raw.failed)
+fun setResultLottieAnimation(view: LottieAnimationView, correctAnswersCount: Int) =
+    if (correctAnswersCount >= Constants.MINIMUM_REQUIRED_CORRECT_ANSWERS_TO_PASS) view.setAnimation(
+        R.raw.congrats
+    ) else view.setAnimation(R.raw.failed)
+
+@BindingAdapter(value = ["setDecodedString"])
+fun setDecodedString(view: TextView, value: String?) {
+    view.text = value?.let { it.decodeHtml() }
+}

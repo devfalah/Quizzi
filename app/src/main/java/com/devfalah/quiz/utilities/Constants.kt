@@ -4,7 +4,25 @@ object Constants {
     const val BASE_URL = "https://opentdb.com/"
     const val MCQ_TYPE = "multiple"
     const val MCQ_AMOUNT = 6
-    const val SCORE = 100
+
+    val SCORE_LIST = listOf(
+        100,
+        200,
+        300,
+        500,
+        1000,
+        2000,
+        4000,
+        8000,
+        16000,
+        32000,
+        64000,
+        125000,
+        25000,
+        500000,
+        1000000,
+    )
+
     const val FOR_REPLACE_EASY_MCQ_INDEX = 0
     const val FOR_REPLACE_MEDIUM_MCQ_INDEX = 1
     const val FOR_REPLACE_HARD_MCQ_INDEX = 2
