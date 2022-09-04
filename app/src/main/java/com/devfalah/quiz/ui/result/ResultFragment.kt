@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentResultBinding
 import com.devfalah.quiz.ui.base.BaseFragment
-import com.devfalah.quiz.utilities.Constants
-import com.devfalah.quiz.utilities.goToFragment
+import com.devfalah.quiz.utilities.observeEvent
 
 
 class ResultFragment : BaseFragment<FragmentResultBinding>() {
@@ -26,23 +25,15 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@ResultFragment.viewModel
         }
-        viewModel.setResult(setFinalScore( args.correctAnswersCount), args.correctAnswersCount)
-        setOnHomeButtonClickListener()
+        viewModel.setResult(args.score, args.correctAnswersCount)
+        handleObserveEvents()
 
     }
 
-    private fun setFinalScore(correctAnswers: Int):Int {
-        return  when (correctAnswers) {
-            in 5..9 -> Constants.SCORE_LIST[4]
-            in 10..14 -> Constants.SCORE_LIST[9]
-            15 -> Constants.SCORE_LIST[14]
-            else -> 0
-        }
-    }
 
-    private fun setOnHomeButtonClickListener(){
-        binding!!.homeButton.setOnClickListener { view ->
-            view.goToFragment(ResultFragmentDirections.actionResultFragmentToHomeFragment())
+    private fun handleObserveEvents(){
+        viewModel.navigateToHome.observeEvent(this){
+            view?.findNavController()?.navigate(ResultFragmentDirections.actionResultFragmentToHomeFragment())
         }
     }
 }
