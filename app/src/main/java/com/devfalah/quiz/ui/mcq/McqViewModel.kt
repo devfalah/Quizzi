@@ -1,9 +1,7 @@
 package com.devfalah.quiz.ui.mcq
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.devfalah.quiz.data.model.Answer
 import com.devfalah.quiz.data.model.Quiz
 import com.devfalah.quiz.data.model.QuizResponse
@@ -25,9 +23,9 @@ class McqViewModel : ViewModel() {
     val requestState: LiveData<State<QuizResponse>> get() = _requestState
 
     private val _currentMCQ = MutableLiveData<Quiz>()
+    val  currentMCQ : LiveData<Quiz> = _currentMCQ
 
-    private val _currentDecodedMCQ = MutableLiveData<String>()
-    val currentDecodedMCQ: LiveData<String> get() = _currentDecodedMCQ
+
 
     private val _currentMCQIndex = MutableLiveData(0)
     val currentMCQIndex: LiveData<Int> get() = _currentMCQIndex
@@ -41,8 +39,8 @@ class McqViewModel : ViewModel() {
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
 
-    private val _isGameOver = MutableLiveData<Boolean>()
-    val isGameOver: LiveData<Boolean> get() = _isGameOver
+    private val _isGameOver = MutableLiveData<Event<Boolean>>()
+    val isGameOver: LiveData<Event<Boolean>> get() = _isGameOver
 
     private val _isReplaceMCQUsed = MutableLiveData(false)
     val isReplaceMCQUsed: LiveData<Boolean> get() = _isReplaceMCQUsed
@@ -58,6 +56,9 @@ class McqViewModel : ViewModel() {
 
     private val _isMCQsClickable = MutableLiveData(true)
     val isMCQsClickable: LiveData<Boolean> get() = _isMCQsClickable
+
+    private val _isHidden = MutableLiveData(true)
+    val isHidden: LiveData<Boolean> get() = _isHidden
 
 
     init {
@@ -106,13 +107,14 @@ class McqViewModel : ViewModel() {
 
     private fun setCurrentMCQ(quiz: Quiz) {
         _currentMCQ.postValue(quiz)
-        _currentDecodedMCQ.postValue(quiz.question!!.decodeHtml())
         setCurrentMCQAnswers(quiz)
     }
 
     private fun setCurrentMCQAnswers(quiz: Quiz) {
         val listOfAnswers = quiz.incorrectAnswers!!.map { it!!.toMCQAnswer(false) }
-            .plus(quiz.correctAnswer!!.toMCQAnswer(true)).shuffled().toMutableList()
+            .plus(quiz.correctAnswer!!.toMCQAnswer(true))
+            .shuffled()
+            .toMutableList()
         _currentMCQAnswers.postValue(listOfAnswers)
     }
 
@@ -125,8 +127,12 @@ class McqViewModel : ViewModel() {
 
     private fun onAnswerCorrectly(answer: Answer) {
         _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
-        _score.postValue(_score.value?.plus(Constants.SCORE))
         _correctAnswersCount.value = _correctAnswersCount.value!! + 1
+        _score.postValue(setScore(_currentMCQIndex.value!!))
+    }
+
+    private fun setScore(currentMCQIndex: Int): Int{
+        return Constants.SCORE_LIST[currentMCQIndex]
     }
 
     private fun onAnswerWrongly(answer: Answer) = _currentMCQAnswers.postValue(_currentMCQAnswers.value?.apply {
@@ -150,7 +156,7 @@ class McqViewModel : ViewModel() {
 
     }
 
-    private fun endGame() = _isGameOver.postValue(true)
+    private fun endGame() = _isGameOver.postEvent(true)
 
     fun onReplaceMCQClickListener() {
         disposeTimer()
@@ -175,9 +181,15 @@ class McqViewModel : ViewModel() {
     }
 
     fun onDelete2AnswersClickListener() {
-         val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect }
-         val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
-        _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer).shuffled())
+         val correctAnswer = _currentMCQAnswers.value?.first { it.isCorrect }
+         val incorrectAnswer = _currentMCQAnswers.value?.filter { !it.isCorrect }?.random()
+        val newList = _currentMCQAnswers.value?.onEach{
+            if (!it.isCorrect && it != incorrectAnswer){
+                it.hidden = true
+            }
+        } as List<Answer>
+
+        _currentMCQAnswers.postValue(newList as List<Answer>?)
         _isDelete2AnswersUsed.postValue(true)
     }
 

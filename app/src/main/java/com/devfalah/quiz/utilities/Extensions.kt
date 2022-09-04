@@ -2,6 +2,10 @@ package com.devfalah.quiz.utilities
 
 import android.text.Html
 import android.view.View
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.devfalah.quiz.data.model.Answer
@@ -31,6 +35,10 @@ fun <E> MutableList<E>.replaceAtIndex(index: Int, newValue: E) {
 
 fun String.decodeHtml(): String = Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT).toString()
 
-fun View.goToFragment(navDir: NavDirections) {
-    this.findNavController().navigate(navDir)
+
+fun <T> MutableLiveData<Event<T>>.postEvent(content: T) {
+    postValue(Event(content))
+}
+inline fun <T> LiveData<Event<T>>.observeEvent(owner: LifecycleOwner, crossinline onEventUnhandledContent: (T) -> Unit) {
+    observe(owner) { it?.getContentIfNotHandled()?.let(onEventUnhandledContent) }
 }
