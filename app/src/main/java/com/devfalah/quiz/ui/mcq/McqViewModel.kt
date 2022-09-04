@@ -195,8 +195,13 @@ class McqViewModel : ViewModel() {
 
 
     private fun prepareTimer() {
-        timer = Observable.intervalRange(1,Constants.MCQ_TIMER.toLong(),0,1,TimeUnit.SECONDS)
-            .observeOnMainThread()
+        val rangeObservable = Observable.range(1, Constants.MCQ_TIMER)
+        val intervalObservable = Observable.interval(1, TimeUnit.SECONDS)
+        timer = Observable.zip(
+                rangeObservable, intervalObservable
+        ) { i: Int, _: Long ->
+            Constants.MCQ_TIMER.toLong() - i
+        }.observeOnMainThread()
     }
     private fun startTimer(){
         compositeDisposable = CompositeDisposable()
