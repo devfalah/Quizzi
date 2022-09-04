@@ -1,5 +1,6 @@
 package com.devfalah.quiz.ui.mcq
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.devfalah.quiz.data.model.Answer
 import com.devfalah.quiz.data.model.Quiz
@@ -10,7 +11,6 @@ import com.devfalah.quiz.utilities.*
 import com.devfalah.quiz.utilities.enums.AnswerState
 import com.devfalah.quiz.utilities.enums.McqDifficulty
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,6 +23,7 @@ class McqViewModel : ViewModel() {
     val requestState: LiveData<State<QuizResponse>> get() = _requestState
 
     private val _currentMCQ = MutableLiveData<Quiz>()
+    val currentMCQ : LiveData<Quiz> get() = _currentMCQ
 
     private val _currentDecodedMCQ = MutableLiveData<String>()
     val currentDecodedMCQ: LiveData<String> get() = _currentDecodedMCQ
@@ -56,6 +57,9 @@ class McqViewModel : ViewModel() {
 
     private val _isMCQsClickable = MutableLiveData(true)
     val isMCQsClickable: LiveData<Boolean> get() = _isMCQsClickable
+
+    private val _isHidden = MutableLiveData(true)
+    val isHidden: LiveData<Boolean> get() = _isHidden
 
 
     init {
@@ -179,9 +183,17 @@ class McqViewModel : ViewModel() {
     }
 
     fun onDelete2AnswersClickListener() {
-         val correctAnswer = _currentMCQAnswers.value!!.first { it.isCorrect }
-         val incorrectAnswer = _currentMCQAnswers.value!!.first { !it.isCorrect }
-        _currentMCQAnswers.postValue(listOf(correctAnswer, incorrectAnswer).shuffled())
+         val correctAnswer = _currentMCQAnswers.value?.first { it.isCorrect }
+         val incorrectAnswer = _currentMCQAnswers.value?.first { !it.isCorrect }
+        val newList = _currentMCQAnswers.value?.onEach{
+            if (!it.isCorrect && it != incorrectAnswer){
+                it.hidden = true
+            }
+        } as List<Answer>
+
+        Log.v("list", newList.toString())
+
+        _currentMCQAnswers.postValue(newList as List<Answer>?)
         _isDelete2AnswersUsed.postValue(true)
     }
 
