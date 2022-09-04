@@ -220,7 +220,7 @@ class McqViewModel : ViewModel() {
         e.printStackTrace()
     }
     private fun onComplete(){
-        TODO()
+        endGame()
     }
     private fun disposeTimer(){
         compositeDisposable.dispose()
