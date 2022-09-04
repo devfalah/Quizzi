@@ -35,9 +35,7 @@ fun <E> MutableList<E>.replaceAtIndex(index: Int, newValue: E) {
 
 fun String.decodeHtml(): String = Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT).toString()
 
-fun View.goToFragment(navDir: NavDirections) {
-    this.findNavController().navigate(navDir)
-}
+
 fun <T> MutableLiveData<Event<T>>.postEvent(content: T) {
     postValue(Event(content))
 }

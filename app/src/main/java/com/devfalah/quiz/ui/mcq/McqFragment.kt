@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentMcqBinding
 import com.devfalah.quiz.ui.base.BaseFragment
 import com.devfalah.quiz.utilities.State
 import com.devfalah.quiz.utilities.goToFragment
+import com.devfalah.quiz.utilities.observeEvent
 
 class McqFragment : BaseFragment<FragmentMcqBinding>() {
     override val layoutId = R.layout.fragment_mcq
@@ -23,7 +25,7 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
             viewModel = this@McqFragment.viewModel
         }
         addCallbacks()
-        setGameOverObserver()
+        handleGameOverObserverEvent()
     }
 
     private fun addCallbacks() {
@@ -53,16 +55,16 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
         }
     }
     private fun showExitDialog(){
-        requireView().goToFragment(McqFragmentDirections.actionMcqFragmentToExitDialog())
+        view?.findNavController()?.navigate(McqFragmentDirections.actionMcqFragmentToExitDialog())
     }
 
-    private fun setGameOverObserver() {
-        viewModel.isGameOver.observe(this) {
+    private fun handleGameOverObserverEvent() {
+        viewModel.isGameOver.observeEvent(this) {
             val action = McqFragmentDirections.actionMcqFragmentToResultFragment(
                 this.viewModel.correctAnswersCount.value!!,
                 this.viewModel.score.value!!
             )
-            requireView().goToFragment(action)
+            view?.findNavController()?.navigate(action)
         }
     }
 }

@@ -38,8 +38,8 @@ class McqViewModel : ViewModel() {
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
 
-    private val _isGameOver = MutableLiveData<Boolean>()
-    val isGameOver: LiveData<Boolean> get() = _isGameOver
+    private val _isGameOver = MutableLiveData<Event<Boolean>>()
+    val isGameOver: LiveData<Event<Boolean>> get() = _isGameOver
 
     private val _isReplaceMCQUsed = MutableLiveData(false)
     val isReplaceMCQUsed: LiveData<Boolean> get() = _isReplaceMCQUsed
@@ -152,7 +152,7 @@ class McqViewModel : ViewModel() {
 
     }
 
-    private fun endGame() = _isGameOver.postValue(true)
+    private fun endGame() = _isGameOver.postEvent(true)
 
     fun onReplaceMCQClickListener() {
         disposeTimer()
