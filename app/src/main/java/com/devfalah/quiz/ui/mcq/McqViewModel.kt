@@ -184,14 +184,12 @@ class McqViewModel : ViewModel() {
 
     fun onDelete2AnswersClickListener() {
          val correctAnswer = _currentMCQAnswers.value?.first { it.isCorrect }
-         val incorrectAnswer = _currentMCQAnswers.value?.first { !it.isCorrect }
+         val incorrectAnswer = _currentMCQAnswers.value?.filter { !it.isCorrect }?.random()
         val newList = _currentMCQAnswers.value?.onEach{
             if (!it.isCorrect && it != incorrectAnswer){
                 it.hidden = true
             }
         } as List<Answer>
-
-        Log.v("list", newList.toString())
 
         _currentMCQAnswers.postValue(newList as List<Answer>?)
         _isDelete2AnswersUsed.postValue(true)
