@@ -49,6 +49,7 @@ fun setProgressBarDrawable(view: ProgressBar, value: Int?) {
 @BindingAdapter(value = ["app:setAnswerBackgroundColor"])
 fun setAnswerBackgroundColor(view: MaterialCardView, state: AnswerState?) {
     when (state) {
+        null,
         AnswerState.UNSELECTED -> {
             view.setCardBackgroundColor(ContextCompat.getColor(view.context, R.color.white))
             view.strokeWidth = 0
@@ -67,7 +68,7 @@ fun setAnswerBackgroundColor(view: MaterialCardView, state: AnswerState?) {
         AnswerState.SELECTED_INCORRECT -> {
             view.setCardBackgroundColor(ContextCompat.getColor(view.context, R.color.red))
         }
-        else -> {}
+
     }
 }
 
