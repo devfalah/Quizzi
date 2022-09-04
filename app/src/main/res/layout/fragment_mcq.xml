@@ -150,7 +150,7 @@
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{viewModel.isMCQsClickable()}"
+                android:clickable="@{!viewModel.currentMCQAnswers[0].hidden}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[0])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/label_question"
@@ -160,6 +160,17 @@
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[0].state}"
                 app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[0].answer}" />
 
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/materialDivider"
+                android:layout_width="@dimen/Space62x"
+                android:layout_height="@dimen/Space1x"
+                android:elevation="@dimen/Space1x"
+                app:dividerColor="@color/red"
+                app:isVisible="@{viewModel.currentMCQAnswers[0].hidden}"
+                app:layout_constraintBottom_toBottomOf="@+id/card_answer_a"
+                app:layout_constraintStart_toEndOf="@+id/label_answer_a"
+                app:layout_constraintTop_toTopOf="@+id/card_answer_a" />
 
             <TextView
                 android:id="@+id/label_answer_b"
@@ -197,7 +208,7 @@
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{viewModel.isMCQsClickable()}"
+                android:clickable="@{!viewModel.currentMCQAnswers[1].hidden}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[1])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
@@ -206,6 +217,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[1].state}"
                 app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[1].answer}" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/materialDivider2"
+                android:layout_width="@dimen/Space62x"
+                android:layout_height="@dimen/Space1x"
+                android:elevation="@dimen/Space1x"
+                app:dividerColor="@color/red"
+                app:isVisible="@{viewModel.currentMCQAnswers[1].hidden}"
+                app:layout_constraintBottom_toBottomOf="@+id/card_answer_b"
+                app:layout_constraintStart_toEndOf="@+id/label_answer_b"
+                app:layout_constraintTop_toTopOf="@+id/card_answer_b" />
+
 
             <TextView
                 android:id="@+id/label_answer_c"
@@ -242,7 +265,7 @@
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{viewModel.isMCQsClickable()}"
+                android:clickable="@{!viewModel.currentMCQAnswers[2].hidden}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[2])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
@@ -251,6 +274,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[2].state}"
                 app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[2].answer}" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/materialDivider4"
+                android:layout_width="@dimen/Space62x"
+                android:layout_height="@dimen/Space1x"
+                android:elevation="@dimen/Space1x"
+                app:dividerColor="@color/red"
+                app:isVisible="@{viewModel.currentMCQAnswers[2].hidden}"
+                app:layout_constraintBottom_toBottomOf="@+id/card_answer_c"
+                app:layout_constraintStart_toEndOf="@+id/label_answer_c"
+                app:layout_constraintTop_toTopOf="@+id/card_answer_c" />
 
             <TextView
                 android:id="@+id/label_answer_d"
@@ -287,7 +321,7 @@
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{viewModel.isMCQsClickable()}"
+                android:clickable="@{!viewModel.currentMCQAnswers[3].hidden}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[3])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
@@ -296,6 +330,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[3].state}"
                 app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[3].answer}" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="@dimen/Space62x"
+                android:layout_height="@dimen/Space1x"
+                android:elevation="@dimen/Space1x"
+                app:dividerColor="@color/red"
+                app:isVisible="@{viewModel.currentMCQAnswers[3].hidden}"
+                app:layout_constraintBottom_toBottomOf="@+id/card_answer_d"
+                app:layout_constraintStart_toEndOf="@+id/label_answer_d"
+                app:layout_constraintTop_toTopOf="@+id/card_answer_d" />
+
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/delete_two_answer_button"
