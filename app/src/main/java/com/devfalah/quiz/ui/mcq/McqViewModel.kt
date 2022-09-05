@@ -60,6 +60,9 @@ class McqViewModel : ViewModel() {
     private val _isHidden = MutableLiveData(true)
     val isHidden: LiveData<Boolean> get() = _isHidden
 
+    private val _openExitDialog = MutableLiveData<Event<Boolean>>()
+    val openExitDialog : LiveData<Event<Boolean>> = _openExitDialog
+
 
     init {
         getAllMCQs()
@@ -236,5 +239,9 @@ class McqViewModel : ViewModel() {
     fun tryPlayingAgain() {
         _requestState.postValue(State.Loading)
         getAllMCQs()
+    }
+
+    fun onClickExitButton() {
+        _openExitDialog.postEvent(true)
     }
 }

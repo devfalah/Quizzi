@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.devfalah.quiz.ui.dialogs.exit.ExitDialogViewModel" />
 
     </data>
 
@@ -21,6 +24,7 @@
             android:background="@drawable/main_icon_background"
             android:backgroundTint="@color/background_color"
             android:padding="@dimen/Space4x"
+            android:onClick="@{()->viewModel.onClickCloseIcon()}"
             android:src="@drawable/ic_dialog_close_vector"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -64,11 +68,11 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/exit_button"
-
             android:layout_width="@dimen/Space0x"
             android:layout_height="wrap_content"
             android:text="@string/exit"
             style="@style/ButtonTextStyle.Main"
+            android:onClick="@{()->viewModel.onClickExitButton()}"
             app:layout_constraintTop_toBottomOf="@id/subtitle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/close_icon"
