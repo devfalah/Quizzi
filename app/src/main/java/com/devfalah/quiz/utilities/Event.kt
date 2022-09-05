@@ -1,20 +1,10 @@
 package com.devfalah.quiz.utilities
 
-import android.util.Log
-import androidx.lifecycle.Observer
-import java.util.concurrent.atomic.AtomicBoolean
 
-
-/**
- * Used as a wrapper for data that is exposed via a LiveData that represents an event.
- */
 open class Event<out T>(private val content: T) {
 
     private var hasBeenHandled = false
 
-    /**
-     * Returns the content and prevents its use again.
-     */
     fun getContentIfNotHandled(): T? {
         return if (hasBeenHandled) {
             null
@@ -24,9 +14,7 @@ open class Event<out T>(private val content: T) {
         }
     }
 
-    /**
-     * Returns the content, even if it's already been handled.
-     */
+
     fun peekContent(): T = content
 }
 
