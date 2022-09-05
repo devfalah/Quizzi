@@ -12,10 +12,9 @@ import com.devfalah.quiz.domain.enums.AnswerState
 import com.devfalah.quiz.domain.enums.QuestionDifficulty
 import com.devfalah.quiz.domain.model.Answer
 import com.devfalah.quiz.utilities.*
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 class GamingViewModel : ViewModel() {
@@ -25,7 +24,7 @@ class GamingViewModel : ViewModel() {
     val requestState: LiveData<State<QuizResponse>> get() = _requestState
 
     private val _currentQuestion = MutableLiveData<Quiz>()
-    val  currentQuestion : LiveData<Quiz> = _currentQuestion
+    val currentQuestion: LiveData<Quiz> = _currentQuestion
 
     private val _currentQuestionIndex = MutableLiveData(0)
     val currentQuestionIndex: LiveData<Int> get() = _currentQuestionIndex
@@ -119,7 +118,8 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun sortQuestionsAccordingToPriority(questionsList: List<Quiz>) {
-        questionsList.subList(0, 5).forEach { allMCQsList.add(it) }.also { forReplaceMCQsList.add(questionsList.last()) }
+        questionsList.subList(0, 5).forEach { allMCQsList.add(it) }
+            .also { forReplaceMCQsList.add(questionsList.last()) }
     }
 
     private fun onAllQuestionsSortedSuccessfully(state: State<QuizResponse>) {
@@ -148,7 +148,7 @@ class GamingViewModel : ViewModel() {
     fun onAnswerClick(answer: Answer) {
         disposeTimer()
         _isQuestionClickable.postValue(false)
-        if (answer.isCorrect){
+        if (answer.isCorrect) {
             onAnswerCorrectly(answer)
         } else {
             onAnswerWrongly(answer)
@@ -157,29 +157,32 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun onAnswerCorrectly(answer: Answer) {
-        _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
+        _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
+            answer.state = AnswerState.SELECTED_CORRECT
+        })
         _correctAnswersCount.value = _correctAnswersCount.value!! + 1
         _score.postValue(setScore(_currentQuestionIndex.value!!))
         if (isNotLastQuestion()) goToNextQuestion() else endGame()
     }
 
-    private fun setScore(currentMCQIndex: Int): Int{
+    private fun setScore(currentMCQIndex: Int): Int {
         return Constants.SCORE_LIST[currentMCQIndex]
     }
 
-    private fun onAnswerWrongly(answer: Answer) = _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
-        answer.state = AnswerState.SELECTED_INCORRECT
-        endGame()
-        this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
-    })
+    private fun onAnswerWrongly(answer: Answer) =
+        _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
+            answer.state = AnswerState.SELECTED_INCORRECT
+            endGame()
+            this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
+        })
 
-    private fun isNotLastQuestion(): Boolean = requireNotNull(currentQuestionIndex.value) < allMCQsList.lastIndex
+    private fun isNotLastQuestion(): Boolean =
+        requireNotNull(currentQuestionIndex.value) < allMCQsList.lastIndex
 
     private fun goToNextQuestion() {
-        viewModelScope.launch {
-            startTimer()
-            _currentQuestionIndex.value = _currentQuestionIndex.value?.plus(1)
-            delay(1000)
+        startTimer()
+        _currentQuestionIndex.value = _currentQuestionIndex.value?.plus(1)
+        doAfterDelay {
             _isQuestionClickable.postValue(true)
             _currentQuestionIndex.value?.let { setCurrentQuestion(allMCQsList[it]) }
         }
@@ -201,10 +204,9 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun replaceQuestion(newQuestion: Quiz) {
-        viewModelScope.launch {
-            startTimer()
-            changeAnswersStateOnTimeOut()
-            delay(1000)
+        startTimer()
+        changeAnswersStateOnTimeOut()
+        doAfterDelay {
             currentQuestionIndex.value?.let {
                 allMCQsList.replaceAtIndex(it, newQuestion)
                 setCurrentQuestion(allMCQsList[it])
@@ -214,13 +216,13 @@ class GamingViewModel : ViewModel() {
     }
 
     fun onDelete2AnswersClickListener() {
-         val correctAnswer = _currentQuestionAnswers.value?.first { it.isCorrect }
-         val incorrectAnswer = _currentQuestionAnswers.value?.filter { !it.isCorrect }?.random()
-         val newList = _currentQuestionAnswers.value?.onEach {
+        val correctAnswer = _currentQuestionAnswers.value?.first { it.isCorrect }
+        val incorrectAnswer = _currentQuestionAnswers.value?.filter { !it.isCorrect }?.random()
+        val newList = _currentQuestionAnswers.value?.onEach {
             if (!it.isCorrect && it != incorrectAnswer) {
                 it.hidden = true
             }
-         } as List<Answer>
+        } as List<Answer>
         _currentQuestionAnswers.postValue(newList as List<Answer>?)
         _isDelete2AnswersUsed.postValue(true)
     }
@@ -229,7 +231,7 @@ class GamingViewModel : ViewModel() {
         val rangeObservable = Observable.range(1, Constants.MCQ_TIMER)
         val intervalObservable = Observable.interval(1, TimeUnit.SECONDS)
         timer = Observable.zip(
-                rangeObservable, intervalObservable
+            rangeObservable, intervalObservable
         ) { i: Int, _: Long ->
             Constants.MCQ_TIMER.toLong() - i
         }.observeOnMainThread()
@@ -271,5 +273,10 @@ class GamingViewModel : ViewModel() {
 
     private fun reportError(error: Throwable) {
         _error.postEvent(error)
+    }
+
+    private fun doAfterDelay(lambda: () -> Unit) {
+        Observable.timer(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread())
+            .map { lambda() }.subscribe()
     }
 }
