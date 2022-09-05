@@ -15,7 +15,8 @@ import com.devfalah.quiz.utilities.observeEvent
 
 class McqFragment : BaseFragment<FragmentMcqBinding>() {
     override val layoutId = R.layout.fragment_mcq
-    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentMcqBinding = DataBindingUtil::inflate
+    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentMcqBinding =
+        DataBindingUtil::inflate
     private val viewModel: McqViewModel by viewModels()
 
     override fun setup() {
@@ -24,12 +25,11 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
             viewModel = this@McqFragment.viewModel
         }
         addCallbacks()
-        handleGameOverObserverEvent()
+        handleObserveEvents()
     }
 
     private fun addCallbacks() {
         setOnBackButtonClickListener()
-        setOnExitIconClickListener()
     }
 
     private fun setOnBackButtonClickListener() {
@@ -42,22 +42,26 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
-    private fun setOnExitIconClickListener() {
-        binding!!.exitIcon.setOnClickListener {
-            showExitDialog()
-        }
-    }
-    private fun showExitDialog(){
+
+
+    private fun showExitDialog() {
         view?.findNavController()?.navigate(McqFragmentDirections.actionMcqFragmentToExitDialog())
     }
 
-    private fun handleGameOverObserverEvent() {
-        viewModel.isGameOver.observeEvent(this) {
-            val action = McqFragmentDirections.actionMcqFragmentToResultFragment(
-                this.viewModel.correctAnswersCount.value!!,
-                this.viewModel.score.value!!
-            )
-            view?.findNavController()?.navigate(action)
+    private fun handleObserveEvents() {
+        viewModel.apply {
+            isGameOver.observeEvent(this@McqFragment) {
+                val action = McqFragmentDirections.actionMcqFragmentToResultFragment(
+                    viewModel.correctAnswersCount.value!!, viewModel.score.value!!
+                )
+                view?.findNavController()?.navigate(action)
+
+                openExitDialog.observeEvent(this@McqFragment){
+                    showExitDialog()
+                }
+            }
         }
     }
+
+
 }
