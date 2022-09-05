@@ -38,10 +38,6 @@ fun showIfTrue(view: View, status: Boolean) {
     view.isVisible = status
 }
 
-@BindingAdapter(value = ["app:progressBarValue"])
-fun setProgressBarValue(view: ProgressBar, value: Int?) {
-    view.progress = value ?: 0
-}
 
 @BindingAdapter(value = ["app:progressBarDrawable"])
 fun setProgressBarDrawable(view: ProgressBar, value: Int?) {

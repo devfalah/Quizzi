@@ -8,9 +8,7 @@
             name="viewModel"
             type="com.devfalah.quiz.ui.mcq.McqViewModel" />
 
-        <variable
-            name="constant"
-            type="com.devfalah.quiz.utilities.Constants" />
+        <import type="com.devfalah.quiz.utilities.Constants"/>
     </data>
 
 
@@ -88,13 +86,13 @@
                 android:layout_height="170dp"
                 android:layout_marginTop="@dimen/Space12x"
                 android:indeterminateOnly="false"
-                android:max="@{constant.MCQ_TIMER}"
+                android:max="@{Constants.MCQ_TIMER}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/number_of_question"
                 app:progressBarDrawable="@{viewModel.time}"
-                app:progressBarValue="@{viewModel.time}"
-                tools:progress="50" />
+                app:progress="@{viewModel.time}"
+                 />
 
 
             <TextView
