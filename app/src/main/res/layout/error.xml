@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<data>
+    <variable
+        name="viewModel"
+        type="com.devfalah.quiz.ui.gaming.GamingViewModel" />
+</data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/error"
         android:layout_width="match_parent"
@@ -62,6 +66,7 @@
             android:layout_marginEnd="@dimen/Space8x"
             android:layout_marginBottom="@dimen/Space8x"
             android:text="@string/try_again"
+            android:onClick="@{()->viewModel.tryPlayingAgain()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

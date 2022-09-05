@@ -49,7 +49,7 @@
     </fragment>
     <dialog
         android:id="@+id/how_to_play_dialog"
-        android:name="com.devfalah.quiz.ui.dialogs.HowToPlayDialogFragment"
+        android:name="com.devfalah.quiz.ui.dialogs.howToPlay.HowToPlayDialogFragment"
         android:label="How to play"
         tools:layout="@layout/fragment_dialog_how_to_play">
         <action
@@ -63,7 +63,7 @@
     </dialog>
     <dialog
         android:id="@+id/exit_dialog"
-        android:name="com.devfalah.quiz.ui.dialogs.ExitDialogFragment"
+        android:name="com.devfalah.quiz.ui.dialogs.exit.ExitDialogFragment"
         android:label="Exit"
         tools:layout="@layout/fragment_dialog_exit">
 

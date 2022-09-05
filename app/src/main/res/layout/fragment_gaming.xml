@@ -8,9 +8,7 @@
             name="viewModel"
             type="com.devfalah.quiz.ui.gaming.GamingViewModel" />
 
-        <variable
-            name="constant"
-            type="com.devfalah.quiz.utilities.Constants" />
+        <import type="com.devfalah.quiz.utilities.Constants"/>
     </data>
 
 
@@ -87,13 +85,13 @@
                 android:layout_height="170dp"
                 android:layout_marginTop="@dimen/Space12x"
                 android:indeterminateOnly="false"
-                android:max="@{constant.MCQ_TIMER}"
+                android:max="@{Constants.MCQ_TIMER}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/number_of_question"
                 app:progressBarDrawable="@{viewModel.time}"
-                app:progressBarValue="@{viewModel.time}"
-                tools:progress="50" />
+                app:progress="@{viewModel.time}"
+                 />
 
 
             <TextView
@@ -126,8 +124,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_a"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_a"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[0].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[0].answer}" />
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[0].state}" />
 
             <TextView
                 android:id="@+id/text_answer_a"
@@ -145,6 +142,7 @@
                 app:setDecodedString="@{viewModel.currentQuestionAnswers[0].answer}"
                 tools:text="answer a" />
 
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_answer_a"
                 android:layout_width="@dimen/Space0x"
@@ -154,12 +152,10 @@
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentQuestionAnswers[0])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/label_question"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/label_question"
                 app:layout_constraintTop_toBottomOf="@+id/label_question"
-                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[0].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[0].answer}" />
-
+                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[0].state}" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/materialDivider"
@@ -183,8 +179,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_b"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_b"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[1].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[1].answer}" />
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[1].state}" />
 
             <TextView
                 android:id="@+id/text_answer_b"
@@ -215,8 +210,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
-                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[1].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[1].answer}" />
+                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[1].state}" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/materialDivider2"
@@ -241,8 +235,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_c"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_c"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[2].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[2].answer}" />
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[2].state}" />
 
             <TextView
                 android:id="@+id/text_answer_c"
@@ -272,8 +265,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
-                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[2].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[2].answer}" />
+                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[2].state}" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/materialDivider4"
@@ -297,8 +289,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_d"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_d"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[3].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[3].answer}" />
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[3].state}" />
 
             <TextView
                 android:id="@+id/text_answer_d"
@@ -328,8 +319,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
-                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[3].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[3].answer}" />
+                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[3].state}" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="@dimen/Space62x"
