@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-fun <T> Observable<T>.observeOnMainThread(): Observable<T> {
+fun <T : Any> Observable<T>.observeOnMainThread(): Observable<T> {
     return subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }
 
@@ -20,7 +20,7 @@ fun Disposable.add(compositeDisposable: CompositeDisposable) {
     compositeDisposable.add(this)
 }
 
-fun String.toMCQAnswer(isCorrect: Boolean, answerState: AnswerState = AnswerState.UNSELECTED) =
+fun String.toAnswer(isCorrect: Boolean, answerState: AnswerState = AnswerState.UNSELECTED) =
     Answer(this, isCorrect, answerState)
 
 fun <E> MutableList<E>.replaceAtIndex(index: Int, newValue: E) {
@@ -35,6 +35,7 @@ fun String.decodeHtml(): String = Html.fromHtml(this, Html.FROM_HTML_MODE_COMPAC
 fun <T> MutableLiveData<Event<T>>.postEvent(content: T) {
     postValue(Event(content))
 }
+
 inline fun <T> LiveData<Event<T>>.observeEvent(owner: LifecycleOwner, crossinline onEventUnhandledContent: (T) -> Unit) {
     observe(owner) { it?.getContentIfNotHandled()?.let(onEventUnhandledContent) }
 }

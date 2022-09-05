@@ -11,23 +11,26 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_mcqFragment"
-            app:destination="@id/mcqFragment" />
+            android:id="@+id/action_homeFragment_to_gamingFragment"
+            app:destination="@id/gamingFragment" />
         <action
             android:id="@+id/action_homeFragment_to_how_to_play_dialog"
             app:destination="@id/how_to_play_dialog" />
     </fragment>
     <fragment
-        android:id="@+id/mcqFragment"
-        android:name="com.devfalah.quiz.ui.mcq.McqFragment"
+        android:id="@+id/gamingFragment"
+        android:name="com.devfalah.quiz.ui.gaming.GamingFragment"
         android:label="McqFragment"
-        tools:layout="@layout/fragment_mcq">
+        tools:layout="@layout/fragment_gaming">
         <action
-            android:id="@+id/action_mcqFragment_to_resultFragment"
+            android:id="@+id/action_gamingFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
         <action
-            android:id="@+id/action_mcqFragment_to_exit_dialog"
+            android:id="@+id/action_gamingFragment_to_exit_dialog"
             app:destination="@id/exit_dialog" />
+        <action
+            android:id="@+id/action_gamingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -68,7 +71,7 @@
             android:id="@+id/action_exit_dialog_to_mcqFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@animator/nav_default_exit_anim"
-            app:popUpTo="@id/mcqFragment"
+            app:popUpTo="@id/gamingFragment"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 

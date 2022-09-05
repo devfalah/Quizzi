@@ -120,5 +120,5 @@ fun setResultLottieAnimation(view: LottieAnimationView, correctAnswersCount: Int
 
 @BindingAdapter(value = ["setDecodedString"])
 fun setDecodedString(view: TextView, value: String?) {
-    view.text = value?.let { it.decodeHtml() }
+    view.text = value?.decodeHtml()
 }
