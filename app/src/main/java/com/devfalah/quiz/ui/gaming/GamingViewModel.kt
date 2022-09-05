@@ -147,24 +147,29 @@ class GamingViewModel : ViewModel() {
 
     fun onAnswerClick(answer: Answer) {
         disposeTimer()
-         _isQuestionClickable.postValue(false)
-        if (answer.isCorrect) onAnswerCorrectly(answer) else onAnswerWrongly(answer)
-        if (isNotLastQuestion()) goToNextQuestion() else endGame()
+        _isQuestionClickable.postValue(false)
+        if (answer.isCorrect){
+            onAnswerCorrectly(answer)
+        } else {
+            onAnswerWrongly(answer)
+        }
+
     }
 
     private fun onAnswerCorrectly(answer: Answer) {
         _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply { answer.state = AnswerState.SELECTED_CORRECT })
-        _correctAnswersCount.value = _correctAnswersCount.value?.plus(1)
-        _currentQuestionIndex.value?.let { _score.postValue(setScore(it)) }
-
+        _correctAnswersCount.value = _correctAnswersCount.value!! + 1
+        _score.postValue(setScore(_currentQuestionIndex.value!!))
+        if (isNotLastQuestion()) goToNextQuestion() else endGame()
     }
 
-    private fun setScore(currentMCQIndex: Int): Int {
+    private fun setScore(currentMCQIndex: Int): Int{
         return Constants.SCORE_LIST[currentMCQIndex]
     }
 
     private fun onAnswerWrongly(answer: Answer) = _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
         answer.state = AnswerState.SELECTED_INCORRECT
+        endGame()
         this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
     })
 
@@ -245,7 +250,7 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun onComplete() {
-        TODO()
+        endGame()
     }
 
     private fun disposeTimer() {
