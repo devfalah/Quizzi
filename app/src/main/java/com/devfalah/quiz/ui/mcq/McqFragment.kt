@@ -29,7 +29,6 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
 
     private fun addCallbacks() {
         setOnBackButtonClickListener()
-        setOnTryAgainButtonClickListener()
         setOnExitIconClickListener()
     }
 
@@ -43,11 +42,6 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
-    private fun setOnTryAgainButtonClickListener() {
-        binding!!.error.tryAgain.setOnClickListener {
-            viewModel.tryPlayingAgain()
-        }
-    }
     private fun setOnExitIconClickListener() {
         binding!!.exitIcon.setOnClickListener {
             showExitDialog()

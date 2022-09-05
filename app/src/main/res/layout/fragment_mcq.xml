@@ -425,6 +425,7 @@
         <include
             android:id="@+id/error"
             layout="@layout/error"
+            app:viewModel="@{viewModel}"
             android:visibility="gone"
             app:showWhenError="@{viewModel.requestState}" />
 
