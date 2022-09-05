@@ -28,11 +28,6 @@ fun <T> showWhenLoading(view: View, state: State<T>?) {
     view.isVisible = (state is State.Loading)
 }
 
-@BindingAdapter(value = ["app:showWhenIsNotEmpty"])
-fun <T> showWhenIsNotNull(view: View, value: String?) {
-    view.isVisible = (value != null)
-}
-
 @BindingAdapter(value = ["isVisible"])
 fun showIfTrue(view: View, status: Boolean) {
     view.isVisible = status

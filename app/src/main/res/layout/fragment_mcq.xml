@@ -126,7 +126,7 @@
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_a"
                 app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[0].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[0].answer}" />
+                  />
 
             <TextView
                 android:id="@+id/text_answer_a"
@@ -157,7 +157,7 @@
                 app:layout_constraintStart_toStartOf="@+id/label_question"
                 app:layout_constraintTop_toBottomOf="@+id/label_question"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[0].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[0].answer}" />
+                  />
 
 
             <com.google.android.material.divider.MaterialDivider
@@ -183,7 +183,7 @@
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_b"
                 app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[1].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[1].answer}" />
+                 />
 
             <TextView
                 android:id="@+id/text_answer_b"
@@ -215,7 +215,7 @@
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[1].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[1].answer}" />
+                 />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/materialDivider2"
@@ -241,7 +241,7 @@
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_c"
                 app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[2].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[2].answer}" />
+                />
 
             <TextView
                 android:id="@+id/text_answer_c"
@@ -272,7 +272,7 @@
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[2].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[2].answer}" />
+                 />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/materialDivider4"
@@ -297,7 +297,7 @@
                 app:layout_constraintStart_toStartOf="@+id/card_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_d"
                 app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[3].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[3].answer}" />
+                />
 
             <TextView
                 android:id="@+id/text_answer_d"
@@ -328,7 +328,7 @@
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
                 app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[3].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[3].answer}" />
+                 />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="@dimen/Space62x"
