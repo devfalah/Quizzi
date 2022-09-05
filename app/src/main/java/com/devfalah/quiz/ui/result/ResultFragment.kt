@@ -5,13 +5,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentResultBinding
 import com.devfalah.quiz.ui.base.BaseFragment
-import com.devfalah.quiz.utilities.Constants
-import com.devfalah.quiz.utilities.goToFragment
 import com.devfalah.quiz.utilities.observeEvent
 
 

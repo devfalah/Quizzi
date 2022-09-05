@@ -11,7 +11,6 @@ import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentMcqBinding
 import com.devfalah.quiz.ui.base.BaseFragment
 import com.devfalah.quiz.utilities.State
-import com.devfalah.quiz.utilities.goToFragment
 import com.devfalah.quiz.utilities.observeEvent
 
 class McqFragment : BaseFragment<FragmentMcqBinding>() {
