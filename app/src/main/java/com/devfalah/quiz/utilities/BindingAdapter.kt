@@ -1,6 +1,5 @@
 package com.devfalah.quiz.utilities
 
-import android.text.Html
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -10,7 +9,7 @@ import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.devfalah.quiz.R
-import com.devfalah.quiz.utilities.enums.AnswerState
+import com.devfalah.quiz.domain.enums.AnswerState
 import com.google.android.material.card.MaterialCardView
 
 @BindingAdapter(value = ["app:showWhenSuccess"])

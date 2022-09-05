@@ -1,4 +1,4 @@
-package com.devfalah.quiz.utilities.enums
+package com.devfalah.quiz.domain.enums
 
 enum class AnswerState {
     SELECTED_CORRECT,

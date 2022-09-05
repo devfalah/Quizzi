@@ -1,15 +1,11 @@
 package com.devfalah.quiz.utilities
 
 import android.text.Html
-import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
-import com.devfalah.quiz.data.model.Answer
-import com.devfalah.quiz.utilities.enums.AnswerState
+import com.devfalah.quiz.domain.model.Answer
+import com.devfalah.quiz.domain.enums.AnswerState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
