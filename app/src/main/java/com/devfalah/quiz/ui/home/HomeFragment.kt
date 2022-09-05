@@ -2,6 +2,7 @@ package com.devfalah.quiz.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -16,26 +17,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         DataBindingUtil::inflate
     private val viewModel: HomeViewModel by viewModels()
 
-
     override fun setup() {
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@HomeFragment.viewModel
         }
         handleObserveEvents()
+        setOnBackButtonClickListener()
     }
 
     private fun handleObserveEvents() {
         viewModel.apply {
             navigateToMCQ.observeEvent(this@HomeFragment) {
                 view?.findNavController()
-                    ?.navigate(HomeFragmentDirections.actionHomeFragmentToMcqFragment())
+                    ?.navigate(HomeFragmentDirections.actionHomeFragmentToGamingFragment())
             }
             openHowToPlayDialog.observeEvent(this@HomeFragment) {
                 view?.findNavController()
                     ?.navigate(HomeFragmentDirections.actionHomeFragmentToHowToPlayDialog())
             }
         }
+    }
+
+    private fun setOnBackButtonClickListener() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
 }

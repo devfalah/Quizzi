@@ -24,7 +24,7 @@ fun Disposable.add(compositeDisposable: CompositeDisposable) {
     compositeDisposable.add(this)
 }
 
-fun String.toMCQAnswer(isCorrect: Boolean, answerState: AnswerState = AnswerState.UNSELECTED) =
+fun String.toAnswer(isCorrect: Boolean, answerState: AnswerState = AnswerState.UNSELECTED) =
     Answer(this, isCorrect, answerState)
 
 fun <E> MutableList<E>.replaceAtIndex(index: Int, newValue: E) {
@@ -39,6 +39,7 @@ fun String.decodeHtml(): String = Html.fromHtml(this, Html.FROM_HTML_MODE_COMPAC
 fun <T> MutableLiveData<Event<T>>.postEvent(content: T) {
     postValue(Event(content))
 }
+
 inline fun <T> LiveData<Event<T>>.observeEvent(owner: LifecycleOwner, crossinline onEventUnhandledContent: (T) -> Unit) {
     observe(owner) { it?.getContentIfNotHandled()?.let(onEventUnhandledContent) }
 }

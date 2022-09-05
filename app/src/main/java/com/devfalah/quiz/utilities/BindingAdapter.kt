@@ -1,6 +1,5 @@
 package com.devfalah.quiz.utilities
 
-import android.text.Html
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -130,5 +129,5 @@ fun setResultLottieAnimation(view: LottieAnimationView, correctAnswersCount: Int
 
 @BindingAdapter(value = ["setDecodedString"])
 fun setDecodedString(view: TextView, value: String?) {
-    view.text = value?.let { it.decodeHtml() }
+    view.text = value?.decodeHtml()
 }

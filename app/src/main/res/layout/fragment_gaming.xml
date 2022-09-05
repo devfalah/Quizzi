@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.devfalah.quiz.ui.mcq.McqViewModel" />
+            type="com.devfalah.quiz.ui.gaming.GamingViewModel" />
 
         <variable
             name="constant"
@@ -48,7 +48,7 @@
                 android:id="@+id/number_of_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{(viewModel.currentMCQIndex + 1) + `/` + 15}"
+                android:text="@{(viewModel.currentQuestionIndex + 1) + `/` + 15}"
                 android:textColor="@color/black_overlay"
                 android:textSize="@dimen/FontSize7x"
                 app:layout_constraintBottom_toBottomOf="@+id/label_score"
@@ -111,7 +111,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/progress_bar"
                 app:layout_constraintVertical_chainStyle="packed"
-                app:setDecodedString="@{viewModel.currentMCQ.question}"
+                app:setDecodedString="@{viewModel.currentQuestion.question}"
                 app:showWhenSuccess="@{viewModel.requestState}"
                 tools:text="question " />
 
@@ -126,8 +126,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_a"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_a"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[0].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[0].answer}" />
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[0].state}"
+                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[0].answer}" />
 
             <TextView
                 android:id="@+id/text_answer_a"
@@ -141,8 +141,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_a"
-                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[0].state}"
-                app:setDecodedString="@{viewModel.currentMCQAnswers[0].answer}"
+                app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[0].state}"
+                app:setDecodedString="@{viewModel.currentQuestionAnswers[0].answer}"
                 tools:text="answer a" />
 
             <com.google.android.material.card.MaterialCardView
@@ -150,15 +150,15 @@
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{!viewModel.currentMCQAnswers[0].hidden}"
-                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[0])}"
+                android:clickable="@{!viewModel.currentQuestionAnswers[0].hidden}"
+                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentQuestionAnswers[0])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/label_question"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/label_question"
                 app:layout_constraintTop_toBottomOf="@+id/label_question"
-                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[0].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[0].answer}" />
+                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[0].state}"
+                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[0].answer}" />
 
 
             <com.google.android.material.divider.MaterialDivider
@@ -167,7 +167,7 @@
                 android:layout_height="@dimen/Space1x"
                 android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.currentMCQAnswers[0].hidden}"
+                app:isVisible="@{viewModel.currentQuestionAnswers[0].hidden}"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_a"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_a" />
@@ -183,8 +183,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_b"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_b"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[1].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[1].answer}" />
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[1].state}"
+                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[1].answer}" />
 
             <TextView
                 android:id="@+id/text_answer_b"
@@ -199,8 +199,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_b"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_b"
-                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[1].state}"
-                app:setDecodedString="@{viewModel.currentMCQAnswers[1].answer}"
+                app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[1].state}"
+                app:setDecodedString="@{viewModel.currentQuestionAnswers[1].answer}"
                 tools:text="answer b" />
 
             <com.google.android.material.card.MaterialCardView
@@ -208,15 +208,15 @@
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{!viewModel.currentMCQAnswers[1].hidden}"
-                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[1])}"
+                android:clickable="@{!viewModel.currentQuestionAnswers[1].hidden}"
+                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentQuestionAnswers[1])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_a"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
-                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[1].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[1].answer}" />
+                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[1].state}"
+                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[1].answer}" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/materialDivider2"
@@ -224,7 +224,7 @@
                 android:layout_height="@dimen/Space1x"
                 android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.currentMCQAnswers[1].hidden}"
+                app:isVisible="@{viewModel.currentQuestionAnswers[1].hidden}"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_b"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_b"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_b" />
@@ -241,8 +241,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_c"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_c"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[2].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[2].answer}" />
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[2].state}"
+                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[2].answer}" />
 
             <TextView
                 android:id="@+id/text_answer_c"
@@ -256,8 +256,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_c"
-                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[2].state}"
-                app:setDecodedString="@{viewModel.currentMCQAnswers[2].answer}"
+                app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[2].state}"
+                app:setDecodedString="@{viewModel.currentQuestionAnswers[2].answer}"
                 tools:text="answer c" />
 
             <com.google.android.material.card.MaterialCardView
@@ -265,15 +265,15 @@
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{!viewModel.currentMCQAnswers[2].hidden}"
-                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[2])}"
+                android:clickable="@{!viewModel.currentQuestionAnswers[2].hidden}"
+                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentQuestionAnswers[2])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_b"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
-                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[2].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[2].answer}" />
+                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[2].state}"
+                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[2].answer}" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/materialDivider4"
@@ -281,7 +281,7 @@
                 android:layout_height="@dimen/Space1x"
                 android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.currentMCQAnswers[2].hidden}"
+                app:isVisible="@{viewModel.currentQuestionAnswers[2].hidden}"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_c"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_c" />
@@ -297,8 +297,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_d"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_d"
-                app:setAnswerAlphabetTextStyle="@{viewModel.currentMCQAnswers[3].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[3].answer}" />
+                app:setAnswerAlphabetTextStyle="@{viewModel.currentQuestionAnswers[3].state}"
+                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[3].answer}" />
 
             <TextView
                 android:id="@+id/text_answer_d"
@@ -312,8 +312,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_d"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_d"
-                app:setAnswerBodyTextStyle="@{viewModel.currentMCQAnswers[3].state}"
-                app:setDecodedString="@{viewModel.currentMCQAnswers[3].answer}"
+                app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[3].state}"
+                app:setDecodedString="@{viewModel.currentQuestionAnswers[3].answer}"
                 tools:text="answer d" />
 
             <com.google.android.material.card.MaterialCardView
@@ -321,22 +321,22 @@
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
                 android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{!viewModel.currentMCQAnswers[3].hidden}"
-                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentMCQAnswers[3])}"
+                android:clickable="@{!viewModel.currentQuestionAnswers[3].hidden}"
+                android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentQuestionAnswers[3])}"
                 app:cardCornerRadius="@dimen/Radius4X"
                 app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/card_answer_c"
                 app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
-                app:setAnswerBackgroundColor="@{viewModel.currentMCQAnswers[3].state}"
-                app:showWhenIsNotEmpty="@{viewModel.currentMCQAnswers[3].answer}" />
+                app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[3].state}"
+                app:showWhenIsNotEmpty="@{viewModel.currentQuestionAnswers[3].answer}" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="@dimen/Space62x"
                 android:layout_height="@dimen/Space1x"
                 android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.currentMCQAnswers[3].hidden}"
+                app:isVisible="@{viewModel.currentQuestionAnswers[3].hidden}"
                 app:layout_constraintBottom_toBottomOf="@+id/card_answer_d"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/card_answer_d" />
@@ -373,8 +373,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/Space4x"
                 android:background="@drawable/white_button_background"
-                android:enabled="@{!viewModel.isReplaceMCQUsed}"
-                android:onClick="@{()->viewModel.onReplaceMCQClickListener()}"
+                android:enabled="@{!viewModel.isReplaceQuestionUsed}"
+                android:onClick="@{()->viewModel.onReplaceQuestionClickListener()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/delete_two_answer_button"
                 app:layout_constraintTop_toBottomOf="parent"
@@ -385,7 +385,7 @@
                 android:layout_height="@dimen/Space1x"
                 android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.isReplaceMCQUsed()}"
+                app:isVisible="@{viewModel.isReplaceQuestionUsed()}"
                 app:layout_constraintBottom_toBottomOf="@id/replace_question_button"
                 app:layout_constraintEnd_toEndOf="@id/replace_question_button"
                 app:layout_constraintStart_toStartOf="@id/replace_question_button"

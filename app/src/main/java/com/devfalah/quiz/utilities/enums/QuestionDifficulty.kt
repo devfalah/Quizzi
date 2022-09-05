@@ -1,6 +1,6 @@
 package com.devfalah.quiz.utilities.enums
 
-enum class McqDifficulty {
+enum class QuestionDifficulty {
     EASY,
     MEDIUM,
     HARD,

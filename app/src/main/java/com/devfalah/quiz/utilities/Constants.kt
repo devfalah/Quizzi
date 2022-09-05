@@ -28,4 +28,6 @@ object Constants {
     const val FOR_REPLACE_HARD_MCQ_INDEX = 2
     const val MCQ_TIMER = 30
     const val MINIMUM_REQUIRED_CORRECT_ANSWERS_TO_PASS = 7
+    const val DATA_IS_NULL_ERROR_MESSAGE = "Something went wrong while trying to retrieve data!"
+    const val TIMER_ERROR_MESSAGE = "Something went wrong while tyring to handle the timer!"
 }
