@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.devfalah.quiz.ui.dialogs.howToPlay.HowToPlayDialogViewModel" />
 
     </data>
 
@@ -29,6 +32,7 @@
             android:background="@drawable/main_icon_background"
             android:backgroundTint="@color/background_color"
             android:padding="@dimen/Space4x"
+            android:onClick="@{()->viewModel.onClickCloseIcon()}"
             android:src="@drawable/ic_dialog_close_vector"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

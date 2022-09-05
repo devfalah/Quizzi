@@ -55,10 +55,9 @@ class McqFragment : BaseFragment<FragmentMcqBinding>() {
                     viewModel.correctAnswersCount.value!!, viewModel.score.value!!
                 )
                 view?.findNavController()?.navigate(action)
-
-                openExitDialog.observeEvent(this@McqFragment){
-                    showExitDialog()
-                }
+            }
+            openExitDialog.observeEvent(this@McqFragment){
+                showExitDialog()
             }
         }
     }
