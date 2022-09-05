@@ -1,6 +1,6 @@
 package com.devfalah.quiz.data.service
 
-import com.devfalah.quiz.data.model.QuizResponse
+import com.devfalah.quiz.data.response.QuizResponse
 import com.devfalah.quiz.utilities.Constants
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response

@@ -1,15 +1,14 @@
 package com.devfalah.quiz.ui.mcq
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.devfalah.quiz.data.model.Answer
-import com.devfalah.quiz.data.model.Quiz
-import com.devfalah.quiz.data.model.QuizResponse
+import com.devfalah.quiz.domain.model.Answer
+import com.devfalah.quiz.data.response.Quiz
+import com.devfalah.quiz.data.response.QuizResponse
 import com.devfalah.quiz.data.repository.QuizRepositoryImp
 import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.utilities.*
-import com.devfalah.quiz.utilities.enums.AnswerState
-import com.devfalah.quiz.utilities.enums.McqDifficulty
+import com.devfalah.quiz.domain.enums.AnswerState
+import com.devfalah.quiz.domain.enums.McqDifficulty
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.delay

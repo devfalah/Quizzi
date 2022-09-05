@@ -1,14 +1,11 @@
-package com.devfalah.quiz.ui.dialogs
+package com.devfalah.quiz.ui.dialogs.howToPlay
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.devfalah.quiz.R
 
 import com.devfalah.quiz.databinding.FragmentDialogHowToPlayBinding
 import com.devfalah.quiz.ui.base.BaseDialogFragment
-import com.devfalah.quiz.ui.dialogs.exit.ExitDialogViewModel
-import com.devfalah.quiz.ui.dialogs.howToPlay.HowToPlayDialogViewModel
 import com.devfalah.quiz.utilities.observeEvent
 
 class HowToPlayDialogFragment : BaseDialogFragment<FragmentDialogHowToPlayBinding>() {

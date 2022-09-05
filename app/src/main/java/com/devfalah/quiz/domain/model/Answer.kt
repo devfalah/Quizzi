@@ -1,6 +1,6 @@
-package com.devfalah.quiz.data.model
+package com.devfalah.quiz.domain.model
 
-import com.devfalah.quiz.utilities.enums.AnswerState
+import com.devfalah.quiz.domain.enums.AnswerState
 
 
 data class Answer(

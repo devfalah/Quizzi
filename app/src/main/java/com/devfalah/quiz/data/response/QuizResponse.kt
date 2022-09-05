@@ -1,4 +1,4 @@
-package com.devfalah.quiz.data.model
+package com.devfalah.quiz.data.response
 
 import com.google.gson.annotations.SerializedName
 
