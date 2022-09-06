@@ -59,4 +59,5 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
+    implementation 'com.robinhood.ticker:ticker:2.0.4'
 }

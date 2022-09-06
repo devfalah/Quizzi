@@ -24,11 +24,23 @@
             android:layout_height="match_parent"
             app:showWhenSuccess="@{viewModel.requestState}">
 
-            <TextView
+            <ImageView
+                android:id="@+id/ic_scores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_score"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/label_score"
+                app:layout_constraintBottom_toBottomOf="@id/label_score"
+                android:elevation="1dp"
+                android:layout_marginStart="@dimen/Space8x"
+                android:contentDescription="@string/score_gained" />
+
+            <com.robinhood.ticker.TickerView
                 android:id="@+id/label_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/Space8x"
+                android:layout_marginStart="@dimen/Space2x"
                 android:layout_marginTop="@dimen/Space8x"
                 android:background="@drawable/score_background"
                 android:drawablePadding="@dimen/Space2x"
@@ -38,9 +50,13 @@
                 android:textSize="@dimen/FontSize7x"
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_score"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_scores"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="200" />
+                tools:text="200"
+                android:gravity="center"
+                app:ticker_animationDuration="700"
+                app:ticker_defaultCharacterList="number"
+                app:ticker_defaultPreferredScrollingDirection="any"/>
 
             <TextView
                 android:id="@+id/number_of_question"
@@ -55,8 +71,7 @@
                 app:layout_constraintTop_toTopOf="@+id/label_score"
                 tools:text="1/15" />
 
-
-            <TextView
+            <com.robinhood.ticker.TickerView
                 android:id="@+id/timer_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,7 +81,10 @@
                 app:layout_constraintEnd_toEndOf="@+id/progress_bar"
                 app:layout_constraintStart_toStartOf="@+id/progress_bar"
                 app:layout_constraintTop_toTopOf="@+id/progress_bar"
-                tools:text="@{viewModel.time.toString()}" />
+                tools:text="@{viewModel.time.toString()}"
+                app:ticker_animationDuration="500"
+                app:ticker_defaultCharacterList="number"
+                app:ticker_defaultPreferredScrollingDirection="any"/>
 
             <View
                 android:id="@+id/exit_icon"
