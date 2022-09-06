@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentDialogExitBinding
 import com.devfalah.quiz.ui.base.BaseDialogFragment
+import com.devfalah.quiz.ui.home.HomeFragmentDirections
 import com.devfalah.quiz.utilities.observeEvent
 
 class ExitDialogFragment : BaseDialogFragment<FragmentDialogExitBinding>() {
@@ -27,7 +28,7 @@ class ExitDialogFragment : BaseDialogFragment<FragmentDialogExitBinding>() {
             }
 
             navigateToHome.observeEvent(this@ExitDialogFragment) {
-                this@ExitDialogFragment.findNavController().navigate(ExitDialogFragmentDirections.actionExitDialogToHomeFragment())
+                this@ExitDialogFragment.findNavController().popBackStack(R.id.homeFragment,false)
             }
         }
     }

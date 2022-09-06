@@ -77,7 +77,7 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
                 viewModel.tryPlayingAgain()
             }
             setNegativeButton("Exit") { _, _ ->
-                requireView().findNavController().navigate(GamingFragmentDirections.actionGamingFragmentToHomeFragment())
+                requireView().findNavController().popBackStack()
             }
         }.create().show()
     }
