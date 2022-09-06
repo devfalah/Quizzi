@@ -141,7 +141,7 @@ class GamingViewModel : ViewModel() {
             val answersList = getNotNullList(quiz.incorrectAnswers)
                 .map { it.toAnswer(false) }
                 .plus(quiz.correctAnswer.toAnswer(true))
-                //.shuffled()
+                .shuffled()
             _currentQuestionAnswers.postValue(answersList)
         } else {
             reportError(NullPointerException(Constants.DATA_IS_NULL_ERROR_MESSAGE))
