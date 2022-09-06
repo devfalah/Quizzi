@@ -33,7 +33,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     private fun handleObserveEvents(){
         viewModel.navigateToHome.observeEvent(this){
-            view?.findNavController()?.navigate(ResultFragmentDirections.actionResultFragmentToHomeFragment())
+            view?.findNavController()?.popBackStack()
         }
     }
 }

@@ -24,7 +24,9 @@
         tools:layout="@layout/fragment_gaming">
         <action
             android:id="@+id/action_gamingFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/gamingFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_gamingFragment_to_exit_dialog"
             app:destination="@id/exit_dialog" />
@@ -43,9 +45,6 @@
         <argument
             android:name="score"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_resultFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
     <dialog
         android:id="@+id/how_to_play_dialog"
