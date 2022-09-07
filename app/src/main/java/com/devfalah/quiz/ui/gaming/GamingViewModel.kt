@@ -62,6 +62,9 @@ class GamingViewModel : ViewModel() {
     private val _error = MutableLiveData<Event<Throwable>>()
     val error: LiveData<Event<Throwable>> get() = _error
 
+    private val _openExitDialog = MutableLiveData<Event<Boolean>>()
+    val openExitDialog : LiveData<Event<Boolean>> = _openExitDialog
+
     init {
         getAllQuestions()
         prepareTimer()
@@ -278,5 +281,9 @@ class GamingViewModel : ViewModel() {
     private fun doAfterDelay(lambda: () -> Unit) {
         Observable.timer(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread())
             .map { lambda() }.subscribe()
+    }
+
+    fun onClickExitButton() {
+        _openExitDialog.postEvent(true)
     }
 }

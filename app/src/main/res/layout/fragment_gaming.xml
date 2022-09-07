@@ -73,6 +73,7 @@
                 android:layout_width="@dimen/Space12x"
                 android:layout_height="@dimen/Space12x"
                 android:layout_marginEnd="@dimen/Space8x"
+                android:onClick="@{()->viewModel.onClickExitButton()}"
                 android:background="@drawable/ic_sign_in_score"
                 app:layout_constraintBottom_toBottomOf="@+id/label_score"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -416,6 +417,7 @@
             android:id="@+id/error"
             layout="@layout/error"
             android:visibility="gone"
+            app:viewModel="@{viewModel}"
             app:showWhenError="@{viewModel.requestState}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

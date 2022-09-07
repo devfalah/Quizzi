@@ -24,16 +24,28 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@GamingFragment.viewModel
         }
-        addCallbacks()
+        handleObserveEvents()
+        setOnBackButtonClickListener()
     }
 
-    private fun addCallbacks() {
-        setOnBackButtonClickListener()
-        setOnTryAgainButtonClickListener()
-        setOnExitIconClickListener()
-        handleGameOverObserverEvent()
-        handleErrorObserverEvent()
+
+    private fun handleObserveEvents() {
+        viewModel.apply {
+            isGameOver.observeEvent(this@GamingFragment) {
+                val action = GamingFragmentDirections.actionGamingFragmentToResultFragment(
+                    viewModel.correctAnswersCount.value!!, viewModel.score.value!!
+                )
+                requireView().findNavController().navigate(action)
+            }
+            openExitDialog.observeEvent(this@GamingFragment){
+                showExitDialog()
+            }
+            error.observeEvent(this@GamingFragment) {
+                showErrorAlertDialog(it.message.toString())
+            }
+        }
     }
+
 
     private fun setOnBackButtonClickListener() {
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -48,41 +60,13 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
-    private fun setOnTryAgainButtonClickListener() {
-        binding?.let {
-            it.error.tryAgain.setOnClickListener {
-                viewModel.tryPlayingAgain()
-            }
-        }
-    }
 
-    private fun setOnExitIconClickListener() {
-        binding?.let {
-            it.exitIcon.setOnClickListener {
-                showExitDialog()
-            }
-        }
-    }
+
 
     private fun showExitDialog() {
         requireView().findNavController().navigate(GamingFragmentDirections.actionGamingFragmentToExitDialog())
     }
 
-    private fun handleGameOverObserverEvent() {
-        viewModel.isGameOver.observeEvent(this) {
-            val action = GamingFragmentDirections.actionGamingFragmentToResultFragment(
-                this.viewModel.correctAnswersCount.value!!,
-                this.viewModel.score.value!!
-            )
-            requireView().findNavController().navigate(action)
-        }
-    }
-
-    private fun handleErrorObserverEvent() {
-        viewModel.error.observeEvent(this) {
-            showErrorAlertDialog(it.message.toString())
-        }
-    }
 
     private fun showErrorAlertDialog(errorMessage: String) {
         AlertDialog.Builder(requireContext()).run {
