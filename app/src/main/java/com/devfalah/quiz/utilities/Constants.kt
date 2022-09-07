@@ -30,4 +30,7 @@ object Constants {
     const val MINIMUM_REQUIRED_CORRECT_ANSWERS_TO_PASS = 7
     const val DATA_IS_NULL_ERROR_MESSAGE = "Something went wrong while trying to retrieve data!"
     const val TIMER_ERROR_MESSAGE = "Something went wrong while tyring to handle the timer!"
+    const val ALERT_DIALOG_TILE = "Error"
+    const val RETRY_BUTTON_TEXT = "Retry"
+    const val EXIT_BUTTON_TEXT = "Exit"
 }

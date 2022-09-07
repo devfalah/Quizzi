@@ -3,7 +3,6 @@ package com.devfalah.quiz.ui.gaming
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.devfalah.quiz.data.repository.QuizRepositoryImp
 import com.devfalah.quiz.data.response.Quiz
 import com.devfalah.quiz.data.response.QuizResponse
@@ -55,9 +54,6 @@ class GamingViewModel : ViewModel() {
 
     private val _isQuestionClickable = MutableLiveData(true)
     val isQuestionClickable: LiveData<Boolean> get() = _isQuestionClickable
-
-    private val _isHidden = MutableLiveData(true)
-    val isHidden: LiveData<Boolean> get() = _isHidden
 
     private val _error = MutableLiveData<Event<Throwable>>()
     val error: LiveData<Event<Throwable>> get() = _error
@@ -156,28 +152,20 @@ class GamingViewModel : ViewModel() {
         } else {
             onAnswerWrongly(answer)
         }
-
     }
 
     private fun onAnswerCorrectly(answer: Answer) {
         _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
             answer.state = AnswerState.SELECTED_CORRECT
         })
-        _correctAnswersCount.value = _correctAnswersCount.value!! + 1
-        _score.postValue(setScore(_currentQuestionIndex.value!!))
+        _correctAnswersCount.value = _correctAnswersCount.value?.plus(1)
+        _score.postValue(_currentQuestionIndex.value?.let { setScore(it) })
         if (isNotLastQuestion()) goToNextQuestion() else endGame()
     }
 
     private fun setScore(currentMCQIndex: Int): Int {
         return Constants.SCORE_LIST[currentMCQIndex]
     }
-
-    private fun onAnswerWrongly(answer: Answer) =
-        _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
-            answer.state = AnswerState.SELECTED_INCORRECT
-            endGame()
-            this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
-        })
 
     private fun isNotLastQuestion(): Boolean =
         requireNotNull(currentQuestionIndex.value) < allMCQsList.lastIndex
@@ -189,6 +177,14 @@ class GamingViewModel : ViewModel() {
             _isQuestionClickable.postValue(true)
             _currentQuestionIndex.value?.let { setCurrentQuestion(allMCQsList[it]) }
         }
+    }
+
+    private fun onAnswerWrongly(answer: Answer) {
+        _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
+            answer.state = AnswerState.SELECTED_INCORRECT
+            endGame()
+            this.filter { it.isCorrect }.forEach { it.state = AnswerState.SELECTED_CORRECT }
+        })
     }
 
     private fun endGame() {
@@ -210,26 +206,27 @@ class GamingViewModel : ViewModel() {
 
     private fun replaceQuestion(newQuestion: Quiz) {
         startTimer()
-        changeAnswersStateOnTimeOut()
+        showAllAnswersStates()
+        _isReplaceQuestionUsed.postValue(true)
         doAfterDelay {
             currentQuestionIndex.value?.let {
                 allMCQsList.replaceAtIndex(it, newQuestion)
                 setCurrentQuestion(allMCQsList[it])
             }
-            _isReplaceQuestionUsed.postValue(true)
         }
     }
 
     fun onDelete2AnswersClickListener() {
-        val correctAnswer = _currentQuestionAnswers.value?.first { it.isCorrect }
-        val incorrectAnswer = _currentQuestionAnswers.value?.filter { !it.isCorrect }?.random()
-        val newList = _currentQuestionAnswers.value?.onEach {
-            if (!it.isCorrect && it != incorrectAnswer) {
-                it.hidden = true
+        _currentQuestionAnswers.value?.let { listOfAnswers ->
+            val permanentIncorrectAnswer = listOfAnswers.filter { !it.isCorrect }.random()
+            val newAnswersList = listOfAnswers.onEach { answer ->
+                if (!answer.isCorrect && answer != permanentIncorrectAnswer) {
+                    answer.isDeleted = true
+                }
             }
-        } as List<Answer>
-        _currentQuestionAnswers.postValue(newList as List<Answer>?)
-        _isDelete2AnswersUsed.postValue(true)
+            _currentQuestionAnswers.postValue(newAnswersList)
+            _isDelete2AnswersUsed.postValue(true)
+        }
     }
 
     private fun prepareTimer() {
@@ -257,6 +254,7 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun onComplete() {
+        showAllAnswersStates()
         endGame()
     }
 
@@ -264,16 +262,15 @@ class GamingViewModel : ViewModel() {
         compositeDisposable.dispose()
     }
 
-    private fun changeAnswersStateOnTimeOut() {
+    private fun showAllAnswersStates() {
+        _isQuestionClickable.postValue(false)
         _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.onEach {
-            if (it.isCorrect) it.state = AnswerState.TIMEOUT_CORRECT
-            else it.state = AnswerState.TIMEOUT_INCORRECT
+            if (it.isCorrect) {
+                it.state = AnswerState.TIMEOUT_CORRECT
+            } else {
+                it.state = AnswerState.TIMEOUT_INCORRECT
+            }
         })
-    }
-
-    fun tryPlayingAgain() {
-        _requestState.postValue(State.Loading)
-        getAllQuestions()
     }
 
     private fun reportError(error: Throwable) {
@@ -287,5 +284,10 @@ class GamingViewModel : ViewModel() {
 
     fun onClickExitButton() {
         _openExitDialog.postEvent(true)
+    }
+
+    fun tryPlayingAgain() {
+        _requestState.postValue(State.Loading)
+        getAllQuestions()
     }
 }

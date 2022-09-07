@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentGamingBinding
 import com.devfalah.quiz.ui.base.BaseFragment
+import com.devfalah.quiz.utilities.Constants
 import com.devfalah.quiz.utilities.State
 import com.devfalah.quiz.utilities.observeEvent
 
@@ -27,7 +28,6 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
         handleObserveEvents()
         setOnBackButtonClickListener()
     }
-
 
     private fun handleObserveEvents() {
         viewModel.apply {
@@ -46,7 +46,6 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
         }
     }
 
-
     private fun setOnBackButtonClickListener() {
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -60,23 +59,19 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
-
-
-
     private fun showExitDialog() {
         requireView().findNavController().navigate(GamingFragmentDirections.actionGamingFragmentToExitDialog())
     }
 
-
     private fun showErrorAlertDialog(errorMessage: String) {
         AlertDialog.Builder(requireContext()).run {
-            setTitle("Error")
+            setTitle(Constants.ALERT_DIALOG_TILE)
             setMessage(errorMessage)
             setCancelable(false)
-            setPositiveButton("Retry") { _, _ ->
+            setPositiveButton(Constants.RETRY_BUTTON_TEXT) { _, _ ->
                 viewModel.tryPlayingAgain()
             }
-            setNegativeButton("Exit") { _, _ ->
+            setNegativeButton(Constants.EXIT_BUTTON_TEXT) { _, _ ->
                 requireView().findNavController().popBackStack()
             }
         }.create().show()

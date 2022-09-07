@@ -1,8 +1,7 @@
 package com.devfalah.quiz.utilities
 
 
-open class Event<out T>(private val content: T) {
-
+class Event<out T>(private val content: T) {
     private var hasBeenHandled = false
 
     fun getContentIfNotHandled(): T? {
@@ -13,8 +12,6 @@ open class Event<out T>(private val content: T) {
             content
         }
     }
-
-    fun peekContent(): T = content
 }
 
 
