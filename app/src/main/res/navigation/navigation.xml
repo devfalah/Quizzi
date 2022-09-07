@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_gamingFragment"
-            app:destination="@id/gamingFragment" />
+            app:destination="@id/gamingFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_homeFragment_to_how_to_play_dialog"
             app:destination="@id/how_to_play_dialog" />
@@ -25,14 +30,19 @@
         <action
             android:id="@+id/action_gamingFragment_to_resultFragment"
             app:destination="@id/resultFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/gamingFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_gamingFragment_to_exit_dialog"
-            app:destination="@id/exit_dialog" />
-        <action
-            android:id="@+id/action_gamingFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/exit_dialog"
+            app:enterAnim="@android:anim/fade_out"
+            app:exitAnim="@android:anim/fade_in"
+            app:popUpTo="@id/gamingFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -51,32 +61,12 @@
         android:name="com.devfalah.quiz.ui.dialogs.howToPlay.HowToPlayDialogFragment"
         android:label="How to play"
         tools:layout="@layout/fragment_dialog_how_to_play">
-        <action
-            android:id="@+id/action_how_to_play_dialog_pop_including_homeFragment2"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@animator/nav_default_exit_anim"
-            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
     </dialog>
     <dialog
         android:id="@+id/exit_dialog"
         android:name="com.devfalah.quiz.ui.dialogs.exit.ExitDialogFragment"
         android:label="Exit"
         tools:layout="@layout/fragment_dialog_exit">
-
-        <action
-            android:id="@+id/action_exit_dialog_to_mcqFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@animator/nav_default_exit_anim"
-            app:popUpTo="@id/gamingFragment"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
-        <action
-            android:id="@+id/action_exit_dialog_to_home_fragment"
-            app:destination="@id/homeFragment"
-            app:popUpToSaveState="false"/>
     </dialog>
 </navigation>
