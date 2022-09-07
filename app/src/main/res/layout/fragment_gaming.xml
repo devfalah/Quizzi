@@ -24,39 +24,43 @@
             android:layout_height="match_parent"
             app:showWhenSuccess="@{viewModel.requestState}">
 
-            <ImageView
-                android:id="@+id/ic_scores"
+            <LinearLayout
+                android:id="@+id/score_linear_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_score"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/label_score"
-                app:layout_constraintBottom_toBottomOf="@id/label_score"
-                android:elevation="1dp"
-                android:layout_marginStart="@dimen/Space8x"
-                android:contentDescription="@string/score_gained" />
-
-            <com.robinhood.ticker.TickerView
-                android:id="@+id/label_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/Space2x"
-                android:layout_marginTop="@dimen/Space8x"
-                android:background="@drawable/score_background"
-                android:drawablePadding="@dimen/Space2x"
-                android:padding="@dimen/Space2x"
-                android:text="@{viewModel.score.toString()}"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/FontSize7x"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_score"
-                app:layout_constraintStart_toEndOf="@id/ic_scores"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="200"
+                android:layout_marginStart="@dimen/Space8x"
+                android:layout_marginTop="@dimen/Space8x"
                 android:gravity="center"
-                app:ticker_animationDuration="700"
-                app:ticker_defaultCharacterList="number"
-                app:ticker_defaultPreferredScrollingDirection="any"/>
+                android:background="@drawable/score_background"
+                android:paddingHorizontal="@dimen/Space4x">
+                <ImageView
+                    android:id="@+id/ic_scores"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_score"
+                    android:elevation="1dp"
+                    android:contentDescription="@string/score_gained" />
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/label_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/Space2x"
+                    android:drawablePadding="@dimen/Space2x"
+                    android:padding="@dimen/Space2x"
+                    android:text="@{viewModel.score.toString()}"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/FontSize7x"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_score"
+                    tools:text="10000000"
+                    android:gravity="center"
+                    app:ticker_animationDuration="700"
+                    app:ticker_defaultCharacterList="number"
+                    app:ticker_defaultPreferredScrollingDirection="any"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/number_of_question"
@@ -65,10 +69,10 @@
                 android:text="@{(viewModel.currentQuestionIndex + 1) + `/` + 15}"
                 android:textColor="@color/black_overlay"
                 android:textSize="@dimen/FontSize7x"
-                app:layout_constraintBottom_toBottomOf="@+id/label_score"
+                app:layout_constraintBottom_toBottomOf="@+id/score_linear_layout"
                 app:layout_constraintEnd_toEndOf="@+id/progress_bar"
                 app:layout_constraintStart_toStartOf="@+id/progress_bar"
-                app:layout_constraintTop_toTopOf="@+id/label_score"
+                app:layout_constraintTop_toTopOf="@+id/score_linear_layout"
                 tools:text="1/15" />
 
             <com.robinhood.ticker.TickerView
@@ -93,9 +97,9 @@
                 android:layout_marginEnd="@dimen/Space8x"
                 android:onClick="@{()->viewModel.onClickExitButton()}"
                 android:background="@drawable/ic_sign_in_score"
-                app:layout_constraintBottom_toBottomOf="@+id/label_score"
+                app:layout_constraintBottom_toBottomOf="@+id/score_linear_layout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/label_score" />
+                app:layout_constraintTop_toTopOf="@+id/score_linear_layout" />
 
 
             <ProgressBar
@@ -108,9 +112,9 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/number_of_question"
+                app:layout_constraintBottom_toTopOf="@id/label_question"
                 app:progressBarDrawable="@{viewModel.time}"
-                app:progress="@{viewModel.time}"
-                 />
+                app:progress="@{viewModel.time}" />
 
 
             <TextView
@@ -118,19 +122,17 @@
                 style="@style/QuestionTextStyle"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/Space8x"
-                android:layout_marginVertical="@dimen/Space8x"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progress_bar"
+                android:layout_marginBottom="@dimen/Space16x"
+                app:layout_constraintEnd_toEndOf="@id/card_answer_a"
+                app:layout_constraintStart_toStartOf="@id/card_answer_a"
+                app:layout_constraintBottom_toTopOf="@id/card_answer_a"
                 app:layout_constraintVertical_chainStyle="packed"
                 app:setDecodedString="@{viewModel.currentQuestion.question}"
                 app:showWhenSuccess="@{viewModel.requestState}"
-                tools:text="question " />
+                tools:text="Question" />
 
             <TextView
                 android:id="@+id/label_answer_a"
@@ -154,7 +156,6 @@
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_a"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_a"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_a"
                 app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[0].state}"
@@ -166,26 +167,28 @@
                 android:id="@+id/card_answer_a"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
-                android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{!viewModel.currentQuestionAnswers[0].hidden &amp;&amp; viewModel.isQuestionClickable()}"
+                android:layout_marginBottom="@dimen/Space6x"
+                android:padding="@dimen/Space4x"
+                android:clickable="@{!viewModel.currentQuestionAnswers[0].isDeleted &amp;&amp; viewModel.isQuestionClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentQuestionAnswers[0])}"
                 app:cardCornerRadius="@dimen/Radius4X"
-                app:layout_constraintEnd_toEndOf="@+id/label_question"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/label_question"
-                app:layout_constraintTop_toBottomOf="@+id/label_question"
+                app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
+                app:layout_constraintStart_toStartOf="@+id/card_answer_b"
+                app:layout_constraintBottom_toTopOf="@id/card_answer_b"
                 app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[0].state}" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/materialDivider"
-                android:layout_width="@dimen/Space62x"
+                android:id="@+id/answer_a_material_divider"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space1x"
+                android:layout_marginHorizontal="@dimen/Space4x"
                 android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.currentQuestionAnswers[0].hidden}"
-                app:layout_constraintBottom_toBottomOf="@+id/card_answer_a"
-                app:layout_constraintStart_toEndOf="@+id/label_answer_a"
-                app:layout_constraintTop_toTopOf="@+id/card_answer_a" />
+                app:isVisible="@{viewModel.currentQuestionAnswers[0].isDeleted}"
+                app:layout_constraintStart_toStartOf="@id/text_answer_a"
+                app:layout_constraintEnd_toEndOf="@id/text_answer_a"
+                app:layout_constraintTop_toTopOf="@id/text_answer_a"
+                app:layout_constraintBottom_toBottomOf="@id/text_answer_a"/>
 
             <TextView
                 android:id="@+id/label_answer_b"
@@ -202,15 +205,13 @@
 
             <TextView
                 android:id="@+id/text_answer_b"
-                android:layout_width="@dimen/Space0x"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:elevation="@dimen/Space1x"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_b"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_b"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_b"
                 app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[1].state}"
@@ -221,26 +222,29 @@
                 android:id="@+id/card_answer_b"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
-                android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{!viewModel.currentQuestionAnswers[1].hidden &amp;&amp; viewModel.isQuestionClickable() }"
+                android:layout_marginBottom="@dimen/Space6x"
+                android:padding="@dimen/Space4x"
+                android:clickable="@{!viewModel.currentQuestionAnswers[1].isDeleted &amp;&amp; viewModel.isQuestionClickable() }"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentQuestionAnswers[1])}"
                 app:cardCornerRadius="@dimen/Radius4X"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_a"
+                app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/card_answer_a"
-                app:layout_constraintTop_toBottomOf="@+id/card_answer_a"
+                app:layout_constraintStart_toStartOf="@+id/card_answer_c"
+                app:layout_constraintBottom_toTopOf="@id/card_answer_c"
                 app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[1].state}" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/materialDivider2"
-                android:layout_width="@dimen/Space62x"
+                android:id="@+id/answer_b_material_divider"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space1x"
                 android:elevation="@dimen/Space1x"
+                android:layout_marginHorizontal="@dimen/Space4x"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.currentQuestionAnswers[1].hidden }"
-                app:layout_constraintBottom_toBottomOf="@+id/card_answer_b"
-                app:layout_constraintStart_toEndOf="@+id/label_answer_b"
-                app:layout_constraintTop_toTopOf="@+id/card_answer_b" />
+                app:isVisible="@{viewModel.currentQuestionAnswers[1].isDeleted}"
+                app:layout_constraintBottom_toBottomOf="@+id/text_answer_b"
+                app:layout_constraintStart_toStartOf="@id/text_answer_b"
+                app:layout_constraintEnd_toEndOf="@id/text_answer_b"
+                app:layout_constraintTop_toTopOf="@+id/text_answer_b" />
 
 
             <TextView
@@ -265,7 +269,6 @@
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_c"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_c"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_c"
                 app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[2].state}"
@@ -276,26 +279,28 @@
                 android:id="@+id/card_answer_c"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
-                android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{!viewModel.currentQuestionAnswers[2].hidden &amp;&amp; viewModel.isQuestionClickable() }"
+                android:layout_marginBottom="@dimen/Space6x"
+                android:padding="@dimen/Space4x"
+                android:clickable="@{!viewModel.currentQuestionAnswers[2].isDeleted &amp;&amp; viewModel.isQuestionClickable() }"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentQuestionAnswers[2])}"
                 app:cardCornerRadius="@dimen/Radius4X"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_b"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/card_answer_b"
-                app:layout_constraintTop_toBottomOf="@+id/card_answer_b"
+                app:layout_constraintEnd_toEndOf="@+id/card_answer_d"
+                app:layout_constraintStart_toStartOf="@+id/card_answer_d"
+                app:layout_constraintBottom_toTopOf="@id/card_answer_d"
                 app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[2].state}" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/materialDivider4"
-                android:layout_width="@dimen/Space62x"
+                android:id="@+id/answer_c_material_divider"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space1x"
                 android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.currentQuestionAnswers[2].hidden}"
-                app:layout_constraintBottom_toBottomOf="@+id/card_answer_c"
-                app:layout_constraintStart_toEndOf="@+id/label_answer_c"
-                app:layout_constraintTop_toTopOf="@+id/card_answer_c" />
+                android:layout_marginHorizontal="@dimen/Space4x"
+                app:isVisible="@{viewModel.currentQuestionAnswers[2].isDeleted}"
+                app:layout_constraintBottom_toBottomOf="@+id/text_answer_c"
+                app:layout_constraintStart_toStartOf="@+id/text_answer_c"
+                app:layout_constraintTop_toTopOf="@+id/text_answer_c"
+                app:layout_constraintEnd_toEndOf="@+id/text_answer_c"/>
 
             <TextView
                 android:id="@+id/label_answer_d"
@@ -319,7 +324,6 @@
                 android:maxLines="2"
                 android:paddingHorizontal="@dimen/Space8x"
                 app:layout_constraintBottom_toBottomOf="@+id/label_answer_d"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_d"
                 app:layout_constraintStart_toEndOf="@+id/label_answer_d"
                 app:layout_constraintTop_toTopOf="@+id/label_answer_d"
                 app:setAnswerBodyTextStyle="@{viewModel.currentQuestionAnswers[3].state}"
@@ -330,32 +334,35 @@
                 android:id="@+id/card_answer_d"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space30x"
-                android:layout_marginTop="@dimen/Space8x"
-                android:clickable="@{!viewModel.currentQuestionAnswers[3].hidden &amp;&amp; viewModel.isQuestionClickable()}"
+                android:layout_marginBottom="@dimen/Space20x"
+                android:padding="@dimen/Space4x"
+                android:clickable="@{!viewModel.currentQuestionAnswers[3].isDeleted &amp;&amp; viewModel.isQuestionClickable()}"
                 android:onClick="@{()->viewModel.onAnswerClick(viewModel.currentQuestionAnswers[3])}"
                 app:cardCornerRadius="@dimen/Radius4X"
-                app:layout_constraintEnd_toEndOf="@+id/card_answer_c"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/card_answer_c"
-                app:layout_constraintTop_toBottomOf="@+id/card_answer_c"
+                app:layout_constraintEnd_toEndOf="@+id/replace_question_button"
+                app:layout_constraintStart_toStartOf="@+id/delete_two_answer_button"
+                app:layout_constraintBottom_toTopOf="@id/delete_two_answer_button"
                 app:setAnswerBackgroundColor="@{viewModel.currentQuestionAnswers[3].state}" />
 
             <com.google.android.material.divider.MaterialDivider
-                android:layout_width="@dimen/Space62x"
+                android:layout_width="@dimen/Space0x"
                 android:layout_height="@dimen/Space1x"
                 android:elevation="@dimen/Space1x"
                 app:dividerColor="@color/red"
-                app:isVisible="@{viewModel.currentQuestionAnswers[3].hidden}"
-                app:layout_constraintBottom_toBottomOf="@+id/card_answer_d"
-                app:layout_constraintStart_toEndOf="@+id/label_answer_d"
-                app:layout_constraintTop_toTopOf="@+id/card_answer_d" />
+                android:layout_marginHorizontal="@dimen/Space4x"
+                app:isVisible="@{viewModel.currentQuestionAnswers[3].isDeleted}"
+                app:layout_constraintBottom_toBottomOf="@+id/text_answer_d"
+                app:layout_constraintStart_toStartOf="@+id/text_answer_d"
+                app:layout_constraintTop_toTopOf="@+id/text_answer_d"
+                app:layout_constraintEnd_toEndOf="@+id/text_answer_d"/>
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/delete_two_answer_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/Space10x"
+                android:layout_marginStart="@dimen/Space8x"
+                android:layout_marginEnd="@dimen/Space2x"
                 android:layout_marginBottom="@dimen/Space12x"
                 android:background="@drawable/white_button_background"
                 android:enabled="@{!viewModel.isDelete2AnswersUsed}"
@@ -380,7 +387,8 @@
                 android:id="@+id/replace_question_button"
                 android:layout_width="@dimen/Space0x"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/Space4x"
+                android:layout_marginEnd="@dimen/Space8x"
+                android:layout_marginStart="@dimen/Space2x"
                 android:background="@drawable/white_button_background"
                 android:enabled="@{!viewModel.isReplaceQuestionUsed}"
                 android:onClick="@{()->viewModel.onReplaceQuestionClickListener()}"
