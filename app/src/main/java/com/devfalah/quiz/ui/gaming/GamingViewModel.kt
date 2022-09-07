@@ -209,6 +209,7 @@ class GamingViewModel : ViewModel() {
         showAllAnswersStates()
         _isReplaceQuestionUsed.postValue(true)
         doAfterDelay {
+            _isQuestionClickable.postValue(true)
             currentQuestionIndex.value?.let {
                 allMCQsList.replaceAtIndex(it, newQuestion)
                 setCurrentQuestion(allMCQsList[it])
