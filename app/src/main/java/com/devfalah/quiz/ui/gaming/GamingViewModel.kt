@@ -192,7 +192,9 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun endGame() {
-        _isGameOver.postEvent(true)
+        doAfterDelay {
+            _isGameOver.postEvent(true)
+        }
     }
 
     fun onReplaceQuestionClickListener() {
