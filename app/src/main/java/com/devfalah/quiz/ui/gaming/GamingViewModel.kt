@@ -11,7 +11,6 @@ import com.devfalah.quiz.domain.enums.AnswerState
 import com.devfalah.quiz.domain.enums.QuestionDifficulty
 import com.devfalah.quiz.domain.model.Answer
 import com.devfalah.quiz.utilities.*
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
@@ -173,7 +172,7 @@ class GamingViewModel : ViewModel() {
     private fun goToNextQuestion() {
         startTimer()
         _currentQuestionIndex.value = _currentQuestionIndex.value?.plus(1)
-        doAfterDelay {
+        doAfterDelay(Constants.ONE_SECOND) {
             _isQuestionClickable.postValue(true)
             _currentQuestionIndex.value?.let { setCurrentQuestion(allMCQsList[it]) }
         }
@@ -188,7 +187,7 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun endGame() {
-        doAfterDelay {
+        doAfterDelay(Constants.ONE_SECOND) {
             _isGameOver.postEvent(true)
         }
     }
@@ -208,7 +207,7 @@ class GamingViewModel : ViewModel() {
         startTimer()
         showAllAnswersStates()
         _isReplaceQuestionUsed.postValue(true)
-        doAfterDelay {
+        doAfterDelay(Constants.ONE_SECOND) {
             _isQuestionClickable.postValue(true)
             currentQuestionIndex.value?.let {
                 allMCQsList.replaceAtIndex(it, newQuestion)
@@ -276,11 +275,6 @@ class GamingViewModel : ViewModel() {
 
     private fun reportError(error: Throwable) {
         _error.postEvent(error)
-    }
-
-    private fun doAfterDelay(lambda: () -> Unit) {
-        Observable.timer(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread())
-            .map { lambda() }.subscribe()
     }
 
     fun onClickExitButton() {

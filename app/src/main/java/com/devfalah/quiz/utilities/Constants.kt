@@ -33,4 +33,5 @@ object Constants {
     const val ALERT_DIALOG_TILE = "Error"
     const val RETRY_BUTTON_TEXT = "Retry"
     const val EXIT_BUTTON_TEXT = "Exit"
+    const val ONE_SECOND = 1L
 }
