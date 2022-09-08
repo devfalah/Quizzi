@@ -49,8 +49,6 @@ class GamingViewModel : BaseViewModel() {
     private val _isQuestionClickable = MutableLiveData(true)
     val isQuestionClickable: LiveData<Boolean> get() = _isQuestionClickable
 
-    private val _error = MutableLiveData<Event<Throwable>>()
-    val error: LiveData<Event<Throwable>> get() = _error
 
     private val _openExitDialog = MutableLiveData<Event<Boolean>>()
     val openExitDialog : LiveData<Event<Boolean>> = _openExitDialog
@@ -207,7 +205,7 @@ class GamingViewModel : BaseViewModel() {
         }
     }
 
-    fun onReplaceQuestionClickListener() {
+    fun onReplaceQuestion() {
         cancelTimer()
         _currentQuestion.value?.let {
             when (it.difficulty) {
@@ -231,7 +229,7 @@ class GamingViewModel : BaseViewModel() {
         }
     }
 
-    fun onDelete2AnswersClickListener() {
+    fun onDelete2Answers() {
         _currentQuestionAnswers.value?.let { listOfAnswers ->
             val permanentIncorrectAnswer = listOfAnswers.filter { !it.isCorrect }.random()
             val newAnswersList = listOfAnswers.onEach { answer ->
@@ -284,7 +282,7 @@ class GamingViewModel : BaseViewModel() {
     }
 
     private fun reportError(error: Throwable) {
-        _error.postEvent(error)
+        _requestState.postValue(State.Error(error.message.toString()))
     }
 
     fun onClickExitButton() {
