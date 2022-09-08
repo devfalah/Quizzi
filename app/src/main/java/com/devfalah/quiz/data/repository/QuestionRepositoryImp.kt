@@ -1,14 +1,14 @@
 package com.devfalah.quiz.data.repository
 
 import com.devfalah.quiz.data.response.QuestionResponse
-import com.devfalah.quiz.data.service.QuizApiService
+import com.devfalah.quiz.data.service.QuestionApiService
 import com.devfalah.quiz.domain.enums.QuestionDifficulty
 import com.devfalah.quiz.utilities.State
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
-class QuizRepositoryImp(private val quizApiService: QuizApiService) : QuizRepository {
+class QuestionRepositoryImp(private val quizApiService: QuestionApiService) : QuestionRepository {
     override fun getAllQuestions(): Observable<State<QuestionResponse>> {
         return Observable.concat(
             getQuestionsAccordingToDifficulty(QuestionDifficulty.EASY).toObservable(),

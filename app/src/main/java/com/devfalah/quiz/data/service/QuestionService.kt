@@ -7,7 +7,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface QuizApiService {
+interface QuestionApiService {
     @GET("api.php")
     fun getQuizQuestions(
         @Query("difficulty") difficulty: String?,

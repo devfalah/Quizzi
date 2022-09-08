@@ -2,7 +2,7 @@ package com.devfalah.quiz.ui.gaming
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.devfalah.quiz.data.repository.QuizRepositoryImp
+import com.devfalah.quiz.data.repository.QuestionRepositoryImp
 import com.devfalah.quiz.data.response.Question
 import com.devfalah.quiz.data.response.QuestionResponse
 import com.devfalah.quiz.data.service.WebRequest
@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class GamingViewModel : BaseViewModel() {
-    private val repository = QuizRepositoryImp(WebRequest().apiService)
+    private val repository = QuestionRepositoryImp(WebRequest().apiService)
 
     private val _requestState = MutableLiveData<State<QuestionResponse>>(State.Loading)
     val requestState: LiveData<State<QuestionResponse>> get() = _requestState
