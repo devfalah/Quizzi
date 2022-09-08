@@ -29,7 +29,7 @@
             app:layout_constraintVertical_bias="0.071"
             app:lottie_autoPlay="true"
             app:lottie_loop="false"
-            app:setResultLottieAnimation="@{viewModel.correctAnswersCount}" />
+            app:setResultLottieAnimation="@{viewModel.gameState}" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"

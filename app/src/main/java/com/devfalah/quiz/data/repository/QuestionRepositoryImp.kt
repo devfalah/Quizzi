@@ -1,15 +1,15 @@
 package com.devfalah.quiz.data.repository
 
-import com.devfalah.quiz.data.response.QuizResponse
-import com.devfalah.quiz.data.service.QuizApiService
+import com.devfalah.quiz.data.response.QuestionResponse
+import com.devfalah.quiz.data.service.QuestionApiService
 import com.devfalah.quiz.domain.enums.QuestionDifficulty
-import com.devfalah.quiz.utilities.State
+import com.devfalah.quiz.data.State
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
-class QuizRepositoryImp(private val quizApiService: QuizApiService) : QuizRepository {
-    override fun getAllQuestions(): Observable<State<QuizResponse>> {
+class QuestionRepositoryImp(private val quizApiService: QuestionApiService) : QuestionRepository {
+    override fun getAllQuestions(): Observable<State<QuestionResponse>> {
         return Observable.concat(
             getQuestionsAccordingToDifficulty(QuestionDifficulty.EASY).toObservable(),
             getQuestionsAccordingToDifficulty(QuestionDifficulty.MEDIUM).toObservable(),
@@ -17,8 +17,8 @@ class QuizRepositoryImp(private val quizApiService: QuizApiService) : QuizReposi
         )
     }
 
-    private fun getQuestionsAccordingToDifficulty(difficulty: QuestionDifficulty): Single<State<QuizResponse>> {
-        return wrapResponse(quizApiService.getQuizQuestions(difficulty.name.lowercase()))
+    private fun getQuestionsAccordingToDifficulty(difficulty: QuestionDifficulty): Single<State<QuestionResponse>> {
+        return wrapResponse(quizApiService.getQuestions(difficulty.name.lowercase()))
     }
 
     private fun <T> wrapResponse(response: Single<Response<T>>): Single<State<T>> {

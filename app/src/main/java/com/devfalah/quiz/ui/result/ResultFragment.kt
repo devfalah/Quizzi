@@ -25,7 +25,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@ResultFragment.viewModel
         }
-        viewModel.setResult(args.score, args.correctAnswersCount)
+        viewModel.setResult(args.score, args.correctAnswersCount,args.gameState)
         handleObserveEvents()
 
     }
