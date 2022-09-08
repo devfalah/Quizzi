@@ -230,13 +230,8 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun prepareTimer() {
-        val rangeObservable = Observable.range(1, Constants.MCQ_TIMER)
-        val intervalObservable = Observable.interval(1, TimeUnit.SECONDS)
-        timer = Observable.zip(
-            rangeObservable, intervalObservable
-        ) { i: Int, _: Long ->
-            Constants.MCQ_TIMER.toLong() - i
-        }.observeOnMainThread()
+        timer = Observable.intervalRange(1,Constants.MCQ_TIMER.toLong(),1,1,TimeUnit.SECONDS)
+                .observeOnMainThread()
     }
 
     private fun startTimer() {
@@ -245,7 +240,7 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun onNext(count: Long) {
-        _time.postValue(count.toInt())
+        _time.postValue(Constants.MCQ_TIMER - count.toInt())
     }
 
     private fun onError(e: Throwable) {
