@@ -45,12 +45,6 @@ class GamingViewModel : BaseViewModel() {
     private val _isDelete2AnswersUsed = MutableLiveData(false)
     val isDelete2AnswersUsed: LiveData<Boolean> get() = _isDelete2AnswersUsed
 
-    private val _time = MutableLiveData(Constants.MCQ_TIMER)
-    val time: LiveData<Int> get() = _time
-
-    private lateinit var timer: Observable<Long>
-    private lateinit var timerCompositeDisposable: CompositeDisposable
-
     private val _isQuestionClickable = MutableLiveData(true)
     val isQuestionClickable: LiveData<Boolean> get() = _isQuestionClickable
 
@@ -59,6 +53,14 @@ class GamingViewModel : BaseViewModel() {
 
     private val _openExitDialog = MutableLiveData<Event<Boolean>>()
     val openExitDialog : LiveData<Event<Boolean>> = _openExitDialog
+
+    private val _time = MutableLiveData(Constants.MCQ_TIMER)
+    val time: LiveData<Int> get() = _time
+
+    private lateinit var timer: Observable<Long>
+    private lateinit var timerCompositeDisposable: CompositeDisposable
+
+
 
     init {
         getAllQuestions()
@@ -157,7 +159,7 @@ class GamingViewModel : BaseViewModel() {
         _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
             answer.state = AnswerState.SELECTED_CORRECT
         })
-        _correctAnswersCount.value = _correctAnswersCount.value?.plus(1)
+        _correctAnswersCount.postValue(_correctAnswersCount.value?.plus(1))
         _score.postValue(_currentQuestionIndex.value?.let { setScore(it) })
         if (isNotLastQuestion()) goToNextQuestion() else endGame()
     }
@@ -230,12 +232,8 @@ class GamingViewModel : BaseViewModel() {
     }
 
     private fun prepareTimer() {
-        val rangeObservable = Observable.range(1, Constants.MCQ_TIMER)
-        val intervalObservable = Observable.interval(1, TimeUnit.SECONDS)
-        timer = Observable.zip(
-            rangeObservable, intervalObservable
-        ) { i: Int, _: Long ->
-            Constants.MCQ_TIMER.toLong() - i
+        timer = Observable.interval(0,1,TimeUnit.SECONDS).take(Constants.MCQ_TIMER + 1.toLong()).map {
+            Constants.MCQ_TIMER - it
         }.observeOnMainThread()
     }
 
