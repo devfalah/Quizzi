@@ -1,10 +1,10 @@
-package com.devfalah.quiz.data.model
+package com.devfalah.quiz.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class QuizResponse(
+data class QuestionResponse(
     @SerializedName("response_code")
     val responseCode: Int?,
     @SerializedName("results")
-    val questions: List<Quiz?>?,
+    val questions: List<Question?>?,
 )

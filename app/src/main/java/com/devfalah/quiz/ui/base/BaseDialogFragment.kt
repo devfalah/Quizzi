@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 
-
-
 abstract class BaseDialogFragment<VB : ViewDataBinding> : DialogFragment() {
     abstract val layoutId: Int
     abstract fun setup()

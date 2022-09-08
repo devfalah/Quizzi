@@ -19,7 +19,7 @@
     <!--    Question Text Styles-->
     <style name="QuestionTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/blue</item>
-        <item name="android:textSize">@dimen/FontSize8x</item>
+        <item name="android:textSize">@dimen/FontSize9x</item>
         <item name="textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
 
@@ -29,7 +29,7 @@
     <style name="ChoiceTextStyle">
         <item name="android:textSize">@dimen/FontSize8x</item>
         <item name="android:elevation">2dp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="ChoiceTextStyle.SelectedBody">
@@ -77,7 +77,7 @@
     </style>
 
     <!--    Dialog Text Styles-->
-    <style name="DialogTextStyle" parent="TextAppearance.AppCompat"></style>
+    <style name="DialogTextStyle" parent="TextAppearance.AppCompat" />
 
     <style name="DialogTextStyle.Head">
         <item name="android:textColor">@color/blue</item>

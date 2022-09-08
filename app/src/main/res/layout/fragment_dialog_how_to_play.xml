@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.devfalah.quiz.ui.dialogs.howToPlay.HowToPlayDialogViewModel" />
 
     </data>
 
@@ -29,6 +33,7 @@
             android:background="@drawable/main_icon_background"
             android:backgroundTint="@color/background_color"
             android:padding="@dimen/Space4x"
+            android:onClick="@{()->viewModel.onClickCloseIcon()}"
             android:src="@drawable/ic_dialog_close_vector"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,23 +55,13 @@
             android:id="@+id/dialog_image_2"
             android:layout_width="@dimen/Space20x"
             android:layout_height="@dimen/Space20x"
-            android:layout_marginTop="@dimen/Space8x"
+            android:layout_marginTop="@dimen/Space17x"
             android:background="@drawable/main_icon_background"
             android:padding="@dimen/Space4x"
             android:src="@drawable/ic_dialog_vector2"
             app:layout_constraintStart_toStartOf="@+id/dialog_image_1"
             app:layout_constraintTop_toBottomOf="@+id/dialog_image_1" />
 
-        <ImageView
-            android:id="@+id/dialog_image_3"
-            android:layout_width="@dimen/Space20x"
-            android:layout_height="@dimen/Space20x"
-            android:layout_marginTop="@dimen/Space8x"
-            android:background="@drawable/main_icon_background"
-            android:padding="@dimen/Space4x"
-            android:src="@drawable/ic_dialog_vector3"
-            app:layout_constraintStart_toStartOf="@+id/dialog_image_2"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_image_2" />
 
         <ImageView
             android:id="@+id/dialog_image_4"
@@ -76,8 +71,8 @@
             android:background="@drawable/main_icon_background"
             android:padding="@dimen/Space4x"
             android:src="@drawable/ic_dialog_vector4"
-            app:layout_constraintStart_toStartOf="@+id/dialog_image_3"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_image_3" />
+            app:layout_constraintStart_toStartOf="@+id/dialog_image_2"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_image_2" />
 
         <TextView
             android:id="@+id/dialog_instructions_1"
@@ -100,15 +95,6 @@
             app:layout_constraintStart_toEndOf="@+id/dialog_image_2"
             app:layout_constraintTop_toTopOf="@+id/dialog_image_2" />
 
-        <TextView
-            android:id="@+id/dialog_instructions_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/Space6x"
-            android:text="@string/instructions_3"
-            style="@style/DialogTextStyle.Title"
-            app:layout_constraintStart_toEndOf="@+id/dialog_image_3"
-            app:layout_constraintTop_toTopOf="@+id/dialog_image_3" />
 
         <TextView
             android:id="@+id/dialog_instructions_4"
@@ -122,10 +108,10 @@
 
         <TextView
             android:id="@+id/dialog_subtitle_1"
+            style="@style/DialogTextStyle.SubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/instructions_1_sub_title"
-            style="@style/DialogTextStyle.SubTitle"
             app:layout_constraintStart_toStartOf="@+id/dialog_instructions_1"
             app:layout_constraintTop_toBottomOf="@+id/dialog_instructions_1" />
 
@@ -137,15 +123,6 @@
             style="@style/DialogTextStyle.SubTitle"
             app:layout_constraintStart_toStartOf="@+id/dialog_instructions_2"
             app:layout_constraintTop_toBottomOf="@+id/dialog_instructions_2" />
-
-        <TextView
-            android:id="@+id/dialog_subtitle_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/instructions_3_sub_title"
-            style="@style/DialogTextStyle.SubTitle"
-            app:layout_constraintStart_toStartOf="@+id/dialog_instructions_3"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_instructions_3" />
 
         <TextView
             android:id="@+id/dialog_subtitle_4"

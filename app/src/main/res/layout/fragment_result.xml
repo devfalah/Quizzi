@@ -29,7 +29,7 @@
             app:layout_constraintVertical_bias="0.071"
             app:lottie_autoPlay="true"
             app:lottie_loop="false"
-            app:setResultLottieAnimation="@{viewModel.correctAnswersCount}" />
+            app:setResultLottieAnimation="@{viewModel.gameState}" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -79,11 +79,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/Space9x"
-
                     android:text="@{viewModel.score.toString()}"
                     app:layout_constraintBottom_toTopOf="@+id/divider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+
 
                 <com.google.android.material.divider.MaterialDivider
                     android:id="@+id/divider"
@@ -140,6 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/Space8x"
             android:text="@string/home"
+            android:onClick="@{()->viewModel.onClickHomeButton()}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent" />
 
