@@ -7,6 +7,7 @@ import com.devfalah.quiz.data.response.Quiz
 import com.devfalah.quiz.data.response.QuizResponse
 import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.domain.enums.AnswerState
+import com.devfalah.quiz.domain.enums.GameState
 import com.devfalah.quiz.domain.enums.QuestionDifficulty
 import com.devfalah.quiz.domain.model.Answer
 import com.devfalah.quiz.ui.base.BaseViewModel
@@ -36,8 +37,8 @@ class GamingViewModel : BaseViewModel() {
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
 
-    private val _isGameOver = MutableLiveData<Event<Boolean>>()
-    val isGameOver: LiveData<Event<Boolean>> get() = _isGameOver
+    private val _isGameOver = MutableLiveData<Event<GameState>>()
+    val isGameOver: LiveData<Event<GameState>> get() = _isGameOver
 
     private val _isReplaceQuestionUsed = MutableLiveData(false)
     val isReplaceQuestionUsed: LiveData<Boolean> get() = _isReplaceQuestionUsed
@@ -197,7 +198,12 @@ class GamingViewModel : BaseViewModel() {
 
     private fun endGame() {
         doAfterDelay(Constants.ONE_SECOND) {
-            _isGameOver.postEvent(true)
+            if (requireNotNull(_correctAnswersCount.value ) > Constants.MINIMUM_REQUIRED_CORRECT_ANSWERS_TO_PASS){
+                _isGameOver.postEvent(GameState.WIN)
+            }else{
+                _isGameOver.postEvent(GameState.LOSS)
+            }
+
         }
     }
 

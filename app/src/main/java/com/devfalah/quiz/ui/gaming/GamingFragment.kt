@@ -17,9 +17,9 @@ import com.devfalah.quiz.utilities.observeEvent
 
 class GamingFragment : BaseFragment<FragmentGamingBinding>() {
     override val layoutId = R.layout.fragment_gaming
-    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentGamingBinding = DataBindingUtil::inflate
+    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentGamingBinding =
+        DataBindingUtil::inflate
     private val viewModel: GamingViewModel by viewModels()
-
 
 
     override fun setup() {
@@ -34,12 +34,12 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
     private fun handleObserveEvents() {
         viewModel.apply {
             isGameOver.observeEvent(this@GamingFragment) {
-                val action = GamingFragmentDirections.actionGamingFragmentToResultFragment(
-                    viewModel.correctAnswersCount.value!!, viewModel.score.value!!
-                )
+                val action =
+                    GamingFragmentDirections.actionGamingFragmentToResultFragment(viewModel.correctAnswersCount.value
+                        ?: 0, viewModel.score.value ?: 0, it)
                 requireView().findNavController().navigate(action)
             }
-            openExitDialog.observeEvent(this@GamingFragment){
+            openExitDialog.observeEvent(this@GamingFragment) {
                 showExitDialog()
             }
             error.observeEvent(this@GamingFragment) {
@@ -62,7 +62,8 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
     }
 
     private fun showExitDialog() {
-        requireView().findNavController().navigate(GamingFragmentDirections.actionGamingFragmentToExitDialog())
+        requireView().findNavController()
+            .navigate(GamingFragmentDirections.actionGamingFragmentToExitDialog())
     }
 
     private fun showErrorAlertDialog(errorMessage: String) {
