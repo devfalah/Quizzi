@@ -20,8 +20,8 @@ fun Disposable.add(compositeDisposable: CompositeDisposable) {
     compositeDisposable.add(this)
 }
 
-fun String.toAnswer(isCorrect: Boolean, answerState: AnswerState = AnswerState.UNSELECTED) =
-    Answer(this, isCorrect, answerState)
+fun String.toAnswer(isCorrect: Boolean, answerState: AnswerState = AnswerState.UNSELECTED,isDeleted : Boolean = false) =
+    Answer(this, isCorrect, answerState, isDeleted)
 
 fun <E> MutableList<E>.replaceAtIndex(index: Int, newValue: E) {
     this.removeAt(index)

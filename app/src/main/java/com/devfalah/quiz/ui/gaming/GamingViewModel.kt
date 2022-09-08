@@ -146,7 +146,7 @@ class GamingViewModel : BaseViewModel() {
     }
 
     fun onAnswerClick(answer: Answer) {
-        disposeTimer()
+        cancelTimer()
         _isQuestionClickable.postValue(false)
         if (answer.isCorrect) {
             onAnswerCorrectly(answer)
@@ -161,22 +161,10 @@ class GamingViewModel : BaseViewModel() {
         })
         _correctAnswersCount.postValue(_correctAnswersCount.value?.plus(1))
         _score.postValue(_currentQuestionIndex.value?.let { setScore(it) })
-        if (isNotLastQuestion()) goToNextQuestion() else endGame()
-    }
-
-    private fun setScore(currentMCQIndex: Int): Int {
-        return Constants.SCORE_LIST[currentMCQIndex]
-    }
-
-    private fun isNotLastQuestion(): Boolean =
-        requireNotNull(currentQuestionIndex.value) < allMCQsList.lastIndex
-
-    private fun goToNextQuestion() {
-        startTimer()
-        _currentQuestionIndex.value = _currentQuestionIndex.value?.plus(1)
-        doAfterDelay(Constants.ONE_SECOND) {
-            _isQuestionClickable.postValue(true)
-            _currentQuestionIndex.value?.let { setCurrentQuestion(allMCQsList[it]) }
+        if (isNotLastQuestion()){
+            goToNextQuestion()
+        } else {
+            endGame()
         }
     }
 
@@ -188,6 +176,25 @@ class GamingViewModel : BaseViewModel() {
         })
     }
 
+    private fun setScore(currentMCQIndex: Int): Int {
+        return Constants.SCORE_LIST[currentMCQIndex]
+    }
+
+    private fun isNotLastQuestion(): Boolean {
+        return requireNotNull(currentQuestionIndex.value) < allMCQsList.lastIndex
+    }
+
+    private fun goToNextQuestion() {
+        startTimer()
+        _currentQuestionIndex.value = _currentQuestionIndex.value?.plus(1)
+        doAfterDelay(Constants.ONE_SECOND) {
+            _isQuestionClickable.postValue(true)
+            _currentQuestionIndex.value?.let { setCurrentQuestion(allMCQsList[it]) }
+        }
+    }
+
+
+
     private fun endGame() {
         doAfterDelay(Constants.ONE_SECOND) {
             _isGameOver.postEvent(true)
@@ -195,7 +202,7 @@ class GamingViewModel : BaseViewModel() {
     }
 
     fun onReplaceQuestionClickListener() {
-        disposeTimer()
+        cancelTimer()
         _currentQuestion.value?.let {
             when (it.difficulty) {
                 QuestionDifficulty.EASY.name.lowercase() -> replaceQuestion(forReplaceMCQsList[Constants.FOR_REPLACE_EASY_MCQ_INDEX])
@@ -247,7 +254,6 @@ class GamingViewModel : BaseViewModel() {
     }
 
     private fun onError(e: Throwable) {
-        e.printStackTrace()
         reportError(Exception(Constants.TIMER_ERROR_MESSAGE))
     }
 
@@ -256,7 +262,7 @@ class GamingViewModel : BaseViewModel() {
         endGame()
     }
 
-    private fun disposeTimer() {
+    private fun cancelTimer() {
         timerCompositeDisposable.dispose()
     }
 

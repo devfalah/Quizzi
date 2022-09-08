@@ -20,6 +20,8 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
     override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentGamingBinding = DataBindingUtil::inflate
     private val viewModel: GamingViewModel by viewModels()
 
+
+
     override fun setup() {
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner

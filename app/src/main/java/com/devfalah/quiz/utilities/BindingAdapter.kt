@@ -77,12 +77,10 @@ fun setAnswerBodyTextStyle(view: TextView, state: AnswerState?) {
         AnswerState.SELECTED_CORRECT -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_SelectedBody)
         }
-        AnswerState.TIMEOUT_CORRECT -> {
-            TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedBody)
-        }
         AnswerState.SELECTED_INCORRECT -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_SelectedBody)
         }
+        AnswerState.TIMEOUT_CORRECT ,
         AnswerState.TIMEOUT_INCORRECT -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedBody)
         }
@@ -101,7 +99,8 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_SelectedAlphabet_Correct)
             view.setBackgroundResource(R.drawable.circle_white)
         }
-        AnswerState.TIMEOUT_INCORRECT, AnswerState.TIMEOUT_CORRECT -> {
+        AnswerState.TIMEOUT_CORRECT,
+        AnswerState.TIMEOUT_INCORRECT -> {
             TextViewCompat.setTextAppearance(view, R.style.ChoiceTextStyle_NotSelectedAlphabet)
             view.setBackgroundResource(R.drawable.circle)
         }
