@@ -55,6 +55,9 @@
         <argument
             android:name="score"
             app:argType="integer" />
+        <argument
+            android:name="gameState"
+            app:argType="com.devfalah.quiz.domain.enums.GameState" />
     </fragment>
     <dialog
         android:id="@+id/how_to_play_dialog"

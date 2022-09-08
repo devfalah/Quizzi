@@ -1,12 +1,10 @@
 package com.devfalah.quiz.ui.dialogs.exit
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentDialogExitBinding
 import com.devfalah.quiz.ui.base.BaseDialogFragment
-import com.devfalah.quiz.ui.home.HomeFragmentDirections
 import com.devfalah.quiz.utilities.observeEvent
 
 class ExitDialogFragment : BaseDialogFragment<FragmentDialogExitBinding>() {

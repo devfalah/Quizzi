@@ -12,5 +12,5 @@ class WebRequest {
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
 
-    val apiService: QuizApiService = retrofit.create(QuizApiService::class.java)
+    val apiService: QuestionApiService = retrofit.create(QuestionApiService::class.java)
 }

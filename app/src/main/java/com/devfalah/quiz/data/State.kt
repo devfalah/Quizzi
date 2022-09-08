@@ -1,4 +1,6 @@
-package com.devfalah.quiz.utilities
+package com.devfalah.quiz.data
+
+import com.devfalah.quiz.utilities.Constants
 
 sealed class State<out T> {
 
@@ -7,5 +9,6 @@ sealed class State<out T> {
     object Loading : State<Nothing>()
 
     fun toData(): T? = if (this is Success) data else null
+    fun toError(): String = if (this is Error) message else Constants.DATA_IS_NULL_ERROR_MESSAGE
 
 }
