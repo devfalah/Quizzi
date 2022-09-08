@@ -3,8 +3,8 @@ package com.devfalah.quiz.ui.gaming
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.devfalah.quiz.data.repository.QuizRepositoryImp
-import com.devfalah.quiz.data.response.Quiz
-import com.devfalah.quiz.data.response.QuizResponse
+import com.devfalah.quiz.data.response.Question
+import com.devfalah.quiz.data.response.QuestionResponse
 import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.domain.enums.AnswerState
 import com.devfalah.quiz.domain.enums.GameState
@@ -19,11 +19,11 @@ import java.util.concurrent.TimeUnit
 class GamingViewModel : BaseViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
 
-    private val _requestState = MutableLiveData<State<QuizResponse>>(State.Loading)
-    val requestState: LiveData<State<QuizResponse>> get() = _requestState
+    private val _requestState = MutableLiveData<State<QuestionResponse>>(State.Loading)
+    val requestState: LiveData<State<QuestionResponse>> get() = _requestState
 
-    private val _currentQuestion = MutableLiveData<Quiz>()
-    val currentQuestion: LiveData<Quiz> = _currentQuestion
+    private val _currentQuestion = MutableLiveData<Question>()
+    val currentQuestion: LiveData<Question> = _currentQuestion
 
     private val _currentQuestionIndex = MutableLiveData(0)
     val currentQuestionIndex: LiveData<Int> get() = _currentQuestionIndex
@@ -75,7 +75,7 @@ class GamingViewModel : BaseViewModel() {
         }.add(compositeDisposable)
     }
 
-    private fun onGetQuestionsSuccess(state: State<QuizResponse>) {
+    private fun onGetQuestionsSuccess(state: State<QuestionResponse>) {
         if (state is State.Success) {
             sortQuestionsAccordingToDifficulty(state)
         } else {
@@ -87,10 +87,10 @@ class GamingViewModel : BaseViewModel() {
         _requestState.postValue(State.Error(requireNotNull(throwable.message)))
     }
 
-    private val allMCQsList = mutableListOf<Quiz>()
-    private val forReplaceMCQsList = mutableListOf<Quiz>()
+    private val allMCQsList = mutableListOf<Question>()
+    private val forReplaceMCQsList = mutableListOf<Question>()
 
-    private fun sortQuestionsAccordingToDifficulty(state: State<QuizResponse>) {
+    private fun sortQuestionsAccordingToDifficulty(state: State<QuestionResponse>) {
         val result = getNotNullList(state.toData()?.questions)
         when (result.first().difficulty) {
             QuestionDifficulty.EASY.name.lowercase() -> sortQuestionsAccordingToPriority(result)
@@ -118,23 +118,23 @@ class GamingViewModel : BaseViewModel() {
         return notNullList
     }
 
-    private fun sortQuestionsAccordingToPriority(questionsList: List<Quiz>) {
+    private fun sortQuestionsAccordingToPriority(questionsList: List<Question>) {
         questionsList.subList(0, 5).forEach { allMCQsList.add(it) }
             .also { forReplaceMCQsList.add(questionsList.last()) }
     }
 
-    private fun onAllQuestionsSortedSuccessfully(state: State<QuizResponse>) {
+    private fun onAllQuestionsSortedSuccessfully(state: State<QuestionResponse>) {
         startTimer()
         _requestState.postValue(state)
         setCurrentQuestion(allMCQsList.first())
     }
 
-    private fun setCurrentQuestion(quiz: Quiz) {
+    private fun setCurrentQuestion(quiz: Question) {
         _currentQuestion.postValue(quiz)
         setCurrentQuestionAnswers(quiz)
     }
 
-    private fun setCurrentQuestionAnswers(quiz: Quiz) {
+    private fun setCurrentQuestionAnswers(quiz: Question) {
         if (quiz.correctAnswer != null) {
             val answersList = getNotNullList(quiz.incorrectAnswers)
                 .map { it.toAnswer(false) }
@@ -218,7 +218,7 @@ class GamingViewModel : BaseViewModel() {
         }
     }
 
-    private fun replaceQuestion(newQuestion: Quiz) {
+    private fun replaceQuestion(newQuestion: Question) {
         startTimer()
         showAllAnswersStates()
         _isReplaceQuestionUsed.postValue(true)
