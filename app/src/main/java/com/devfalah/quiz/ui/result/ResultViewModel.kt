@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.devfalah.quiz.domain.enums.GameState
 import com.devfalah.quiz.ui.base.BaseViewModel
-import com.devfalah.quiz.utilities.Constants
 import com.devfalah.quiz.utilities.Event
 import com.devfalah.quiz.utilities.postEvent
 
