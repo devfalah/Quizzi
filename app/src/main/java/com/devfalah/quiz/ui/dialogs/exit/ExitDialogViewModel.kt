@@ -4,10 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.devfalah.quiz.ui.base.BaseViewModel
 import com.devfalah.quiz.utilities.Event
 import com.devfalah.quiz.utilities.postEvent
 
-class ExitDialogViewModel : ViewModel() {
+class ExitDialogViewModel : BaseViewModel() {
 
     private val _closeDialog = MutableLiveData<Event<Boolean>>()
     val closeDialog : LiveData<Event<Boolean>> = _closeDialog

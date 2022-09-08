@@ -2,7 +2,6 @@ package com.devfalah.quiz.ui.gaming
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.devfalah.quiz.data.repository.QuizRepositoryImp
 import com.devfalah.quiz.data.response.Quiz
 import com.devfalah.quiz.data.response.QuizResponse
@@ -10,12 +9,13 @@ import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.domain.enums.AnswerState
 import com.devfalah.quiz.domain.enums.QuestionDifficulty
 import com.devfalah.quiz.domain.model.Answer
+import com.devfalah.quiz.ui.base.BaseViewModel
 import com.devfalah.quiz.utilities.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class GamingViewModel : ViewModel() {
+class GamingViewModel : BaseViewModel() {
     private val repository = QuizRepositoryImp(WebRequest().apiService)
 
     private val _requestState = MutableLiveData<State<QuizResponse>>(State.Loading)
@@ -49,7 +49,7 @@ class GamingViewModel : ViewModel() {
     val time: LiveData<Int> get() = _time
 
     private lateinit var timer: Observable<Long>
-    private lateinit var compositeDisposable: CompositeDisposable
+    private lateinit var timerCompositeDisposable: CompositeDisposable
 
     private val _isQuestionClickable = MutableLiveData(true)
     val isQuestionClickable: LiveData<Boolean> get() = _isQuestionClickable
@@ -69,7 +69,7 @@ class GamingViewModel : ViewModel() {
         repository.getAllQuestions().run {
             observeOnMainThread()
             subscribe(::onGetQuestionsSuccess, ::onGetQuestionsError)
-        }
+        }.add(compositeDisposable)
     }
 
     private fun onGetQuestionsSuccess(state: State<QuizResponse>) {
@@ -240,8 +240,8 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun startTimer() {
-        compositeDisposable = CompositeDisposable()
-        timer.subscribe(::onNext, ::onError, ::onComplete).add(compositeDisposable)
+        timerCompositeDisposable = CompositeDisposable()
+        timer.subscribe(::onNext, ::onError, ::onComplete).add(timerCompositeDisposable)
     }
 
     private fun onNext(count: Long) {
@@ -259,7 +259,7 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun disposeTimer() {
-        compositeDisposable.dispose()
+        timerCompositeDisposable.dispose()
     }
 
     private fun showAllAnswersStates() {

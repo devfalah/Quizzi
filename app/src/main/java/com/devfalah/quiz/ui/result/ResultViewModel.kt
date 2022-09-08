@@ -3,10 +3,11 @@ package com.devfalah.quiz.ui.result
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.devfalah.quiz.ui.base.BaseViewModel
 import com.devfalah.quiz.utilities.Event
 import com.devfalah.quiz.utilities.postEvent
 
-class ResultViewModel : ViewModel() {
+class ResultViewModel : BaseViewModel() {
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
 
