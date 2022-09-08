@@ -121,12 +121,12 @@ fun setAnswerAlphabetTextStyle(view: TextView, state: AnswerState?) {
 fun setResultLottieAnimation(view: LottieAnimationView, gameState: GameState?) {
     when (gameState) {
         null,
-        GameState.WIN,
+        GameState.LOSS,
         -> {
-            view.setAnimation(R.raw.congrats)
-        }
-        GameState.LOSS -> {
             view.setAnimation(R.raw.failed)
+        }
+        GameState.WIN -> {
+            view.setAnimation(R.raw.congrats)
         }
     }
 
