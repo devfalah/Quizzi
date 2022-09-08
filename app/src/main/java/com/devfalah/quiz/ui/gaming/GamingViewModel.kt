@@ -2,27 +2,28 @@ package com.devfalah.quiz.ui.gaming
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.devfalah.quiz.data.repository.QuizRepositoryImp
-import com.devfalah.quiz.data.response.Quiz
-import com.devfalah.quiz.data.response.QuizResponse
+import com.devfalah.quiz.data.repository.QuestionRepositoryImp
+import com.devfalah.quiz.data.response.Question
+import com.devfalah.quiz.data.response.QuestionResponse
 import com.devfalah.quiz.data.service.WebRequest
 import com.devfalah.quiz.domain.enums.AnswerState
+import com.devfalah.quiz.domain.enums.GameState
 import com.devfalah.quiz.domain.enums.QuestionDifficulty
 import com.devfalah.quiz.domain.model.Answer
+import com.devfalah.quiz.ui.base.BaseViewModel
 import com.devfalah.quiz.utilities.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class GamingViewModel : ViewModel() {
-    private val repository = QuizRepositoryImp(WebRequest().apiService)
+class GamingViewModel : BaseViewModel() {
+    private val repository = QuestionRepositoryImp(WebRequest().apiService)
 
-    private val _requestState = MutableLiveData<State<QuizResponse>>(State.Loading)
-    val requestState: LiveData<State<QuizResponse>> get() = _requestState
+    private val _requestState = MutableLiveData<State<QuestionResponse>>(State.Loading)
+    val requestState: LiveData<State<QuestionResponse>> get() = _requestState
 
-    private val _currentQuestion = MutableLiveData<Quiz>()
-    val currentQuestion: LiveData<Quiz> = _currentQuestion
+    private val _currentQuestion = MutableLiveData<Question>()
+    val currentQuestion: LiveData<Question> = _currentQuestion
 
     private val _currentQuestionIndex = MutableLiveData(0)
     val currentQuestionIndex: LiveData<Int> get() = _currentQuestionIndex
@@ -36,8 +37,8 @@ class GamingViewModel : ViewModel() {
     private val _score = MutableLiveData(0)
     val score: LiveData<Int> get() = _score
 
-    private val _isGameOver = MutableLiveData<Event<Boolean>>()
-    val isGameOver: LiveData<Event<Boolean>> get() = _isGameOver
+    private val _isGameOver = MutableLiveData<Event<GameState>>()
+    val isGameOver: LiveData<Event<GameState>> get() = _isGameOver
 
     private val _isReplaceQuestionUsed = MutableLiveData(false)
     val isReplaceQuestionUsed: LiveData<Boolean> get() = _isReplaceQuestionUsed
@@ -45,20 +46,20 @@ class GamingViewModel : ViewModel() {
     private val _isDelete2AnswersUsed = MutableLiveData(false)
     val isDelete2AnswersUsed: LiveData<Boolean> get() = _isDelete2AnswersUsed
 
+    private val _isQuestionClickable = MutableLiveData(true)
+    val isQuestionClickable: LiveData<Boolean> get() = _isQuestionClickable
+
+
+    private val _openExitDialog = MutableLiveData<Event<Boolean>>()
+    val openExitDialog : LiveData<Event<Boolean>> = _openExitDialog
+
     private val _time = MutableLiveData(Constants.MCQ_TIMER)
     val time: LiveData<Int> get() = _time
 
     private lateinit var timer: Observable<Long>
-    private lateinit var compositeDisposable: CompositeDisposable
+    private lateinit var timerCompositeDisposable: CompositeDisposable
 
-    private val _isQuestionClickable = MutableLiveData(true)
-    val isQuestionClickable: LiveData<Boolean> get() = _isQuestionClickable
 
-    private val _error = MutableLiveData<Event<Throwable>>()
-    val error: LiveData<Event<Throwable>> get() = _error
-
-    private val _openExitDialog = MutableLiveData<Event<Boolean>>()
-    val openExitDialog : LiveData<Event<Boolean>> = _openExitDialog
 
     init {
         getAllQuestions()
@@ -69,10 +70,10 @@ class GamingViewModel : ViewModel() {
         repository.getAllQuestions().run {
             observeOnMainThread()
             subscribe(::onGetQuestionsSuccess, ::onGetQuestionsError)
-        }
+        }.add(compositeDisposable)
     }
 
-    private fun onGetQuestionsSuccess(state: State<QuizResponse>) {
+    private fun onGetQuestionsSuccess(state: State<QuestionResponse>) {
         if (state is State.Success) {
             sortQuestionsAccordingToDifficulty(state)
         } else {
@@ -84,10 +85,10 @@ class GamingViewModel : ViewModel() {
         _requestState.postValue(State.Error(requireNotNull(throwable.message)))
     }
 
-    private val allMCQsList = mutableListOf<Quiz>()
-    private val forReplaceMCQsList = mutableListOf<Quiz>()
+    private val allMCQsList = mutableListOf<Question>()
+    private val forReplaceMCQsList = mutableListOf<Question>()
 
-    private fun sortQuestionsAccordingToDifficulty(state: State<QuizResponse>) {
+    private fun sortQuestionsAccordingToDifficulty(state: State<QuestionResponse>) {
         val result = getNotNullList(state.toData()?.questions)
         when (result.first().difficulty) {
             QuestionDifficulty.EASY.name.lowercase() -> sortQuestionsAccordingToPriority(result)
@@ -115,23 +116,23 @@ class GamingViewModel : ViewModel() {
         return notNullList
     }
 
-    private fun sortQuestionsAccordingToPriority(questionsList: List<Quiz>) {
+    private fun sortQuestionsAccordingToPriority(questionsList: List<Question>) {
         questionsList.subList(0, 5).forEach { allMCQsList.add(it) }
             .also { forReplaceMCQsList.add(questionsList.last()) }
     }
 
-    private fun onAllQuestionsSortedSuccessfully(state: State<QuizResponse>) {
+    private fun onAllQuestionsSortedSuccessfully(state: State<QuestionResponse>) {
         startTimer()
         _requestState.postValue(state)
         setCurrentQuestion(allMCQsList.first())
     }
 
-    private fun setCurrentQuestion(quiz: Quiz) {
+    private fun setCurrentQuestion(quiz: Question) {
         _currentQuestion.postValue(quiz)
         setCurrentQuestionAnswers(quiz)
     }
 
-    private fun setCurrentQuestionAnswers(quiz: Quiz) {
+    private fun setCurrentQuestionAnswers(quiz: Question) {
         if (quiz.correctAnswer != null) {
             val answersList = getNotNullList(quiz.incorrectAnswers)
                 .map { it.toAnswer(false) }
@@ -144,7 +145,7 @@ class GamingViewModel : ViewModel() {
     }
 
     fun onAnswerClick(answer: Answer) {
-        disposeTimer()
+        cancelTimer()
         _isQuestionClickable.postValue(false)
         if (answer.isCorrect) {
             onAnswerCorrectly(answer)
@@ -157,24 +158,12 @@ class GamingViewModel : ViewModel() {
         _currentQuestionAnswers.postValue(_currentQuestionAnswers.value?.apply {
             answer.state = AnswerState.SELECTED_CORRECT
         })
-        _correctAnswersCount.value = _correctAnswersCount.value?.plus(1)
+        _correctAnswersCount.postValue(_correctAnswersCount.value?.plus(1))
         _score.postValue(_currentQuestionIndex.value?.let { setScore(it) })
-        if (isNotLastQuestion()) goToNextQuestion() else endGame()
-    }
-
-    private fun setScore(currentMCQIndex: Int): Int {
-        return Constants.SCORE_LIST[currentMCQIndex]
-    }
-
-    private fun isNotLastQuestion(): Boolean =
-        requireNotNull(currentQuestionIndex.value) < allMCQsList.lastIndex
-
-    private fun goToNextQuestion() {
-        startTimer()
-        _currentQuestionIndex.value = _currentQuestionIndex.value?.plus(1)
-        doAfterDelay(Constants.ONE_SECOND) {
-            _isQuestionClickable.postValue(true)
-            _currentQuestionIndex.value?.let { setCurrentQuestion(allMCQsList[it]) }
+        if (isNotLastQuestion()){
+            goToNextQuestion()
+        } else {
+            endGame()
         }
     }
 
@@ -186,14 +175,38 @@ class GamingViewModel : ViewModel() {
         })
     }
 
-    private fun endGame() {
+    private fun setScore(currentMCQIndex: Int): Int {
+        return Constants.SCORE_LIST[currentMCQIndex]
+    }
+
+    private fun isNotLastQuestion(): Boolean {
+        return requireNotNull(currentQuestionIndex.value) < allMCQsList.lastIndex
+    }
+
+    private fun goToNextQuestion() {
+        startTimer()
+        _currentQuestionIndex.value = _currentQuestionIndex.value?.plus(1)
         doAfterDelay(Constants.ONE_SECOND) {
-            _isGameOver.postEvent(true)
+            _isQuestionClickable.postValue(true)
+            _currentQuestionIndex.value?.let { setCurrentQuestion(allMCQsList[it]) }
         }
     }
 
-    fun onReplaceQuestionClickListener() {
-        disposeTimer()
+
+
+    private fun endGame() {
+        doAfterDelay(Constants.ONE_SECOND) {
+            if (requireNotNull(_correctAnswersCount.value ) > Constants.MINIMUM_REQUIRED_CORRECT_ANSWERS_TO_PASS){
+                _isGameOver.postEvent(GameState.WIN)
+            }else{
+                _isGameOver.postEvent(GameState.LOSS)
+            }
+
+        }
+    }
+
+    fun onReplaceQuestion() {
+        cancelTimer()
         _currentQuestion.value?.let {
             when (it.difficulty) {
                 QuestionDifficulty.EASY.name.lowercase() -> replaceQuestion(forReplaceMCQsList[Constants.FOR_REPLACE_EASY_MCQ_INDEX])
@@ -203,7 +216,7 @@ class GamingViewModel : ViewModel() {
         }
     }
 
-    private fun replaceQuestion(newQuestion: Quiz) {
+    private fun replaceQuestion(newQuestion: Question) {
         startTimer()
         showAllAnswersStates()
         _isReplaceQuestionUsed.postValue(true)
@@ -216,7 +229,7 @@ class GamingViewModel : ViewModel() {
         }
     }
 
-    fun onDelete2AnswersClickListener() {
+    fun onDelete2Answers() {
         _currentQuestionAnswers.value?.let { listOfAnswers ->
             val permanentIncorrectAnswer = listOfAnswers.filter { !it.isCorrect }.random()
             val newAnswersList = listOfAnswers.onEach { answer ->
@@ -230,18 +243,14 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun prepareTimer() {
-        val rangeObservable = Observable.range(1, Constants.MCQ_TIMER)
-        val intervalObservable = Observable.interval(1, TimeUnit.SECONDS)
-        timer = Observable.zip(
-            rangeObservable, intervalObservable
-        ) { i: Int, _: Long ->
-            Constants.MCQ_TIMER.toLong() - i
+        timer = Observable.interval(0,1,TimeUnit.SECONDS).take(Constants.MCQ_TIMER + 1.toLong()).map {
+            Constants.MCQ_TIMER - it
         }.observeOnMainThread()
     }
 
     private fun startTimer() {
-        compositeDisposable = CompositeDisposable()
-        timer.subscribe(::onNext, ::onError, ::onComplete).add(compositeDisposable)
+        timerCompositeDisposable = CompositeDisposable()
+        timer.subscribe(::onNext, ::onError, ::onComplete).add(timerCompositeDisposable)
     }
 
     private fun onNext(count: Long) {
@@ -249,7 +258,6 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun onError(e: Throwable) {
-        e.printStackTrace()
         reportError(Exception(Constants.TIMER_ERROR_MESSAGE))
     }
 
@@ -258,8 +266,8 @@ class GamingViewModel : ViewModel() {
         endGame()
     }
 
-    private fun disposeTimer() {
-        compositeDisposable.dispose()
+    private fun cancelTimer() {
+        timerCompositeDisposable.dispose()
     }
 
     private fun showAllAnswersStates() {
@@ -274,7 +282,7 @@ class GamingViewModel : ViewModel() {
     }
 
     private fun reportError(error: Throwable) {
-        _error.postEvent(error)
+        _requestState.postValue(State.Error(error.message.toString()))
     }
 
     fun onClickExitButton() {

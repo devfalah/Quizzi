@@ -3,7 +3,6 @@ package com.devfalah.quiz.ui.gaming
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -11,14 +10,15 @@ import androidx.navigation.fragment.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentGamingBinding
 import com.devfalah.quiz.ui.base.BaseFragment
-import com.devfalah.quiz.utilities.Constants
 import com.devfalah.quiz.utilities.State
 import com.devfalah.quiz.utilities.observeEvent
 
 class GamingFragment : BaseFragment<FragmentGamingBinding>() {
     override val layoutId = R.layout.fragment_gaming
-    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentGamingBinding = DataBindingUtil::inflate
+    override val bindingInflater: (LayoutInflater, Int, ViewGroup?, Boolean) -> FragmentGamingBinding =
+        DataBindingUtil::inflate
     private val viewModel: GamingViewModel by viewModels()
+
 
     override fun setup() {
         binding?.apply {
@@ -32,16 +32,13 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
     private fun handleObserveEvents() {
         viewModel.apply {
             isGameOver.observeEvent(this@GamingFragment) {
-                val action = GamingFragmentDirections.actionGamingFragmentToResultFragment(
-                    viewModel.correctAnswersCount.value!!, viewModel.score.value!!
-                )
+                val action =
+                    GamingFragmentDirections.actionGamingFragmentToResultFragment(viewModel.correctAnswersCount.value
+                        ?: 0, viewModel.score.value ?: 0, it)
                 requireView().findNavController().navigate(action)
             }
-            openExitDialog.observeEvent(this@GamingFragment){
+            openExitDialog.observeEvent(this@GamingFragment) {
                 showExitDialog()
-            }
-            error.observeEvent(this@GamingFragment) {
-                showErrorAlertDialog(it.message.toString())
             }
         }
     }
@@ -60,20 +57,9 @@ class GamingFragment : BaseFragment<FragmentGamingBinding>() {
     }
 
     private fun showExitDialog() {
-        requireView().findNavController().navigate(GamingFragmentDirections.actionGamingFragmentToExitDialog())
+        requireView().findNavController()
+            .navigate(GamingFragmentDirections.actionGamingFragmentToExitDialog())
     }
 
-    private fun showErrorAlertDialog(errorMessage: String) {
-        AlertDialog.Builder(requireContext()).run {
-            setTitle(Constants.ALERT_DIALOG_TILE)
-            setMessage(errorMessage)
-            setCancelable(false)
-            setPositiveButton(Constants.RETRY_BUTTON_TEXT) { _, _ ->
-                viewModel.tryPlayingAgain()
-            }
-            setNegativeButton(Constants.EXIT_BUTTON_TEXT) { _, _ ->
-                requireView().findNavController().popBackStack()
-            }
-        }.create().show()
-    }
+
 }
