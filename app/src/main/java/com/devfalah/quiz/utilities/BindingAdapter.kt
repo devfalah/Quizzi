@@ -9,6 +9,7 @@ import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.devfalah.quiz.R
+import com.devfalah.quiz.data.State
 import com.devfalah.quiz.domain.enums.AnswerState
 import com.devfalah.quiz.domain.enums.GameState
 import com.google.android.material.card.MaterialCardView

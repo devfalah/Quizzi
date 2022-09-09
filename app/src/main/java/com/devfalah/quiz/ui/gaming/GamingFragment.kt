@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.devfalah.quiz.R
 import com.devfalah.quiz.databinding.FragmentGamingBinding
 import com.devfalah.quiz.ui.base.BaseFragment
-import com.devfalah.quiz.utilities.State
+import com.devfalah.quiz.data.State
 import com.devfalah.quiz.utilities.observeEvent
 
 class GamingFragment : BaseFragment<FragmentGamingBinding>() {
