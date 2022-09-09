@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface QuestionApiService {
     @GET("api.php")
-    fun getQuizQuestions(
+    fun getQuestions(
         @Query("difficulty") difficulty: String?,
         @Query("amount") amount: Int = Constants.MCQ_AMOUNT,
         @Query("type") type: String? = Constants.MCQ_TYPE,

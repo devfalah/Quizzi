@@ -18,7 +18,7 @@ class QuestionRepositoryImp(private val quizApiService: QuestionApiService) : Qu
     }
 
     private fun getQuestionsAccordingToDifficulty(difficulty: QuestionDifficulty): Single<State<QuestionResponse>> {
-        return wrapResponse(quizApiService.getQuizQuestions(difficulty.name.lowercase()))
+        return wrapResponse(quizApiService.getQuestions(difficulty.name.lowercase()))
     }
 
     private fun <T> wrapResponse(response: Single<Response<T>>): Single<State<T>> {
